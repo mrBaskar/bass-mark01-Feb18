@@ -1,0 +1,65 @@
+version: '3.8'
+
+services:
+  # Baskar's Portfolio Website
+  portfolio:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    
+    container_name: baskar-portfolio
+    
+    ports:
+      - "8000:80"
+    
+    volumes:
+      # Mount current directory for live development
+      - .:/usr/share/nginx/html:ro
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    
+    environment:
+      - NGINX_HOST=localhost
+      - NGINX_PORT=80
+    
+    networks:
+      - portfolio-network
+    
+    # Restart policy
+    restart: unless-stopped
+    
+    # Health check
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    
+    # Resource limits
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+        reservations:
+          cpus: '0.25'
+          memory: 256M
+    
+    # Logging configuration
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+networks:
+  portfolio-network:
+    driver: bridge
+
+# Usage:
+# docker-compose up -d          # Start in background
+# docker-compose down           # Stop and remove
+# docker-compose logs -f        # View logs
+# docker-compose ps             # Check status
+# 
+# Visit: http://localhost:8000
