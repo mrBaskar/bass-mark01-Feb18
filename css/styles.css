@@ -9,16 +9,16 @@
 
 :root {
     /* Colors */
-    --primary-color: #00d4ff;
-    --secondary-color: #ff006e;
-    --dark-bg: #0a0e27;
-    --dark-bg-light: #1a1f3a;
-    --text-primary: #e8e8ff;
-    --text-secondary: #a0a0b0;
-    --accent-color: #00d4ff;
+    --primary-color: #FFD700;
+    --secondary-color: #FFFFFF;
+    --dark-bg: #fffdf4;
+    --dark-bg-light: #fff9dd;
+    --text-primary: #3a2a0f;
+    --text-secondary: #6b5a2c;
+    --accent-color: #FFC300;
     --success-color: #00d962;
     --error-color: #ff3860;
-    --border-color: #2a3050;
+    --border-color: #d9be69;
     
     /* Spacing */
     --spacing-xs: 0.25rem;
@@ -76,8 +76,9 @@ html {
 
 body {
     font-family: var(--font-family);
-    background-color: var(--dark-bg);
     color: var(--text-primary);
+    background: linear-gradient(135deg, #fffde6 0%, #ffec51 30%, #fff 70%);
+    min-height: 100vh;
     line-height: 1.6;
     overflow-x: hidden;
 }
