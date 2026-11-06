@@ -4121,18 +4121,18 @@ button {
     top: 0 !important;
     left: -1px !important;
     width: 4px !important;
-    height: 15% !important;
+    height: 0;
     background: linear-gradient(
       180deg,
-      rgba(229, 169, 60, 0.45) 0%,
+      rgba(229, 169, 60, 0.35) 0%,
       var(--amber-gold) 40%,
       var(--amber-bright) 75%,
-      #FFFFFF 95%,
-      var(--amber-bright) 100%
+      #FFFFFF 90%,
+      #FFFFFF 100%
     ) !important;
     box-shadow: 0 0 16px var(--amber-bright), 0 0 28px var(--amber-gold) !important;
     border-radius: 9999px !important;
-    transition: height 0.08s ease-out !important;
+    transition: height 0.05s ease-out !important;
     will-change: height;
   }
 
@@ -4140,27 +4140,28 @@ button {
   .beam-progress-fill::after {
     content: '' !important;
     position: absolute !important;
-    bottom: -4px !important;
+    bottom: -6px !important;
     left: 50% !important;
     transform: translateX(-50%) !important;
-    width: 10px !important;
-    height: 10px !important;
+    width: 12px !important;
+    height: 12px !important;
     border-radius: 50% !important;
     background: #FFFFFF !important;
-    box-shadow: 0 0 10px #FFFFFF, 0 0 22px #FFFFFF, 0 0 35px var(--amber-bright), 0 0 50px var(--amber-gold) !important;
+    border: 2px solid var(--amber-gold) !important;
+    box-shadow: 0 0 12px #FFFFFF, 0 0 24px #FFFFFF, 0 0 38px var(--amber-bright), 0 0 55px var(--amber-gold) !important;
     animation: whiteBeadPulse 1.2s ease-in-out infinite alternate !important;
-    z-index: 5 !important;
+    z-index: 10 !important;
     pointer-events: none !important;
   }
 
   @keyframes whiteBeadPulse {
     0% {
-      transform: translateX(-50%) scale(0.85);
-      box-shadow: 0 0 8px #FFFFFF, 0 0 16px #FFFFFF, 0 0 28px var(--amber-bright);
+      transform: translateX(-50%) scale(0.9);
+      box-shadow: 0 0 10px #FFFFFF, 0 0 20px #FFFFFF, 0 0 30px var(--amber-bright);
     }
     100% {
-      transform: translateX(-50%) scale(1.35);
-      box-shadow: 0 0 14px #FFFFFF, 0 0 26px #FFFFFF, 0 0 42px var(--amber-bright), 0 0 60px var(--amber-gold);
+      transform: translateX(-50%) scale(1.4);
+      box-shadow: 0 0 18px #FFFFFF, 0 0 32px #FFFFFF, 0 0 48px var(--amber-bright), 0 0 65px var(--amber-gold);
     }
   }
 

@@ -340,11 +340,28 @@ document.addEventListener('DOMContentLoaded', () => {
       const trackRect = processTrack.getBoundingClientRect();
       const trackHeight = trackRect.height;
       if (trackHeight > 0) {
-        // Distance from track top to viewport focal point
-        const scrolledInside = viewportFocal - trackRect.top;
-        const rawProgress = scrolledInside / (trackHeight - 35);
-        const progressPercent = Math.max(3, Math.min(100, rawProgress * 100));
-        processBeamFill.style.height = `${progressPercent.toFixed(1)}%`;
+        const firstNode = stageNodes[0];
+        const lastNode = stageNodes[stageNodes.length - 1];
+        const firstPulse = firstNode ? firstNode.querySelector('.node-connector-pulse') : null;
+        const lastPulse = lastNode ? lastNode.querySelector('.node-connector-pulse') : null;
+
+        const firstNodeCenterY = firstNode ? (firstNode.offsetTop + (firstPulse ? firstPulse.offsetTop + firstPulse.offsetHeight / 2 : 25)) : 25;
+        const lastNodeCenterY = lastNode ? (lastNode.offsetTop + (lastPulse ? lastPulse.offsetTop + lastPulse.offsetHeight / 2 : (trackHeight - 30))) : (trackHeight - 30);
+
+        // Distance from track top to current viewport focal line (middle of reading view)
+        const currentScrollY = viewportFocal - trackRect.top;
+        
+        let targetY;
+        if (currentScrollY <= firstNodeCenterY) {
+          targetY = firstNodeCenterY;
+        } else if (currentScrollY >= lastNodeCenterY) {
+          targetY = lastNodeCenterY;
+        } else {
+          targetY = currentScrollY;
+        }
+
+        const progressPercent = Math.min(100, Math.max(2, (targetY / trackHeight) * 100));
+        processBeamFill.style.setProperty('height', `${progressPercent.toFixed(2)}%`, 'important');
       }
     }
   }
