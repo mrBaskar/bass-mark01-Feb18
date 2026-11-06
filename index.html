@@ -1,474 +1,1424 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Baskar - Laravel Web Developer & Aspiring Java Full Stack Developer. 4+ years of experience building scalable web applications.">
-    <meta name="keywords" content="Laravel Developer, Web Developer, Full Stack, PHP, MySQL, API Development, React, Next.js">
-    <meta name="author" content="Baskar">
-    <meta property="og:title" content="Baskar - Full Stack Developer Portfolio">
-    <meta property="og:description" content="Professional portfolio of Baskar - Laravel Web Developer with 4+ years of experience">
-    <meta property="og:type" content="website">
-    
-    <title>Baskar | Full Stack Developer Portfolio</title>
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>MR.BASS — Creative Thinker & Digital Creator</title>
+  <meta name="description" content="MR.BASS — Think Beyond. Create What's Possible. Exploring the intersection of technology, creativity and business.">
 
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-BSH8P6Q9P3"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <!-- Google Web Fonts: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-  gtag('config', 'G-BSH8P6Q9P3');
-</script>
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- GSAP Animation Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <!-- Ambient Particle Engine -->
+  <script src="js/particles.js" defer></script>
+  <!-- Main Motion & Parallax Controller -->
+  <script src="js/main.js" defer></script>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-brand">
-                <a href="#home"><span class="brand-emoji">💻</span> Baskar</a>
-            </div>
-            <ul class="nav-menu">
-                <li><a href="#home" class="nav-link">Home</a></li>
-                <li><a href="#about" class="nav-link">About</a></li>
-                <li><a href="#skills" class="nav-link">Skills</a></li>
-                <li><a href="#experience" class="nav-link">Experience</a></li>
-                <li><a href="#projects" class="nav-link">Projects</a></li>
-                <li><a href="#contact" class="nav-link">Contact</a></li>
-            </ul>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
+
+  <!-- Film Grain Overlay -->
+  <div class="noise-overlay" aria-hidden="true"></div>
+
+  <!-- Cursor Ambient Spotlight -->
+  <div class="ambient-spotlight" aria-hidden="true"></div>
+
+  <!-- Full-Screen Hero Container -->
+  <div class="hero-container" id="hero">
+    
+    <!-- Multi-Layer Atmospheric Lighting (CSS Gradient Meshes) -->
+    <div class="hero-atmosphere-layers" aria-hidden="true">
+      <div class="aura-gold-backlight" id="auraGold"></div>
+      <div class="aura-blue-depth" id="auraBlue"></div>
+      <div class="vignette-mask"></div>
+    </div>
+
+    <!-- Ambient Particles Canvas -->
+    <canvas id="heroCanvas" class="hero-particles-canvas" aria-hidden="true"></canvas>
+
+    <!-- Header Navigation -->
+    <header class="site-header">
+      <!-- Top-Left: MR.BASS Logo with Golden Amber Dot -->
+      <a href="#hero" class="brand-logo" aria-label="MR.BASS Homepage">
+        MR.BASS<span class="brand-dot">.</span>
+      </a>
+
+      <!-- Top-Right: Theme Switcher, LET'S CONNECT & Amber Beacon -->
+      <div class="header-right">
+        
+        <!-- White / Black Background Mode Toggle Button -->
+        <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle White or Black Background Theme" title="Toggle White / Black Background Theme">
+          <span class="theme-toggle-icon icon-moon" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+          </span>
+          <span class="theme-toggle-icon icon-sun" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+          </span>
+          <span class="theme-toggle-label" id="themeToggleLabel">DARK</span>
+        </button>
+
+        <a href="#connect" class="header-connect-link open-connect-modal" role="button">
+          <span>LET'S CONNECT</span>
+          <span class="arrow" aria-hidden="true">&rarr;</span>
+        </a>
+
+        <!-- Glowing Circular Interaction Element -->
+        <button class="header-beacon-btn open-connect-modal" aria-label="Open Connect Modal" title="Let's Connect">
+          <span class="beacon-pulse-ring" aria-hidden="true"></span>
+          <span class="beacon-center-dot" aria-hidden="true"></span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Content Stage Grid -->
+    <main class="hero-main-stage">
+      
+      <!-- Left Column: Brand Typography & Calls to Action -->
+      <section class="hero-content-left">
+        
+        <!-- Small Eyebrow Text -->
+        <div class="eyebrow-text">
+          <span>CREATIVE THINKER &nbsp;/&nbsp; DIGITAL CREATOR</span>
         </div>
-    </nav>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-content">
-            <div class="hero-text">
-                <h1 class="hero-title">Build <span class="highlight">extraordinary</span> digital products</h1>
-                <p class="hero-subtitle">Senior Full-Stack Developer & Laravel Architect</p>
-                <p class="hero-description">Crafting enterprise-grade solutions that scale. I specialize in building robust web applications with modern architecture, clean code, and exceptional user experiences.</p>
-                <div class="hero-cta">
-                    <a href="#projects" class="btn btn-primary">View My Work</a>
-                    <a href="#contact" class="btn btn-secondary">Get in Touch</a>
-                </div>
-                <div class="social-links-hero">
-                    <a href="https://linkedin.com/in/baskar" target="_blank" rel="noopener" title="LinkedIn">
-                        <i class="fab fa-linkedin-in"></i>
-                    </a>
-                    <a href="https://github.com/baskar" target="_blank" rel="noopener" title="GitHub">
-                        <i class="fab fa-github"></i>
-                    </a>
-                </div>
-            </div>
-            <div class="hero-visual">
-                <div class="floating-card card-1">
-                    <i class="fab fa-php"></i>
-                </div>
-                <div class="floating-card card-2">
-                    <i class="fab fa-laravel"></i>
-                </div>
-                <div class="floating-card card-3">
-                    <i class="fab fa-react"></i>
-                </div>
-            </div>
+        <!-- Main Headline -->
+        <h1 class="headline-title">
+          <span class="headline-row">THINK BEYOND.</span>
+          <span class="headline-row">CREATE WHAT'S</span>
+          <span class="headline-row headline-gold">POSSIBLE.</span>
+        </h1>
+
+        <!-- Supporting Biography Text -->
+        <p class="hero-bio-text">
+          I'm Baskar &mdash; a creative thinker exploring the intersection of technology, creativity and business. I turn ideas into meaningful digital experiences.
+        </p>
+
+        <!-- CTA Action Buttons -->
+        <div class="hero-actions-row">
+          <!-- Primary Pill Button with Amber Border -->
+          <a href="#world" id="exploreBtn" class="btn-explore-pill" role="button">
+            <span>Explore my world</span>
+            <span class="arrow-down" aria-hidden="true">&darr;</span>
+          </a>
+
+          <!-- Secondary Amber Text Link -->
+          <a href="#connect" class="btn-connect-amber open-connect-modal" role="button">
+            <span>Let's connect</span>
+            <span class="arrow-right" aria-hidden="true">&rarr;</span>
+          </a>
         </div>
-        <div class="scroll-indicator">
-            <span>Scroll to explore</span>
-            <i class="fas fa-chevron-down"></i>
+
+      </section>
+
+      <!-- Right Column: Personal Identity (Large Hero Centerpiece) -->
+      <section class="hero-visual-stage" aria-label="Visual Portrait & 3D Interactive Stage">
+        
+        <!-- Portrait Wrap: Scaled to boldly fill the right half -->
+        <div class="portrait-wrap" id="portraitWrap">
+          <div class="portrait-ground-shadow" aria-hidden="true"></div>
+          <img 
+            id="heroPortraitImg"
+            src="asset/portrait.png" 
+            alt="MR.BASS — Baskar, Creative Thinker & Digital Creator"
+            class="portrait-photo-img"
+            loading="eager"
+            fetchpriority="high"
+          >
         </div>
-    </section>
 
-    <!-- About Section -->
-    <section id="about" class="about">
-        <div class="container">
-            <h2 class="section-title">About Me</h2>
-            <div class="about-content">
-                <div class="about-text">
-                    <p class="lead">
-                        I'm a <strong>Senior Laravel Developer</strong> with <strong>4+ years of professional experience</strong> architecting and building enterprise-level web applications that drive business growth.
-                    </p>
-                    <p>
-                        At FTIP Infosol, I've led the development of mission-critical systems including comprehensive ERP platforms, customer relationship management solutions, and logistics management systems. I specialize in designing scalable RESTful APIs, optimizing complex database queries, and implementing architectural best practices that ensure code Quality, maintainability, and performance.
-                    </p>
-                    <p>
-                        Beyond technical excellence, I'm committed to continuous learning and staying at the forefront of modern web development. My vision is to become a well-rounded full-stack developer, capable of tackling complex architectural challenges and mentoring the next generation of developers.
-                    </p>
-                    <div class="about-highlights">
-                        <div class="highlight-box">
-                            <h4>4+</h4>
-                            <p>Years Experience</p>
-                        </div>
-                        <div class="highlight-box">
-                            <h4>20+</h4>
-                            <p>Projects Delivered</p>
-                        </div>
-                        <div class="highlight-box">
-                            <h4>10+</h4>
-                            <p>Technologies Mastered</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="about-image">
-                    <div class="image-placeholder">
-                        <i class="fas fa-user-circle"></i>
-                    </div>
-                </div>
-            </div>
+        <!-- Floating Frosted Glass Card on Chest -->
+        <div class="floating-mind-card" id="mindCard">
+          <div class="mind-card-content">
+            <span class="mind-card-tag">MEET THE MIND BEHIND MR.BASS</span>
+            <h2 class="mind-card-title">Ideas are just the beginning.</h2>
+            <p class="mind-card-desc">Curiosity drives me. Creativity shapes me. Technology helps me bring ideas to life.</p>
+          </div>
+          <div class="mind-card-sparkle" aria-hidden="true">✦</div>
         </div>
-    </section>
 
-    <!-- Skills Section -->
-    <section id="skills" class="skills">
-        <div class="container">
-            <h2 class="section-title">Skills & Expertise</h2>
-            <div class="skills-grid">
-                <!-- Backend Skills -->
-                <div class="skill-category">
-                    <h3><i class="fas fa-server"></i> Backend</h3>
-                    <div class="skill-list">
-                        <div class="skill-item">
-                            <span class="skill-name">PHP</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 95%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">Laravel</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 90%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">API Development</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 85%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">Java (Learning)</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 60%"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+      </section>
 
-                <!-- Frontend Skills -->
-                <div class="skill-category">
-                    <h3><i class="fas fa-palette"></i> Frontend</h3>
-                    <div class="skill-list">
-                        <div class="skill-item">
-                            <span class="skill-name">HTML5 & CSS3</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 95%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">JavaScript</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 85%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">AngularJS</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 80%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">React.js (Learning)</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 70%"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    </main>
 
-                <!-- Database & Tools -->
-                <div class="skill-category">
-                    <h3><i class="fas fa-database"></i> Database</h3>
-                    <div class="skill-list">
-                        <div class="skill-item">
-                            <span class="skill-name">MySQL</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 90%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">Database Design</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 85%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">Query Optimization</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 80%"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- DevOps & Cloud -->
-                <div class="skill-category">
-                    <h3><i class="fas fa-cloud"></i> DevOps & Cloud</h3>
-                    <div class="skill-list">
-                        <div class="skill-item">
-                            <span class="skill-name">Git & GitHub</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 90%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">Postman</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 85%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">Docker (Learning)</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 65%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-name">AWS (Learning)</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 60%"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <!-- Bottom Footer: Minimal Scroll Indicator & Mood Toggle -->
+    <footer class="hero-footer">
+      <div class="scroll-indicator" id="scrollTrigger">
+        <div class="mouse-pill" aria-hidden="true">
+          <div class="mouse-dot"></div>
         </div>
-    </section>
+        <span class="scroll-text">SCROLL TO EXPLORE</span>
+      </div>
 
-    <!-- Experience Section -->
-    <section id="experience" class="experience">
-        <div class="container">
-            <h2 class="section-title">Professional Experience</h2>
-            <div class="experience-timeline">
-                <div class="timeline-item">
-                    <div class="timeline-marker">
-                        <i class="fas fa-briefcase"></i>
-                    </div>
-                    <div class="timeline-content">
-                        <h3>Laravel Web Developer</h3>
-                        <p class="company">FTIP Infosol</p>
-                        <p class="duration"><i class="far fa-calendar"></i> 2021 - Present</p>
-                        <p class="description">
-                            Developing and maintaining enterprise-level web applications using Laravel framework. Contributing to full-stack development including backend API design, database optimization, and frontend integration.
-                        </p>
-                        <ul class="responsibilities">
-                            <li>Designed and developed RESTful APIs for multiple projects</li>
-                            <li>Optimized database queries improving application performance by 40%</li>
-                            <li>Collaborated with cross-functional teams for ERP and CRM implementations</li>
-                            <li>Mentored junior developers on Laravel best practices</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Projects Section -->
-    <section id="projects" class="projects">
-        <div class="container">
-            <h2 class="section-title">Featured Projects</h2>
-            <div class="projects-grid">
-                <!-- Project 1 -->
-                <div class="project-card">
-                    <div class="project-image">
-                        <div class="image-placeholder-project">
-                            <i class="fas fa-industry"></i>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <h3>Textile ERP Software</h3>
-                        <p class="project-category">Enterprise Resource Planning</p>
-                        <p class="project-description">
-                            A comprehensive ERP system designed for textile industry including inventory management, order tracking, and financial reporting.
-                        </p>
-                        <div class="tech-stack">
-                            <span class="tech-badge">Laravel</span>
-                            <span class="tech-badge">MySQL</span>
-                            <span class="tech-badge">AngularJS</span>
-                            <span class="tech-badge">Bootstrap</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" class="project-link" title="View Project">
-                                <i class="fas fa-external-link-alt"></i> View
-                            </a>
-                            <a href="#" class="project-link" title="View Code">
-                                <i class="fab fa-github"></i> Code
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Project 2 -->
-                <div class="project-card">
-                    <div class="project-image">
-                        <div class="image-placeholder-project">
-                            <i class="fas fa-users-cog"></i>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <h3>CRM System</h3>
-                        <p class="project-category">Customer Relationship Management</p>
-                        <p class="project-description">
-                            A robust CRM platform for managing customer interactions, sales pipelines, and business relationships with advanced reporting features.
-                        </p>
-                        <div class="tech-stack">
-                            <span class="tech-badge">Laravel</span>
-                            <span class="tech-badge">MySQL</span>
-                            <span class="tech-badge">JavaScript</span>
-                            <span class="tech-badge">API</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" class="project-link" title="View Project">
-                                <i class="fas fa-external-link-alt"></i> View
-                            </a>
-                            <a href="#" class="project-link" title="View Code">
-                                <i class="fab fa-github"></i> Code
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Project 3 -->
-                <div class="project-card">
-                    <div class="project-image">
-                        <div class="image-placeholder-project">
-                            <i class="fas fa-truck"></i>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <h3>Logistics Management System</h3>
-                        <p class="project-category">Logistics & Supply Chain</p>
-                        <p class="project-description">
-                            An integrated logistics platform for shipment tracking, delivery management, and route optimization with real-time updates.
-                        </p>
-                        <div class="tech-stack">
-                            <span class="tech-badge">Laravel</span>
-                            <span class="tech-badge">MySQL</span>
-                            <span class="tech-badge">Maps API</span>
-                            <span class="tech-badge">Bootstrap</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" class="project-link" title="View Project">
-                                <i class="fas fa-external-link-alt"></i> View
-                            </a>
-                            <a href="#" class="project-link" title="View Code">
-                                <i class="fab fa-github"></i> Code
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <h2 class="section-title">Get In Touch</h2>
-            <p class="section-subtitle">Let's discuss your project or opportunity</p>
-            
-            <div class="contact-wrapper">
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-map-marker-alt"></i>
-                        </div>
-                        <div class="contact-details">
-                            <h4>Location</h4>
-                            <p>Tenkasi, India</p>
-                        </div>
-                    </div>
-
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <div class="contact-details">
-                            <h4>Email</h4>
-                            <p><a href="mailto:hello@baskar.dev">baskar.techdev@gmail.com</a></p>
-                        </div>
-                    </div>
-
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-phone"></i>
-                        </div>
-                        <div class="contact-details">
-                            <h4>Phone</h4>
-                            <p><a href="tel:+919876543210">+91 962 962 4692</a></p>
-                        </div>
-                    </div>
-
-                    <div class="social-links-contact">
-                        <h4>Follow Me</h4>
-                        <div class="social-icons">
-                            <a href="https://linkedin.com/in/baskar" target="_blank" rel="noopener" title="LinkedIn">
-                                <i class="fab fa-linkedin-in"></i>
-                            </a>
-                            <a href="https://github.com/baskar" target="_blank" rel="noopener" title="GitHub">
-                                <i class="fab fa-github"></i>
-                            </a>
-                            <a href="https://twitter.com/baskar" target="_blank" rel="noopener" title="Twitter">
-                                <i class="fab fa-twitter"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <form class="contact-form" id="contactForm">
-                    <div class="form-group">
-                        <input type="text" id="name" placeholder="Your Name" required>
-                    </div>
-
-                    <div class="form-group">
-                        <input type="email" id="email" placeholder="Your Email" required>
-                    </div>
-
-                    <div class="form-group">
-                        <input type="text" id="subject" placeholder="Subject" required>
-                    </div>
-
-                    <div class="form-group">
-                        <textarea id="message" placeholder="Your Message" rows="5" required></textarea>
-                    </div>
-
-                    <button type="submit" class="btn btn-primary btn-full">Send Message</button>
-                    <p class="form-notice" id="formNotice"></p>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; 2026 Baskar. All rights reserved. | Crafted with <span class="heart">❤️</span> using HTML, CSS & JavaScript</p>
-            <div class="footer-social">
-                <a href="https://linkedin.com/in/baskar" target="_blank" rel="noopener">
-                    <i class="fab fa-linkedin-in"></i>
-                </a>
-                <a href="https://github.com/baskar" target="_blank" rel="noopener">
-                    <i class="fab fa-github"></i>
-                </a>
-            </div>
-        </div>
+      <!-- Discrete Style Switcher Pill -->
+      <button class="portrait-switch-pill" id="portraitSwitchPill" title="Switch Hero Visual Style">
+        <span class="dot" aria-hidden="true"></span>
+        <span id="portraitLabel">Creative Visionary</span>
+        <span aria-hidden="true" style="opacity: 0.6; margin-left: 4px;">&harr;</span>
+      </button>
     </footer>
 
-    <script src="js/script.js"></script>
+  </div>
+
+  <!-- =========================================================================
+       SECTION 02 — THE MIND BEHIND THE IDEAS
+       ========================================================================= -->
+  <section class="section-mind-wrap" id="mind" aria-label="Section 02: The Mind Behind the Ideas">
+    
+    <!-- Ambient Section Backlight Meshes -->
+    <div class="section-ambient-lighting" aria-hidden="true">
+      <div class="ambient-glow glow-gold-mind"></div>
+      <div class="ambient-glow glow-blue-mind"></div>
+      <div class="ambient-glow glow-gold-process"></div>
+    </div>
+
+    <div class="mind-container">
+
+      <!-- Part 1: Section Opening Experience -->
+      <div class="section-opening-block">
+        <div class="section-identifier">
+          <span class="id-number">02</span>
+          <span class="id-slash">/</span>
+          <span class="id-title">THE MIND BEHIND THE IDEAS</span>
+        </div>
+
+        <div class="opening-headline-group">
+          <h2 class="opening-headline">
+            <span class="opening-row word-reveal">I'M NOT HERE TO JUST FOLLOW IDEAS.</span>
+            <span class="opening-row opening-gold word-reveal">I'M HERE TO EXPLORE WHAT THEY CAN BECOME.</span>
+          </h2>
+
+          <!-- Subtle Golden Luminous Trail -->
+          <div class="golden-light-trail" aria-hidden="true">
+            <div class="trail-spark"></div>
+          </div>
+
+          <p class="opening-supporting-text">
+            Curiosity drives my thinking. Creativity shapes my approach. Technology gives my ideas a way to become reality.
+          </p>
+        </div>
+      </div>
+
+      <!-- Part 2: Personal Story — Meet Baskar -->
+      <div class="personal-story-stage" id="story">
+        
+        <!-- Left Column (Desktop) / Top (Mobile): Studio Portrait & Floating 3D Objects -->
+        <div class="story-portrait-stage">
+          <div class="story-studio-card">
+            <div class="studio-aura-gold" aria-hidden="true"></div>
+            <div class="studio-aura-blue" aria-hidden="true"></div>
+            
+            <!-- Real Portrait Asset -->
+            <div class="studio-img-wrap">
+              <img 
+                src="asset/portrait-alt.png" 
+                alt="Baskar — Creative Thinker & Software Developer" 
+                class="studio-portrait-photo"
+                loading="lazy"
+              >
+            </div>
+
+            <!-- Floating 3D Object 1: Glass Cube -->
+            <div class="floating-3d-asset float-cube-mind" aria-hidden="true">
+              <img src="asset/cube-transparent.png" alt="" class="asset-img-3d">
+            </div>
+
+            <!-- Floating 3D Object 2: Glowing Idea Bulb -->
+            <div class="floating-3d-asset float-bulb-mind" aria-hidden="true">
+              <img src="asset/bulb-cutout.png" alt="" class="asset-img-3d">
+              <div class="bulb-halo"></div>
+            </div>
+
+            <!-- Floating 3D Object 3: Developer Laptop -->
+            <div class="floating-3d-asset float-laptop-mind" aria-hidden="true">
+              <img src="asset/laptop-transparent.png" alt="" class="asset-img-3d">
+            </div>
+
+            <!-- Floating Studio Identity Tag -->
+            <div class="studio-identity-pill">
+              <span class="pill-dot"></span>
+              <span class="pill-name">BASKAR</span>
+              <span class="pill-role">CREATIVE DEVELOPER</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Personal Narrative Story -->
+        <div class="story-content-stage">
+          <div class="story-label-badge">
+            <span class="label-star">✦</span>
+            <span>THE PERSON BEHIND MR.BASS</span>
+          </div>
+
+          <h3 class="story-title">
+            <span class="title-row">A CURIOUS MIND.</span>
+            <span class="title-row text-gold">AN EVER-EVOLVING JOURNEY.</span>
+          </h3>
+
+          <div class="story-narrative-body">
+            <p class="story-paragraph highlight-lead">
+              I'm Baskar, a software developer and creative thinker who enjoys exploring the space between technology, design and business.
+            </p>
+            <p class="story-paragraph">
+              My journey started with building software and solving practical problems. Over time, I became increasingly interested in more than just writing code &mdash; understanding ideas, improving experiences and discovering better ways to create value.
+            </p>
+            <p class="story-paragraph">
+              Today, I explore development, creative design and digital products &mdash; deeply augmented by modern AI tools and intelligent workflows &mdash; turning curiosity into meaningful, future-ready experiences.
+            </p>
+          </div>
+
+          <!-- Highlight Metric Badges -->
+          <div class="story-ethos-row">
+            
+            <!-- Ethos 01: Curiosity First -->
+            <div class="ethos-card ethos-curiosity" tabindex="0">
+              <div class="ethos-card-top">
+                <div class="ethos-icon-box" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z"/>
+                    <circle cx="12" cy="12" r="2" fill="currentColor"/>
+                  </svg>
+                </div>
+                <span class="ethos-num">01</span>
+              </div>
+              <div class="ethos-info">
+                <span class="ethos-title">Curiosity First</span>
+                <span class="ethos-desc">Questioning patterns to uncover better solutions</span>
+              </div>
+            </div>
+
+            <!-- Ethos 02: System Architecture -->
+            <div class="ethos-card ethos-architecture" tabindex="0">
+              <div class="ethos-card-top">
+                <div class="ethos-icon-box" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="12 2 2 7 12 12 22 7 12 2"/>
+                    <polyline points="2 17 12 22 22 17"/>
+                    <polyline points="2 12 12 17 22 12"/>
+                  </svg>
+                </div>
+                <span class="ethos-num">02</span>
+              </div>
+              <div class="ethos-info">
+                <span class="ethos-title">System Architecture</span>
+                <span class="ethos-desc">Robust enterprise logic built for growth</span>
+              </div>
+            </div>
+
+            <!-- Ethos 03: Craft & Motion -->
+            <div class="ethos-card ethos-craft" tabindex="0">
+              <div class="ethos-card-top">
+                <div class="ethos-icon-box" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 14s2-5 8-5 8 5 8 5"/>
+                    <circle cx="6" cy="14" r="2.5" fill="currentColor" fill-opacity="0.3"/>
+                    <circle cx="18" cy="14" r="2.5" fill="currentColor" fill-opacity="0.3"/>
+                    <path d="M12 4v5"/>
+                    <circle cx="12" cy="4" r="1.5" fill="currentColor"/>
+                  </svg>
+                </div>
+                <span class="ethos-num">03</span>
+              </div>
+              <div class="ethos-info">
+                <span class="ethos-title">Craft &amp; Motion</span>
+                <span class="ethos-desc">Cinematic interaction and human feel</span>
+              </div>
+            </div>
+
+            <!-- Ethos 04: AI Augmentation -->
+            <div class="ethos-card ethos-ai" tabindex="0">
+              <div class="ethos-card-top">
+                <div class="ethos-icon-box" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="4" y="4" width="16" height="16" rx="4"/>
+                    <rect x="9" y="9" width="6" height="6" rx="1.5" fill="currentColor" fill-opacity="0.35"/>
+                    <path d="M9 1v3M15 1v3M9 20v3M15 20v3M1 9h3M1 15h3M20 9h3M20 15h3"/>
+                  </svg>
+                </div>
+                <span class="ethos-num ethos-num-ai">04 / AI</span>
+              </div>
+              <div class="ethos-info">
+                <span class="ethos-title">AI Augmentation</span>
+                <span class="ethos-desc">Leveraging modern AI tools as a multiplier for rapid development &amp; innovation</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Part 3: Creative Capabilities -->
+      <div class="capabilities-section" id="capabilities">
+        <div class="capabilities-header">
+          <div class="sub-section-tag">
+            <span class="tag-sparkle">✦</span>
+            <span>WHAT I CAN CREATE</span>
+          </div>
+          <h3 class="capabilities-title">
+            <span>DIFFERENT SKILLS.</span>
+            <span class="text-gold">ONE CREATIVE MIND.</span>
+          </h3>
+          <p class="capabilities-subtitle">
+            Hover or tap each panel to explore capabilities across engineering, visual language, product incubation and strategic business impact.
+          </p>
+        </div>
+
+        <!-- 4 Interactive Capability Panels Grid -->
+        <div class="capabilities-grid">
+          
+          <!-- Panel 01: Digital Development -->
+          <div class="capability-card" data-capability="dev" tabindex="0">
+            <div class="card-border-glow"></div>
+            <div class="card-inner">
+              <div class="capability-top">
+                <span class="capability-num">01</span>
+                <div class="capability-glyph glyph-dev">
+                  <span class="glyph-icon">&lt;/&gt;</span>
+                </div>
+              </div>
+              <h4 class="capability-name">DIGITAL DEVELOPMENT</h4>
+              <p class="capability-tagline">"Turning complex problems into practical digital solutions."</p>
+              
+              <ul class="capability-features-list">
+                <li><span class="list-bullet">✦</span> Web application development</li>
+                <li><span class="list-bullet">✦</span> ERP and business systems</li>
+                <li><span class="list-bullet">✦</span> API &amp; LLM / AI integrations</li>
+                <li><span class="list-bullet">✦</span> Business workflows &amp; automations</li>
+              </ul>
+
+              <div class="capability-extra-detail">
+                <p>Full-stack architectures designed with resilient database schemas, clean modular code, modern AI tool acceleration, and high-performance server execution.</p>
+              </div>
+
+              <div class="capability-card-footer">
+                <span class="footer-badge">ARCHITECTURE &amp; ENGINEERING</span>
+                <span class="footer-arrow">&rarr;</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Panel 02: Creative Design -->
+          <div class="capability-card" data-capability="design" tabindex="0">
+            <div class="card-border-glow"></div>
+            <div class="card-inner">
+              <div class="capability-top">
+                <span class="capability-num">02</span>
+                <div class="capability-glyph glyph-design">
+                  <span class="glyph-icon">✦</span>
+                </div>
+              </div>
+              <h4 class="capability-name">CREATIVE DESIGN</h4>
+              <p class="capability-tagline">"Giving ideas a visual language."</p>
+              
+              <ul class="capability-features-list">
+                <li><span class="list-bullet">✦</span> Brand identity &amp; visual systems</li>
+                <li><span class="list-bullet">✦</span> UI/UX interactive experiences</li>
+                <li><span class="list-bullet">✦</span> Generative visuals &amp; moodboards</li>
+                <li><span class="list-bullet">✦</span> Spatial concepts &amp; motion</li>
+              </ul>
+
+              <div class="capability-extra-detail">
+                <p>Crafting cinematic visual identities, thoughtful layout hierarchy, fluid animations, and AI-accelerated visual prototyping that feels intuitive and memorable.</p>
+              </div>
+
+              <div class="capability-card-footer">
+                <span class="footer-badge">VISUALS &amp; INTERACTION</span>
+                <span class="footer-arrow">&rarr;</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Panel 03: Digital Products -->
+          <div class="capability-card" data-capability="products" tabindex="0">
+            <div class="card-border-glow"></div>
+            <div class="card-inner">
+              <div class="capability-top">
+                <span class="capability-num">03</span>
+                <div class="capability-glyph glyph-products">
+                  <span class="glyph-icon">❖</span>
+                </div>
+              </div>
+              <h4 class="capability-name">DIGITAL PRODUCTS</h4>
+              <p class="capability-tagline">"Building useful things that can grow beyond one project."</p>
+              
+              <ul class="capability-features-list">
+                <li><span class="list-bullet">✦</span> SaaS concepts &amp; MVPs</li>
+                <li><span class="list-bullet">✦</span> Ready-to-use software</li>
+                <li><span class="list-bullet">✦</span> AI-augmented productivity tools</li>
+                <li><span class="list-bullet">✦</span> Scalable digital solutions</li>
+              </ul>
+
+              <div class="capability-extra-detail">
+                <p>Developing scalable tools, modular components, and intelligent software assets that solve repeatable real-world needs.</p>
+              </div>
+
+              <div class="capability-card-footer">
+                <span class="footer-badge">SCALABILITY &amp; PRODUCT</span>
+                <span class="footer-arrow">&rarr;</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Panel 04: Business Thinking -->
+          <div class="capability-card" data-capability="business" tabindex="0">
+            <div class="card-border-glow"></div>
+            <div class="card-inner">
+              <div class="capability-top">
+                <span class="capability-num">04</span>
+                <div class="capability-glyph glyph-business">
+                  <span class="glyph-icon">▲</span>
+                </div>
+              </div>
+              <h4 class="capability-name">BUSINESS THINKING</h4>
+              <p class="capability-tagline">"Connecting creativity with real-world value."</p>
+              
+              <ul class="capability-features-list">
+                <li><span class="list-bullet">✦</span> Understanding business problems</li>
+                <li><span class="list-bullet">✦</span> Identifying market opportunities</li>
+                <li><span class="list-bullet">✦</span> AI workflow optimization</li>
+                <li><span class="list-bullet">✦</span> Turning ideas into high-ROI solutions</li>
+              </ul>
+
+              <div class="capability-extra-detail">
+                <p>Bridging the chasm between raw code and commercial ROI &mdash; aligning features directly with conversion, efficiency, and growth.</p>
+              </div>
+
+              <div class="capability-card-footer">
+                <span class="footer-badge">STRATEGY & VALUE</span>
+                <span class="footer-arrow">&rarr;</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Mobile Carousel Navigation -->
+        <div class="mobile-carousel-nav" data-target="capabilities-grid" aria-hidden="true">
+          <span class="carousel-swipe-hint">⇄ Swipe to explore</span>
+          <div class="carousel-dots">
+            <button class="c-dot active" aria-label="Capability 1"></button>
+            <button class="c-dot" aria-label="Capability 2"></button>
+            <button class="c-dot" aria-label="Capability 3"></button>
+            <button class="c-dot" aria-label="Capability 4"></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Part 4: Creative Thinking Process -->
+      <div class="process-journey-stage" id="process">
+        <div class="process-header">
+          <div class="sub-section-tag">
+            <span class="tag-sparkle">✦</span>
+            <span>HOW IDEAS COME TO LIFE</span>
+          </div>
+          <h3 class="process-title">
+            <span>FROM A THOUGHT</span>
+            <span class="text-gold">TO SOMETHING MEANINGFUL.</span>
+          </h3>
+          <p class="process-subtitle">
+            A continuous connected journey transforming raw curiosity into functional, high-impact digital reality.
+          </p>
+        </div>
+
+        <!-- Connected 4-Stage Timeline (Desktop: Horizontal Flow, Mobile: Vertical Spine) -->
+        <div class="process-timeline-wrapper">
+          <div class="timeline-golden-beam" aria-hidden="true">
+            <div class="beam-flow-indicator"></div>
+          </div>
+
+          <div class="process-stages-track">
+            
+            <!-- Stage 01: IMAGINE -->
+            <div class="process-stage-node active" data-stage="1">
+              <div class="node-connector-pulse">
+                <div class="pulse-core"></div>
+                <div class="pulse-ring"></div>
+              </div>
+              <div class="stage-card">
+                <div class="stage-card-glow"></div>
+                <span class="stage-step-num">01 / STAGE</span>
+                <h4 class="stage-name">IMAGINE</h4>
+                <p class="stage-quote">"Every meaningful creation starts with curiosity and an idea."</p>
+                <div class="stage-details">
+                  <span class="detail-pill">Questioning Assumptions</span>
+                  <span class="detail-pill">Blue-Sky Vision</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Stage 02: EXPLORE -->
+            <div class="process-stage-node" data-stage="2">
+              <div class="node-connector-pulse">
+                <div class="pulse-core"></div>
+                <div class="pulse-ring"></div>
+              </div>
+              <div class="stage-card">
+                <div class="stage-card-glow"></div>
+                <span class="stage-step-num">02 / STAGE</span>
+                <h4 class="stage-name">EXPLORE</h4>
+                <p class="stage-quote">"Research possibilities, understand problems and discover opportunities."</p>
+                <div class="stage-details">
+                  <span class="detail-pill">Problem Space Analysis</span>
+                  <span class="detail-pill">Feasibility Mapping</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Stage 03: CREATE -->
+            <div class="process-stage-node" data-stage="3">
+              <div class="node-connector-pulse">
+                <div class="pulse-core"></div>
+                <div class="pulse-ring"></div>
+              </div>
+              <div class="stage-card">
+                <div class="stage-card-glow"></div>
+                <span class="stage-step-num">03 / STAGE</span>
+                <h4 class="stage-name">CREATE</h4>
+                <p class="stage-quote">"Combine creativity, design and technology to bring the idea to life."</p>
+                <div class="stage-details">
+                  <span class="detail-pill">Iterative Development</span>
+                  <span class="detail-pill">High-Fidelity Craft</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Stage 04: TRANSFORM -->
+            <div class="process-stage-node" data-stage="4">
+              <div class="node-connector-pulse">
+                <div class="pulse-core"></div>
+                <div class="pulse-ring"></div>
+              </div>
+              <div class="stage-card">
+                <div class="stage-card-glow"></div>
+                <span class="stage-step-num">04 / STAGE</span>
+                <h4 class="stage-name">TRANSFORM</h4>
+                <p class="stage-quote">"Turn the result into something useful, meaningful and valuable."</p>
+                <div class="stage-details">
+                  <span class="detail-pill">Real-World Deployment</span>
+                  <span class="detail-pill">Measurable Impact</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Mobile Carousel Navigation -->
+          <div class="mobile-carousel-nav" data-target="process-stages-track" aria-hidden="true">
+            <span class="carousel-swipe-hint">⇄ Swipe journey</span>
+            <div class="carousel-dots">
+              <button class="c-dot active" aria-label="Stage 1"></button>
+              <button class="c-dot" aria-label="Stage 2"></button>
+              <button class="c-dot" aria-label="Stage 3"></button>
+              <button class="c-dot" aria-label="Stage 4"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Part 5: Personal Philosophy Manifesto (Cinematic, Minimal, Card-Free) -->
+      <div class="philosophy-manifesto-stage">
+        <div class="manifesto-eyebrow">
+          <span class="eyebrow-dot"></span>
+          <span>CREATIVE ETHOS</span>
+          <span class="eyebrow-dot"></span>
+        </div>
+
+        <h3 class="manifesto-headline">
+          <span class="manifesto-line">STAY CURIOUS.</span>
+          <span class="manifesto-line manifesto-gold">KEEP CREATING.</span>
+          <span class="manifesto-line">NEVER STOP EXPLORING.</span>
+        </h3>
+
+        <p class="manifesto-body">
+          "I believe the best ideas come from asking better questions, exploring unfamiliar possibilities and having the courage to create something different."
+        </p>
+
+        <div class="manifesto-signature-row">
+          <div class="signature-line"></div>
+          <span class="signature-text">MR.BASS &mdash; BASKAR</span>
+          <div class="signature-line"></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SECTION 03 — TOOLS & INTELLIGENCE THAT BRING IDEAS TO LIFE
+       ========================================================================= -->
+  <section class="section-work-wrap" id="work" aria-label="Section 03: Tools & Intelligence">
+    
+    <!-- Ambient Lighting Meshes for Section 03 -->
+    <div class="work-ambient-lighting" aria-hidden="true">
+      <div class="work-glow glow-gold-work"></div>
+      <div class="work-glow glow-blue-work"></div>
+    </div>
+
+    <div class="work-container">
+
+      <!-- Section Opening Header -->
+      <div class="work-header-block">
+        <div class="section-identifier">
+          <span class="id-number">03</span>
+          <span class="id-slash">/</span>
+          <span class="id-title">TOOLS &amp; INTELLIGENCE</span>
+        </div>
+
+        <div class="work-headline-group">
+          <h2 class="work-main-headline">
+            <span class="headline-row">TOOLS &amp; AI THAT HELP ME</span>
+            <span class="headline-row headline-gold">BRING IDEAS TO LIFE.</span>
+          </h2>
+          <p class="work-supporting-text">
+            A purposeful synergy of proven engineering foundations and cutting-edge artificial intelligence &mdash; combining architectural discipline with next-generation speed, creative synthesis, and real-world execution.
+          </p>
+        </div>
+      </div>
+
+      <!-- ==============================================================
+           Part 12: Technology Strip (TOOLS THAT HELP ME CREATE)
+           ============================================================== -->
+      <div class="tech-strip-section" id="tech-strip">
+        <div class="tech-strip-header">
+          <div class="sub-section-tag">
+            <span class="tag-sparkle">✦</span>
+            <span>TOOLS THAT HELP ME CREATE</span>
+          </div>
+          <h3 class="tech-strip-title">
+            <span>THE FOUNDATION.</span>
+            <span class="text-gold">PROVEN & BATTLE-TESTED.</span>
+          </h3>
+          <p class="tech-strip-subtitle">
+            A purposeful toolkit combining robust server-side architecture, scalable database design, and modern reactive client-side interfaces.
+          </p>
+        </div>
+
+        <!-- 8 Technology Cards Grid (No arbitrary percentage bars!) -->
+        <div class="tech-badges-grid">
+          
+          <!-- 1. PHP -->
+          <div class="tech-badge-card" tabindex="0">
+            <div class="badge-icon-wrap icon-php">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+                <path d="M4.5 10.5C4.5 9.12 5.62 8 7 8H9C10.38 8 11.5 9.12 11.5 10.5C11.5 11.88 10.38 13 9 13H6.5V16H4.5V10.5ZM6.5 11.5H9C9.55 11.5 10 11.05 10 10.5C10 9.95 9.55 9.5 9 9.5H7C6.72 9.5 6.5 9.72 6.5 10V11.5Z" fill="#777BB4"/>
+                <path d="M11.5 8H13.5V11H16.5V8H18.5V16H16.5V12.5H13.5V16H11.5V8Z" fill="#777BB4"/>
+                <circle cx="12" cy="12" r="10" stroke="#777BB4" stroke-width="1.5" stroke-dasharray="2 2"/>
+              </svg>
+            </div>
+            <div class="badge-content">
+              <h4 class="tech-name">PHP</h4>
+              <span class="tech-category">Server-Side Language</span>
+              <p class="tech-description">Powering dynamic backend logic, secure sessions, and scalable enterprise server execution.</p>
+            </div>
+          </div>
+
+          <!-- 2. Laravel -->
+          <div class="tech-badge-card" tabindex="0">
+            <div class="badge-icon-wrap icon-laravel">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+                <path d="M12 2L3 7V17L12 22L21 17V7L12 2Z" stroke="#FF2D20" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M12 22V12" stroke="#FF2D20" stroke-width="1.6"/>
+                <path d="M21 7L12 12L3 7" stroke="#FF2D20" stroke-width="1.6"/>
+                <path d="M16.5 4.5L7.5 9.5" stroke="#FF2D20" stroke-width="1.4"/>
+              </svg>
+            </div>
+            <div class="badge-content">
+              <h4 class="tech-name">Laravel</h4>
+              <span class="tech-category">Web Architecture</span>
+              <p class="tech-description">Elegant MVC structure, Eloquent ORM, secure authentication, API routing, and task scheduling.</p>
+            </div>
+          </div>
+
+          <!-- 3. MySQL -->
+          <div class="tech-badge-card" tabindex="0">
+            <div class="badge-icon-wrap icon-mysql">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+                <ellipse cx="12" cy="6" rx="8" ry="3" stroke="#00758F" stroke-width="1.6"/>
+                <path d="M4 6V12C4 13.66 7.58 15 12 15C16.42 15 20 13.66 20 12V6" stroke="#00758F" stroke-width="1.6"/>
+                <path d="M4 12V18C4 19.66 7.58 21 12 21C16.42 21 20 19.66 20 18V12" stroke="#00758F" stroke-width="1.6"/>
+              </svg>
+            </div>
+            <div class="badge-content">
+              <h4 class="tech-name">MySQL</h4>
+              <span class="tech-category">Relational Database</span>
+              <p class="tech-description">Schema normalization, indexing, query optimization, and acid-compliant business transactions.</p>
+            </div>
+          </div>
+
+          <!-- 4. JavaScript -->
+          <div class="tech-badge-card" tabindex="0">
+            <div class="badge-icon-wrap icon-js">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+                <rect x="3" y="3" width="18" height="18" rx="3" stroke="#F7DF1E" stroke-width="1.6"/>
+                <path d="M9 13V16.5C9 17.33 8.33 18 7.5 18C6.67 18 6 17.33 6 16.5" stroke="#F7DF1E" stroke-width="1.8" stroke-linecap="round"/>
+                <path d="M14 13.5C14 13 14.5 12.5 15.5 12.5C16.5 12.5 17.5 13 17.5 14C17.5 15.5 14 15.5 14 17C14 17.8 14.8 18.5 15.8 18.5C16.8 18.5 17.5 17.8 17.5 17.5" stroke="#F7DF1E" stroke-width="1.8" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="badge-content">
+              <h4 class="tech-name">JavaScript</h4>
+              <span class="tech-category">Frontend & Logic Engine</span>
+              <p class="tech-description">Modern ES6+ syntax, asynchronous operations, DOM manipulation, event loops, and fluid physics.</p>
+            </div>
+          </div>
+
+          <!-- 5. AngularJS -->
+          <div class="tech-badge-card" tabindex="0">
+            <div class="badge-icon-wrap icon-angular">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+                <path d="M12 2L3 5L4.5 17L12 22L19.5 17L21 5L12 2Z" stroke="#DD0031" stroke-width="1.6" stroke-linejoin="round"/>
+                <path d="M12 5.5L8 16H10L11 13H13L14 16H16L12 5.5Z" fill="#DD0031"/>
+                <line x1="11.2" y1="11.5" x2="12.8" y2="11.5" stroke="#040711" stroke-width="1.2"/>
+              </svg>
+            </div>
+            <div class="badge-content">
+              <h4 class="tech-name">AngularJS</h4>
+              <span class="tech-category">Enterprise Framework</span>
+              <p class="tech-description">Two-way data binding, dependency injection, and responsive tabular views across ERP systems.</p>
+            </div>
+          </div>
+
+          <!-- 6. React -->
+          <div class="tech-badge-card" tabindex="0">
+            <div class="badge-icon-wrap icon-react">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+                <ellipse cx="12" cy="12" rx="9" ry="3.8" stroke="#61DAFB" stroke-width="1.5" transform="rotate(30 12 12)"/>
+                <ellipse cx="12" cy="12" rx="9" ry="3.8" stroke="#61DAFB" stroke-width="1.5" transform="rotate(90 12 12)"/>
+                <ellipse cx="12" cy="12" rx="9" ry="3.8" stroke="#61DAFB" stroke-width="1.5" transform="rotate(150 12 12)"/>
+                <circle cx="12" cy="12" r="1.5" fill="#61DAFB"/>
+              </svg>
+            </div>
+            <div class="badge-content">
+              <h4 class="tech-name">React</h4>
+              <span class="tech-category">UI Component Architecture</span>
+              <p class="tech-description">Declarative component patterns, modern hooks, state orchestration, and high-performance rendering.</p>
+            </div>
+          </div>
+
+          <!-- 7. HTML5 -->
+          <div class="tech-badge-card" tabindex="0">
+            <div class="badge-icon-wrap icon-html5">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+                <path d="M4 3L5.5 19.5L12 21.5L18.5 19.5L20 3H4Z" stroke="#E34F26" stroke-width="1.6" stroke-linejoin="round"/>
+                <path d="M12 6V18.5L16.5 17.2L17.5 6H12Z" fill="rgba(227, 79, 38, 0.2)"/>
+                <path d="M7.5 8H16.5L16 11H8L8.5 14H15.5L15 16.5L12 17.5L9 16.5L8.8 14.5" stroke="#E34F26" stroke-width="1.3" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="badge-content">
+              <h4 class="tech-name">HTML5</h4>
+              <span class="tech-category">Semantic Structure</span>
+              <p class="tech-description">Accessible markup, viewport meta standards, microdata, and SEO-compliant document hierarchy.</p>
+            </div>
+          </div>
+
+          <!-- 8. CSS3 -->
+          <div class="tech-badge-card" tabindex="0">
+            <div class="badge-icon-wrap icon-css3">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+                <path d="M4 3L5.5 19.5L12 21.5L18.5 19.5L20 3H4Z" stroke="#1572B6" stroke-width="1.6" stroke-linejoin="round"/>
+                <path d="M12 6V18.5L16.5 17.2L17.5 6H12Z" fill="rgba(21, 114, 182, 0.2)"/>
+                <path d="M7.5 8H16.5L16 11H8.5L9 14H15.5L15 16.5L12 17.5L9 16.5" stroke="#1572B6" stroke-width="1.3" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="badge-content">
+              <h4 class="tech-name">CSS3</h4>
+              <span class="tech-category">Modern Layouts & Motion</span>
+              <p class="tech-description">CSS Custom Properties, Grid, Flexbox, glassmorphism, keyframe physics, and responsive media rules.</p>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Mobile Carousel Navigation -->
+        <div class="mobile-carousel-nav" data-target="tech-badges-grid" aria-hidden="true">
+          <span class="carousel-swipe-hint">⇄ Swipe technologies</span>
+          <div class="carousel-dots">
+            <button class="c-dot active" aria-label="Tech 1"></button>
+            <button class="c-dot" aria-label="Tech 2"></button>
+            <button class="c-dot" aria-label="Tech 3"></button>
+            <button class="c-dot" aria-label="Tech 4"></button>
+            <button class="c-dot" aria-label="Tech 5"></button>
+            <button class="c-dot" aria-label="Tech 6"></button>
+            <button class="c-dot" aria-label="Tech 7"></button>
+            <button class="c-dot" aria-label="Tech 8"></button>
+          </div>
+        </div>
+
+        <!-- Dedicated AI & Intelligent Tools Suite Tier -->
+        <div class="ai-tools-suite-block">
+          <div class="ai-suite-header">
+            <div class="sub-section-tag">
+              <span class="tag-sparkle">🤖</span>
+              <span>INTELLIGENT AUGMENTATION &amp; WORKFLOWS</span>
+            </div>
+            <h4 class="ai-suite-title">
+              <span>LEVERAGING THE POWER OF</span>
+              <span class="text-gold">MODERN AI &amp; AI TOOLS.</span>
+            </h4>
+            <p class="ai-suite-desc">
+              I integrate artificial intelligence directly into my development lifecycle &mdash; using advanced LLMs, agentic workflows, and generative tooling to accelerate problem-solving, automate workflows, and prototype ambitious ideas faster than ever.
+            </p>
+          </div>
+
+          <div class="ai-tools-grid">
+            
+            <!-- AI Tool 1: Claude & Agentic Reasoning -->
+            <div class="ai-tool-card" tabindex="0">
+              <div class="ai-tool-top">
+                <div class="ai-icon-pill icon-claude">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+                    <circle cx="12" cy="12" r="9" stroke="#E5A93C" stroke-width="1.8"/>
+                    <path d="M12 7V17M7 12H17" stroke="#E5A93C" stroke-width="1.8" stroke-linecap="round"/>
+                    <circle cx="12" cy="12" r="3" fill="#E5A93C"/>
+                  </svg>
+                </div>
+                <span class="ai-pill-tag">REASONING &amp; AGENTS</span>
+              </div>
+              <h5 class="ai-tool-name">Claude &amp; Anthropic</h5>
+              <span class="ai-role">Complex System Architecture &amp; Deep Refactoring</span>
+              <p class="ai-details">Leveraging state-of-the-art context windows for algorithmic optimization, edge-case analysis, and end-to-end full-stack refactoring.</p>
+              <div class="ai-card-badges">
+                <span class="ai-subtag">Multi-Step Logic</span>
+                <span class="ai-subtag">Code Synthesis</span>
+              </div>
+            </div>
+
+            <!-- AI Tool 2: OpenAI & ChatGPT APIs -->
+            <div class="ai-tool-card" tabindex="0">
+              <div class="ai-tool-top">
+                <div class="ai-icon-pill icon-openai">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+                    <path d="M12 3C7.03 3 3 7.03 3 12C3 16.97 7.03 21 12 21C16.97 21 21 16.97 21 12C21 7.03 16.97 3 12 3Z" stroke="#10B981" stroke-width="1.8"/>
+                    <path d="M12 8L15 13H9L12 8Z" stroke="#10B981" stroke-width="1.6" stroke-linejoin="round"/>
+                    <circle cx="12" cy="15" r="1.5" fill="#10B981"/>
+                  </svg>
+                </div>
+                <span class="ai-pill-tag">LLM APIS &amp; AUTOMATION</span>
+              </div>
+              <h5 class="ai-tool-name">ChatGPT &amp; OpenAI APIs</h5>
+              <span class="ai-role">Intelligent Automations &amp; Conversational AI</span>
+              <p class="ai-details">Integrating embeddings, function calling, automated ERP report summarization, custom knowledge models, and intelligent assistants.</p>
+              <div class="ai-card-badges">
+                <span class="ai-subtag">API Engineering</span>
+                <span class="ai-subtag">Embeddings</span>
+              </div>
+            </div>
+
+            <!-- AI Tool 3: GitHub Copilot & Cursor -->
+            <div class="ai-tool-card" tabindex="0">
+              <div class="ai-tool-top">
+                <div class="ai-icon-pill icon-copilot">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+                    <rect x="3" y="5" width="18" height="14" rx="4" stroke="#60A5FA" stroke-width="1.8"/>
+                    <circle cx="8.5" cy="12" r="1.5" fill="#60A5FA"/>
+                    <circle cx="15.5" cy="12" r="1.5" fill="#60A5FA"/>
+                    <path d="M10 15C10.5 15.6 11.2 16 12 16C12.8 16 13.5 15.6 14 15" stroke="#60A5FA" stroke-width="1.5" stroke-linecap="round"/>
+                  </svg>
+                </div>
+                <span class="ai-pill-tag">AI PAIR PROGRAMMING</span>
+              </div>
+              <h5 class="ai-tool-name">GitHub Copilot &amp; Cursor</h5>
+              <span class="ai-role">Predictive Coding &amp; Rapid Scaffolding</span>
+              <p class="ai-details">Accelerating engineering flow, generating automated unit tests, predictive pattern autocomplete, and rapid prototype scaffolding.</p>
+              <div class="ai-card-badges">
+                <span class="ai-subtag">Pair Programming</span>
+                <span class="ai-subtag">Test Generation</span>
+              </div>
+            </div>
+
+            <!-- AI Tool 4: Midjourney & Generative Visuals -->
+            <div class="ai-tool-card" tabindex="0">
+              <div class="ai-tool-top">
+                <div class="ai-icon-pill icon-midjourney">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+                    <path d="M4 18L10 6L14 14L17 9L20 18H4Z" stroke="#EC4899" stroke-width="1.8" stroke-linejoin="round"/>
+                    <circle cx="18" cy="6" r="2.5" fill="#EC4899"/>
+                  </svg>
+                </div>
+                <span class="ai-pill-tag">GENERATIVE DESIGN</span>
+              </div>
+              <h5 class="ai-tool-name">Midjourney &amp; Generative UI</h5>
+              <span class="ai-role">Visual Moodboards &amp; Creative Art Direction</span>
+              <p class="ai-details">Rapid visual exploration, lighting concept art, spatial design tokens, texture synthesis, and future-facing user experience aesthetics.</p>
+              <div class="ai-card-badges">
+                <span class="ai-subtag">Visual Ideation</span>
+                <span class="ai-subtag">Asset Concepting</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Mobile Carousel Navigation -->
+          <div class="mobile-carousel-nav" data-target="ai-tools-grid" aria-hidden="true">
+            <span class="carousel-swipe-hint">⇄ Swipe AI tools</span>
+            <div class="carousel-dots">
+              <button class="c-dot active" aria-label="AI Tool 1"></button>
+              <button class="c-dot" aria-label="AI Tool 2"></button>
+              <button class="c-dot" aria-label="AI Tool 3"></button>
+              <button class="c-dot" aria-label="AI Tool 4"></button>
+            </div>
+          </div>
+
+          <!-- AI Production Workflow & Practical Engineering Architecture -->
+          <div class="ai-workflow-showcase">
+            <div class="ai-workflow-header">
+              <div class="sub-section-tag">
+                <span class="tag-sparkle">✦</span>
+                <span>HOW I LEVERAGE AI IN PRODUCTION</span>
+              </div>
+              <h4 class="ai-workflow-title">AI-AUGMENTED ENGINEERING ARCHITECTURE</h4>
+              <p class="ai-workflow-sub">
+                AI is not a shortcut &mdash; it is a cognitive multiplier. I pair machine speed with human architectural rigor to deliver robust, high-impact systems.
+              </p>
+            </div>
+
+            <div class="ai-workflow-steps">
+              <div class="ai-step-card">
+                <div class="step-num">01</div>
+                <h5 class="step-title">Cognitive Synthesis</h5>
+                <p class="step-desc">Rapidly mapping complex business requirements into resilient database schemas, API specs, and clean architectural boundaries.</p>
+              </div>
+              <div class="ai-step-card">
+                <div class="step-num">02</div>
+                <h5 class="step-title">High-Velocity Flow</h5>
+                <p class="step-desc">Pair-programming with LLMs &amp; agentic IDEs to accelerate scaffolding, boilerplate, and comprehensive edge-case test coverage.</p>
+              </div>
+              <div class="ai-step-card">
+                <div class="step-num">03</div>
+                <h5 class="step-title">Intelligent Features</h5>
+                <p class="step-desc">Embedding production AI into products &mdash; semantic embeddings, intelligent summaries, and function-calling automations.</p>
+              </div>
+              <div class="ai-step-card">
+                <div class="step-num">04</div>
+                <h5 class="step-title">Human Verification</h5>
+                <p class="step-desc">Every line of code and architectural decision is reviewed, hardened, and verified for real-world enterprise deployment.</p>
+              </div>
+            </div>
+
+            <!-- Mobile Carousel Navigation -->
+            <div class="mobile-carousel-nav" data-target="ai-workflow-steps" aria-hidden="true">
+              <span class="carousel-swipe-hint">⇄ Swipe engineering workflow</span>
+              <div class="carousel-dots">
+                <button class="c-dot active" aria-label="Step 1"></button>
+                <button class="c-dot" aria-label="Step 2"></button>
+                <button class="c-dot" aria-label="Step 3"></button>
+                <button class="c-dot" aria-label="Step 4"></button>
+              </div>
+            </div>
+
+            <!-- Verification Guarantee Pill -->
+            <div class="ai-workflow-guarantee">
+              <span class="guarantee-icon">🛡️</span>
+              <span class="guarantee-text"><strong>Human-in-the-Loop Standard:</strong> 100% human-verified architecture, clean code standards, and production-grade stability.</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       SECTION 04 — LET'S CONNECT (Premium Compact Contact Experience)
+       ========================================================================= -->
+  <section class="section-connect-wrap" id="connect" aria-label="Section 04: Let's Connect">
+    
+    <!-- Ambient Section Lighting (Cinematic Glows) -->
+    <div class="connect-ambient-lighting" aria-hidden="true">
+      <div class="connect-glow glow-gold-connect"></div>
+      <div class="connect-glow glow-blue-connect"></div>
+    </div>
+
+    <div class="connect-container">
+
+      <!-- Main Two-Column Layout Composition -->
+      <div class="connect-layout-grid">
+
+        <!-- LEFT COLUMN: Brand Introduction & Direct Channels -->
+        <div class="connect-intro-col">
+          
+          <!-- Section Identifier Label -->
+          <div class="connect-header-meta">
+            <div class="section-identifier">
+              <span class="id-number">04</span>
+              <span class="id-slash">/</span>
+              <span class="id-title">LET'S CONNECT</span>
+            </div>
+          </div>
+
+          <!-- Main Headlines -->
+          <h2 class="connect-headline">
+            <span class="headline-part">GOT AN IDEA?</span>
+            <span class="headline-part headline-gold">LET'S MAKE IT REAL.</span>
+          </h2>
+
+          <!-- Supporting Text -->
+          <p class="connect-subtext">
+            Every great experience starts with a conversation. Have a project, an interesting challenge or an idea you'd love to explore? Let's create something meaningful together.
+          </p>
+
+          <!-- Sophisticated Glowing Golden Visual Element -->
+          <div class="connect-golden-visual" aria-hidden="true">
+            <div class="golden-orb-light"></div>
+            <div class="golden-orbit-ring ring-outer"></div>
+            <div class="golden-orbit-ring ring-mid"></div>
+            <div class="golden-spark-core"></div>
+            <div class="golden-particle p1"></div>
+            <div class="golden-particle p2"></div>
+            <div class="golden-particle p3"></div>
+          </div>
+
+          <!-- Availability Indicator (Truthful & Accurate) -->
+          <div class="connect-availability-badge">
+            <span class="avail-pulse" aria-hidden="true">
+              <span class="avail-dot"></span>
+              <span class="avail-ring"></span>
+            </span>
+            <span class="avail-text">Ready for Ambitious Projects &amp; Collaborations</span>
+          </div>
+
+          <!-- Direct Channels: WhatsApp, Email & LinkedIn -->
+          <div class="connect-channels-block">
+            <span class="channels-title">DIRECT CHANNELS</span>
+            <div class="channels-grid">
+              
+              <!-- WhatsApp & Mobile -->
+              <a href="https://wa.me/919629624692?text=Hi%20Baskar,%20I'd%20love%20to%20discuss%20a%20project%20with%20MR.BASS." 
+                 target="_blank" 
+                 rel="noopener noreferrer" 
+                 class="channel-pill channel-whatsapp" 
+                 aria-label="Contact Baskar on WhatsApp or Mobile: +91 9629624692">
+                <div class="channel-icon-box" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+                  </svg>
+                </div>
+                <div class="channel-meta">
+                  <span class="channel-name">WhatsApp &amp; Mobile</span>
+                  <span class="channel-action">+91 962 962 4692 &rarr;</span>
+                </div>
+              </a>
+
+              <!-- Direct Email -->
+              <a href="mailto:baskar.techdev@gmail.com" 
+                 class="channel-pill channel-email" 
+                 aria-label="Send direct email to baskar.techdev@gmail.com">
+                <div class="channel-icon-box" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                    <polyline points="22,6 12,13 2,6"/>
+                  </svg>
+                </div>
+                <div class="channel-meta">
+                  <span class="channel-name">Direct Email</span>
+                  <span class="channel-action">baskar.techdev@gmail.com &rarr;</span>
+                </div>
+              </a>
+
+              <!-- LinkedIn -->
+              <a href="https://www.linkedin.com/in/baskar-m-22893916b" 
+                 target="_blank" 
+                 rel="noopener noreferrer" 
+                 class="channel-pill channel-linkedin" 
+                 aria-label="Connect with Baskar on LinkedIn">
+                <div class="channel-icon-box" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                    <rect x="2" y="9" width="4" height="12"/>
+                    <circle cx="4" cy="4" r="2"/>
+                  </svg>
+                </div>
+                <div class="channel-meta">
+                  <span class="channel-name">LinkedIn</span>
+                  <span class="channel-action">Baskar M &rarr;</span>
+                </div>
+              </a>
+
+            </div>
+          </div>
+
+        </div>
+
+        <!-- RIGHT COLUMN: Compact Contact Form -->
+        <div class="connect-form-col">
+          <div class="connect-form-card">
+            
+            <div class="form-card-header">
+              <span class="form-badge">START A CONVERSATION</span>
+              <h3 class="form-card-title">Send a Message</h3>
+              <p class="form-card-desc">Share your idea, scope or challenge — I'll get back to you promptly.</p>
+            </div>
+
+            <form class="connect-contact-form" id="contactForm" novalidate>
+              
+              <!-- 1. Your Name -->
+              <div class="form-field-group" id="group-name">
+                <label for="contactName" class="field-label">
+                  YOUR NAME <span class="field-req" aria-hidden="true">*</span>
+                </label>
+                <div class="input-container">
+                  <input type="text" 
+                         id="contactName" 
+                         name="name" 
+                         class="form-control" 
+                         placeholder="e.g. Alex Morgan" 
+                         autocomplete="name" 
+                         required 
+                         aria-required="true"
+                         aria-describedby="nameError">
+                  <div class="input-focus-border" aria-hidden="true"></div>
+                </div>
+                <div class="field-error-msg" id="nameError" role="alert" aria-live="polite"></div>
+              </div>
+
+              <!-- 2. Email Address -->
+              <div class="form-field-group" id="group-email">
+                <label for="contactEmail" class="field-label">
+                  EMAIL ADDRESS <span class="field-req" aria-hidden="true">*</span>
+                </label>
+                <div class="input-container">
+                  <input type="email" 
+                         id="contactEmail" 
+                         name="email" 
+                         class="form-control" 
+                         placeholder="name@domain.com" 
+                         autocomplete="email" 
+                         required 
+                         aria-required="true"
+                         aria-describedby="emailError">
+                  <div class="input-focus-border" aria-hidden="true"></div>
+                </div>
+                <div class="field-error-msg" id="emailError" role="alert" aria-live="polite"></div>
+              </div>
+
+              <!-- 3. What are you looking for? -->
+              <div class="form-field-group" id="group-subject">
+                <label for="contactSubject" class="field-label">
+                  WHAT ARE YOU LOOKING FOR? <span class="field-req" aria-hidden="true">*</span>
+                </label>
+                <div class="select-container">
+                  <select id="contactSubject" 
+                          name="subject" 
+                          class="form-control form-select" 
+                          required 
+                          aria-required="true"
+                          aria-describedby="subjectError">
+                    <option value="" disabled selected>Select an objective...</option>
+                    <option value="Design Engineering &amp; UI/UX">Design Engineering &amp; UI/UX</option>
+                    <option value="Full-Stack Web Architecture">Full-Stack Web Architecture</option>
+                    <option value="AI Augmentation &amp; Systems">AI Augmentation &amp; Systems</option>
+                    <option value="Creative Direction &amp; Brand Systems">Creative Direction &amp; Brand Systems</option>
+                    <option value="Other Project Exploration">Other Project Exploration</option>
+                  </select>
+                  <div class="select-arrow" aria-hidden="true">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="6 9 12 15 18 9"/>
+                    </svg>
+                  </div>
+                  <div class="input-focus-border" aria-hidden="true"></div>
+                </div>
+                <div class="field-error-msg" id="subjectError" role="alert" aria-live="polite"></div>
+              </div>
+
+              <!-- 4. Tell me about your idea -->
+              <div class="form-field-group" id="group-message">
+                <label for="contactMessage" class="field-label">
+                  TELL ME ABOUT YOUR IDEA <span class="field-req" aria-hidden="true">*</span>
+                </label>
+                <div class="input-container">
+                  <textarea id="contactMessage" 
+                            name="message" 
+                            class="form-control form-textarea" 
+                            rows="3" 
+                            placeholder="Tell me about your idea, scope or challenge..." 
+                            required 
+                            aria-required="true"
+                            aria-describedby="messageError"></textarea>
+                  <div class="input-focus-border" aria-hidden="true"></div>
+                </div>
+                <div class="field-error-msg" id="messageError" role="alert" aria-live="polite"></div>
+              </div>
+
+              <!-- 5. Send Message Button -->
+              <div class="form-action-group">
+                <button type="submit" class="btn-connect-submit" id="contactSubmitBtn">
+                  <span class="btn-spinner" aria-hidden="true"></span>
+                  <span class="btn-label">Send Message</span>
+                  <span class="btn-arrow-icon" aria-hidden="true">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <line x1="5" y1="12" x2="19" y2="12"/>
+                      <polyline points="12 5 19 12 12 19"/>
+                    </svg>
+                  </span>
+                </button>
+              </div>
+
+              <!-- Inline Feedback / Status Container -->
+              <div class="form-status-feedback" id="formStatusFeedback" role="status" aria-live="polite"></div>
+
+            </form>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       FOOTER — BRAND SIGNATURE (Short Compact Visual Strip)
+       ========================================================================= -->
+  <footer class="site-footer-compact" id="footer" aria-label="Site Footer">
+    <div class="footer-compact-container">
+      
+      <!-- LEFT: Brand & Tagline -->
+      <div class="footer-col footer-col-left">
+        <a href="#hero" class="footer-brand-logo" aria-label="MR.BASS Homepage">
+          MR.BASS<span class="brand-gold-dot">.</span>
+        </a>
+        <p class="footer-tagline">
+          Think creatively. Build meaningfully. Keep exploring.
+        </p>
+      </div>
+
+      <!-- CENTER: Verified Social Links -->
+      <div class="footer-col footer-col-center">
+        <nav class="footer-social-nav" aria-label="Social Links">
+          <!-- LinkedIn -->
+          <a href="https://www.linkedin.com/in/baskar-m-22893916b" target="_blank" rel="noopener noreferrer" class="footer-social-link" aria-label="LinkedIn">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+              <rect x="2" y="9" width="4" height="12"/>
+              <circle cx="4" cy="4" r="2"/>
+            </svg>
+            <span>LinkedIn</span>
+          </a>
+
+          <!-- WhatsApp & Mobile -->
+          <a href="https://wa.me/919629624692" target="_blank" rel="noopener noreferrer" class="footer-social-link" aria-label="WhatsApp &amp; Mobile +91 9629624692">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+            </svg>
+            <span>WhatsApp</span>
+          </a>
+
+          <!-- Email -->
+          <a href="mailto:baskar.techdev@gmail.com" class="footer-social-link" aria-label="Email baskar.techdev@gmail.com">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+              <polyline points="22,6 12,13 2,6"/>
+            </svg>
+            <span>Email</span>
+          </a>
+
+          <!-- Instagram -->
+          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="footer-social-link" aria-label="Instagram">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+            </svg>
+            <span>Instagram</span>
+          </a>
+        </nav>
+      </div>
+
+      <!-- RIGHT: Back to Top & Copyright -->
+      <div class="footer-col footer-col-right">
+        <button type="button" class="footer-back-to-top" id="sigBackToTopBtn" aria-label="Scroll back to top">
+          <span>Back to top</span>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="12" y1="19" x2="12" y2="5"/>
+            <polyline points="5 12 12 5 19 12"/>
+          </svg>
+        </button>
+        <span class="footer-copyright">&copy; <span id="sigYear">2026</span> MR.BASS. All rights reserved.</span>
+      </div>
+
+    </div>
+  </footer>
+
+<!-- Interactive Connect Modal Drawer -->
+  <aside class="connect-drawer" id="connectDrawer" role="dialog" aria-modal="true" aria-labelledby="connectTitle">
+    <div class="drawer-dialog">
+      <button class="drawer-close-btn" id="drawerCloseBtn" aria-label="Close modal">&times;</button>
+      
+      <div class="drawer-tag">LET'S BUILD SOMETHING EXTRAORDINARY</div>
+      <h2 class="drawer-title" id="connectTitle">Let's Connect</h2>
+      <p class="drawer-sub">Have an ambitious idea, a high-impact product, or a visionary venture? Let's turn it into reality.</p>
+
+      <div class="contact-grid">
+        <a href="mailto:baskar.techdev@gmail.com" class="contact-item">
+          <span class="item-label">Direct Email</span>
+          <span class="item-value">baskar.techdev@gmail.com &rarr;</span>
+        </a>
+
+        <a href="https://wa.me/919629624692" target="_blank" rel="noopener noreferrer" class="contact-item">
+          <span class="item-label">Mobile &amp; WhatsApp</span>
+          <span class="item-value">+91 962 962 4692 &rarr;</span>
+        </a>
+
+        <a href="https://www.linkedin.com/in/baskar-m-22893916b" target="_blank" rel="noopener noreferrer" class="contact-item">
+          <span class="item-label">LinkedIn</span>
+          <span class="item-value">baskar-m-22893916b &rarr;</span>
+        </a>
+
+        <div class="contact-item">
+          <span class="item-label">Availability</span>
+          <span class="item-value" style="color: #10B981;">&bull; Ready for High-Impact Projects</span>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Interactive "Explore My World" Showcase Drawer -->
+  <aside class="world-drawer" id="worldDrawer" role="dialog" aria-modal="true" aria-labelledby="worldTitle">
+    <div class="world-dialog">
+      <button class="drawer-close-btn" id="worldCloseBtn" aria-label="Close modal">&times;</button>
+      
+      <div class="drawer-tag">THE MR.BASS ECOSYSTEM</div>
+      <h2 class="drawer-title" id="worldTitle">Explore My World</h2>
+      <p class="drawer-sub">Bridging the chasm between raw technological power, visionary creative design, and strategic business outcomes.</p>
+
+      <div class="world-pillars-grid">
+        <div class="pillar-card">
+          <span class="pillar-num">01 / CREATIVITY</span>
+          <h3 class="pillar-title">Design Engineering</h3>
+          <p class="pillar-desc">Crafting digital products that feel cinematic, human, intuitive and unmistakably memorable.</p>
+        </div>
+
+        <div class="pillar-card">
+          <span class="pillar-num">02 / TECHNOLOGY</span>
+          <h3 class="pillar-title">Modern Architecture</h3>
+          <p class="pillar-desc">Building resilient, lightning-fast full-stack web and interactive systems that scale effortlessly.</p>
+        </div>
+
+        <div class="pillar-card">
+          <span class="pillar-num">03 / BUSINESS</span>
+          <h3 class="pillar-title">Strategic Value</h3>
+          <p class="pillar-desc">Aligning high-end user experiences directly with conversion, retention, and market distinction.</p>
+        </div>
+      </div>
+    </div>
+  </aside>
+
 </body>
 </html>
