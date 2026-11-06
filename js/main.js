@@ -351,16 +351,17 @@ document.addEventListener('DOMContentLoaded', () => {
         // Distance from track top to current viewport focal line (middle of reading view)
         const currentScrollY = viewportFocal - trackRect.top;
         
+        // Start smoothly at first node center (~25px), and continue all the way to 100% completion of the timeline
         let targetY;
         if (currentScrollY <= firstNodeCenterY) {
           targetY = firstNodeCenterY;
-        } else if (currentScrollY >= lastNodeCenterY) {
-          targetY = lastNodeCenterY;
         } else {
           targetY = currentScrollY;
         }
 
-        const progressPercent = Math.min(100, Math.max(2, (targetY / trackHeight) * 100));
+        // Allow white dot to travel all the way through Stage 4 and fully complete to 100%
+        const maxTrackTravel = Math.max(1, trackHeight - 40);
+        const progressPercent = Math.min(100, Math.max(2, (targetY / maxTrackTravel) * 100));
         processBeamFill.style.setProperty('height', `${progressPercent.toFixed(2)}%`, 'important');
       }
     }
