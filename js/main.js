@@ -335,32 +335,40 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // =========================================================================
-  // Section 02: Interactive Continuous Card Deck Controller for Capabilities
-  // Click/Tap reveals cards one by one in an infinite continuous cycle
+  // Section 02: Interactive 3D Cross Stack Controller for Capabilities
+  // Displays cards in visible criss-cross fanned stack; click/tap reveals one by one continuously
   // =========================================================================
   const capContainer = document.querySelector('.capabilities-grid');
   const capCards = capContainer ? Array.from(capContainer.querySelectorAll('.capability-card')) : [];
   const deckCurrentNum = document.getElementById('deckCurrentNum');
   const deckBars = document.querySelectorAll('.deck-bar');
   const deckNextBtn = document.getElementById('deckNextBtn');
+  const capDeckBar = document.getElementById('capabilitiesDeckBar');
+  const modeToggleBtns = document.querySelectorAll('.mode-toggle-btn');
 
   if (capCards.length > 0) {
     let activeIndex = 0;
     let isTransitioning = false;
 
+    function isStackMode() {
+      return capContainer && capContainer.classList.contains('cross-stack-mode');
+    }
+
     function updateDeckPositions() {
-      const isMobile = window.innerWidth < 768;
-      if (!isMobile) {
+      if (!isStackMode()) {
         capCards.forEach((card) => {
           card.removeAttribute('data-stack-pos');
           card.classList.remove('is-dismissing');
         });
         if (capContainer) capContainer.style.minHeight = '';
+        if (capDeckBar) capDeckBar.style.display = 'none';
         return;
       }
 
+      if (capDeckBar) capDeckBar.style.display = 'flex';
+
       capCards.forEach((card, idx) => {
-        // Calculate relative offset from activeIndex (0 = front, 1, 2, 3 = behind)
+        // Relative offset from activeIndex (0 = front straight, 1 = right, 2 = left, 3 = far right)
         const relPos = (idx - activeIndex + capCards.length) % capCards.length;
         card.setAttribute('data-stack-pos', relPos.toString());
       });
@@ -372,29 +380,29 @@ document.addEventListener('DOMContentLoaded', () => {
         bar.classList.toggle('active', idx === activeIndex);
       });
 
-      // Adjust container height to match active card
+      // Adjust container height dynamically to fit the card content + top cross offset
       const activeCard = capCards[activeIndex];
       if (activeCard && capContainer) {
         requestAnimationFrame(() => {
           const height = activeCard.offsetHeight;
           if (height > 0) {
-            capContainer.style.minHeight = (height + 36) + 'px';
+            capContainer.style.minHeight = (height + 70) + 'px';
           }
         });
       }
     }
 
     function advanceDeck() {
-      if (isTransitioning || window.innerWidth >= 768) return;
+      if (isTransitioning || !isStackMode()) return;
       isTransitioning = true;
 
       const currentCard = capCards[activeIndex];
       currentCard.classList.add('is-dismissing');
 
-      // Continuous infinite loop: 0 -> 1 -> 2 -> 3 -> 0 ...
+      // Continuous loop
       activeIndex = (activeIndex + 1) % capCards.length;
 
-      // Bring behind cards forward
+      // Advance cards behind forward
       capCards.forEach((card, idx) => {
         if (card !== currentCard) {
           const relPos = (idx - activeIndex + capCards.length) % capCards.length;
@@ -413,7 +421,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (nextCard && capContainer) {
         const height = nextCard.offsetHeight;
         if (height > 0) {
-          capContainer.style.minHeight = (height + 36) + 'px';
+          capContainer.style.minHeight = (height + 70) + 'px';
         }
       }
 
@@ -421,19 +429,19 @@ document.addEventListener('DOMContentLoaded', () => {
         currentCard.classList.remove('is-dismissing');
         currentCard.setAttribute('data-stack-pos', String(capCards.length - 1));
         isTransitioning = false;
-      }, 340);
+      }, 360);
     }
 
-    // Click/tap on active card reveals the next one
+    // Click/tap on front active card advances the stack
     capCards.forEach((card) => {
       card.addEventListener('click', () => {
-        if (window.innerWidth < 768 && card.getAttribute('data-stack-pos') === '0') {
+        if (isStackMode() && card.getAttribute('data-stack-pos') === '0') {
           advanceDeck();
         }
       });
     });
 
-    // Tap action button listener
+    // Tap action button
     if (deckNextBtn) {
       deckNextBtn.addEventListener('click', (e) => {
         e.preventDefault();
@@ -441,18 +449,35 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // Indicator bars click listener
+    // Indicator bars jump
     deckBars.forEach((bar, idx) => {
       bar.addEventListener('click', (e) => {
         e.preventDefault();
-        if (window.innerWidth < 768 && idx !== activeIndex && !isTransitioning) {
+        if (isStackMode() && idx !== activeIndex && !isTransitioning) {
           activeIndex = idx;
           updateDeckPositions();
         }
       });
     });
 
-    // Touch swipe support (swipe left or swipe up advances card)
+    // Mode Toggle (Cross Stack vs Full Grid)
+    modeToggleBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const mode = btn.getAttribute('data-mode');
+        modeToggleBtns.forEach((b) => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        if (mode === 'stack') {
+          capContainer.classList.add('cross-stack-mode');
+          updateDeckPositions();
+        } else {
+          capContainer.classList.remove('cross-stack-mode');
+          updateDeckPositions();
+        }
+      });
+    });
+
+    // Touch swipe support (swipe across / left / up)
     let touchStartX = 0;
     let touchStartY = 0;
     if (capContainer) {
@@ -464,17 +489,17 @@ document.addEventListener('DOMContentLoaded', () => {
       }, { passive: true });
 
       capContainer.addEventListener('touchend', (e) => {
-        if (e.changedTouches.length === 1 && window.innerWidth < 768) {
+        if (e.changedTouches.length === 1 && isStackMode()) {
           const deltaX = e.changedTouches[0].clientX - touchStartX;
           const deltaY = e.changedTouches[0].clientY - touchStartY;
-          if (deltaX < -45 || (deltaY < -45 && Math.abs(deltaX) < 60)) {
+          if (deltaX < -40 || (deltaY < -40 && Math.abs(deltaX) < 60)) {
             advanceDeck();
           }
         }
       }, { passive: true });
     }
 
-    // Initialize positions
+    // Initialize cross stack view
     updateDeckPositions();
 
     // Re-evaluate on resize

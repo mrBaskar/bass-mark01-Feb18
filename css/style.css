@@ -2152,6 +2152,197 @@ button {
   color: var(--text-body);
 }
 
+/* =========================================================================
+   CAPABILITIES 3D CROSS STACK VIEW (Interactive Click-to-Reveal Continuous Deck)
+   Cards are stacked with visible criss-cross fanned angles and crosswise dismissal
+   ========================================================================= */
+.deck-mode-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.3rem 0.35rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--glass-border);
+  border-radius: 9999px;
+  margin-top: 1.4rem;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+[data-theme="light"] .deck-mode-toggle {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.mode-toggle-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-family: var(--font-body);
+  font-size: 0.76rem;
+  font-weight: 700;
+  padding: 0.42rem 0.95rem;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.mode-toggle-btn.active {
+  background: var(--amber-gold);
+  color: #040711;
+  box-shadow: 0 0 14px var(--amber-glow);
+}
+
+.mode-toggle-btn:hover:not(.active) {
+  color: var(--text-white);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* Base Cross Stack Mode Container */
+.capabilities-grid.cross-stack-mode {
+  position: relative !important;
+  display: block !important;
+  max-width: 580px !important;
+  width: 100% !important;
+  margin: 1.2rem auto 1.5rem auto !important;
+  padding: 2.4rem 1.6rem 1.8rem 1.6rem !important;
+  min-height: 540px !important;
+  perspective: 1400px !important;
+  overflow: visible !important;
+}
+
+.capabilities-grid.cross-stack-mode .capability-card {
+  position: absolute !important;
+  top: 2.2rem !important;
+  left: 1.6rem !important;
+  width: calc(100% - 3.2rem) !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 2.2rem 1.8rem !important;
+  border-radius: 22px !important;
+  background: var(--bg-card) !important;
+  border: 1px solid var(--glass-border) !important;
+  backdrop-filter: blur(24px) !important;
+  -webkit-backdrop-filter: blur(24px) !important;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.45) !important;
+  transform-origin: center bottom !important;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.35s ease,
+              filter 0.35s ease,
+              box-shadow 0.35s ease,
+              border-color 0.35s ease !important;
+  cursor: pointer !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+  touch-action: manipulation !important;
+}
+
+/* Stack position 0: Front Active Card (Straight at 0deg) */
+.capabilities-grid.cross-stack-mode .capability-card[data-stack-pos="0"] {
+  transform: translate3d(0, 0, 0) rotate(0deg) scale(1) !important;
+  opacity: 1 !important;
+  z-index: 10 !important;
+  pointer-events: auto !important;
+  border-color: var(--amber-gold) !important;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7), 0 0 35px var(--amber-glow) !important;
+  filter: none !important;
+}
+
+/* Stack position 1: Crossed to Right (+5.5deg) - Visibly Sticking Out */
+.capabilities-grid.cross-stack-mode .capability-card[data-stack-pos="1"] {
+  transform: translate3d(18px, -12px, -30px) rotate(5.5deg) scale(0.96) !important;
+  opacity: 0.92 !important;
+  z-index: 9 !important;
+  pointer-events: none !important;
+  border-color: rgba(229, 169, 60, 0.55) !important;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.55), 0 0 20px rgba(229, 169, 60, 0.25) !important;
+  filter: brightness(0.85) !important;
+}
+
+/* Stack position 2: Crossed to Left (-5.5deg) - Visibly Sticking Out */
+.capabilities-grid.cross-stack-mode .capability-card[data-stack-pos="2"] {
+  transform: translate3d(-18px, -24px, -60px) rotate(-5.5deg) scale(0.93) !important;
+  opacity: 0.8 !important;
+  z-index: 8 !important;
+  pointer-events: none !important;
+  border-color: rgba(255, 255, 255, 0.22) !important;
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.5) !important;
+  filter: brightness(0.72) !important;
+}
+
+/* Stack position 3: Crossed to Far Right (+9deg) - Visibly Completing Cross Fan */
+.capabilities-grid.cross-stack-mode .capability-card[data-stack-pos="3"] {
+  transform: translate3d(24px, -36px, -90px) rotate(9deg) scale(0.89) !important;
+  opacity: 0.62 !important;
+  z-index: 7 !important;
+  pointer-events: none !important;
+  border-color: rgba(255, 255, 255, 0.14) !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.45) !important;
+  filter: brightness(0.58) !important;
+}
+
+/* Dismissing Crosswise Slide Animation */
+.capabilities-grid.cross-stack-mode .capability-card.is-dismissing {
+  transform: translate3d(115%, -40px, 60px) rotate(18deg) scale(0.95) !important;
+  opacity: 0 !important;
+  z-index: 20 !important;
+  pointer-events: none !important;
+  transition: transform 0.38s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.32s ease !important;
+}
+
+/* Light Theme Overrides for Cross Stack */
+[data-theme="light"] .capabilities-grid.cross-stack-mode .capability-card {
+  background: rgba(255, 255, 255, 0.94) !important;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08) !important;
+}
+
+[data-theme="light"] .capabilities-grid.cross-stack-mode .capability-card[data-stack-pos="0"] {
+  box-shadow: 0 25px 55px rgba(0, 0, 0, 0.12), 0 0 30px rgba(217, 119, 6, 0.2) !important;
+}
+
+/* Tap Hint Pill on Top Card */
+.capabilities-grid.cross-stack-mode .capability-card[data-stack-pos="0"] .footer-badge {
+  color: var(--amber-gold) !important;
+  letter-spacing: 0.08em !important;
+}
+
+.capabilities-grid.cross-stack-mode .capability-card[data-stack-pos="0"] .footer-arrow {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  animation: bounceArrowNext 1.4s ease-in-out infinite !important;
+  color: var(--amber-gold) !important;
+}
+
+/* Mobile Adjustments for Cross Stack */
+@media (max-width: 767px) {
+  .capabilities-grid.cross-stack-mode {
+    max-width: 100% !important;
+    padding: 2.2rem 1.2rem 1.5rem 1.2rem !important;
+    min-height: 520px !important;
+  }
+
+  .capabilities-grid.cross-stack-mode .capability-card {
+    top: 1.8rem !important;
+    left: 1.2rem !important;
+    width: calc(100% - 2.4rem) !important;
+    padding: 1.5rem 1.25rem !important;
+  }
+
+  .capabilities-grid.cross-stack-mode .capability-card[data-stack-pos="1"] {
+    transform: translate3d(14px, -10px, -30px) rotate(4.8deg) scale(0.96) !important;
+  }
+
+  .capabilities-grid.cross-stack-mode .capability-card[data-stack-pos="2"] {
+    transform: translate3d(-14px, -20px, -60px) rotate(-4.8deg) scale(0.93) !important;
+  }
+
+  .capabilities-grid.cross-stack-mode .capability-card[data-stack-pos="3"] {
+    transform: translate3d(18px, -30px, -90px) rotate(7.5deg) scale(0.89) !important;
+  }
+}
+
+
 /* 4 Capabilities Grid */
 .capabilities-grid {
   display: grid;
@@ -3312,231 +3503,7 @@ button {
     display: none !important;
   }
 
-  /* ------------------------------------------------------------------------
-     1. Capabilities Grid — Interactive 3D Card Stack (Click to reveal continuously)
-     ------------------------------------------------------------------------ */
-  .capabilities-grid {
-    position: relative !important;
-    display: block !important;
-    width: 100% !important;
-    min-height: 480px !important;
-    perspective: 1200px !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    overflow: visible !important;
-  }
-
-  .capabilities-grid .capability-card {
-    position: absolute !important;
-    top: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    margin: 0 !important;
-    padding: 1.55rem 1.35rem !important;
-    border-radius: 20px !important;
-    background: var(--bg-card) !important;
-    border: 1px solid var(--glass-border) !important;
-    backdrop-filter: blur(24px) !important;
-    -webkit-backdrop-filter: blur(24px) !important;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.45) !important;
-    transform-origin: center bottom !important;
-    transition: transform 0.42s cubic-bezier(0.16, 1, 0.3, 1),
-                opacity 0.35s ease,
-                filter 0.35s ease,
-                box-shadow 0.35s ease,
-                border-color 0.35s ease !important;
-    cursor: pointer !important;
-    user-select: none !important;
-    -webkit-user-select: none !important;
-    touch-action: manipulation !important;
-  }
-
-  /* Stack position 0: Front Active Card */
-  .capabilities-grid .capability-card[data-stack-pos="0"] {
-    transform: translateY(0) scale(1) rotate(0deg) !important;
-    opacity: 1 !important;
-    z-index: 10 !important;
-    pointer-events: auto !important;
-    border-color: var(--glass-border-amber) !important;
-    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6), 0 0 25px var(--amber-soft) !important;
-    filter: none !important;
-  }
-
-  /* Stack position 1: First Card Peeking Behind */
-  .capabilities-grid .capability-card[data-stack-pos="1"] {
-    transform: translateY(14px) scale(0.95) rotate(1deg) !important;
-    opacity: 0.78 !important;
-    z-index: 9 !important;
-    pointer-events: none !important;
-    filter: brightness(0.85) !important;
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5) !important;
-  }
-
-  /* Stack position 2: Second Card Behind */
-  .capabilities-grid .capability-card[data-stack-pos="2"] {
-    transform: translateY(28px) scale(0.90) rotate(-1deg) !important;
-    opacity: 0.48 !important;
-    z-index: 8 !important;
-    pointer-events: none !important;
-    filter: brightness(0.7) !important;
-  }
-
-  /* Stack position 3: Back Card */
-  .capabilities-grid .capability-card[data-stack-pos="3"] {
-    transform: translateY(40px) scale(0.85) rotate(0deg) !important;
-    opacity: 0.22 !important;
-    z-index: 7 !important;
-    pointer-events: none !important;
-    filter: brightness(0.55) !important;
-  }
-
-  /* Dismissing Animation when Clicked */
-  .capabilities-grid .capability-card.is-dismissing {
-    transform: translateY(-50px) rotate(-6deg) scale(0.92) !important;
-    opacity: 0 !important;
-    z-index: 15 !important;
-    pointer-events: none !important;
-    transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1),
-                opacity 0.28s ease !important;
-  }
-
-  /* Light Theme Overrides for Stack */
-  [data-theme="light"] .capabilities-grid .capability-card {
-    background: rgba(255, 255, 255, 0.94) !important;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08) !important;
-  }
-
-  [data-theme="light"] .capabilities-grid .capability-card[data-stack-pos="0"] {
-    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.12), 0 0 25px rgba(217, 119, 6, 0.15) !important;
-  }
-
-  /* Tap Hint Pill on Top Card */
-  .capabilities-grid .capability-card[data-stack-pos="0"] .footer-badge {
-    color: var(--amber-gold) !important;
-    letter-spacing: 0.08em !important;
-  }
-
-  .capabilities-grid .capability-card[data-stack-pos="0"] .footer-arrow {
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    animation: bounceArrowNext 1.4s ease-in-out infinite !important;
-    color: var(--amber-gold) !important;
-  }
-
-  @keyframes bounceArrowNext {
-    0%, 100% { transform: translateX(0); }
-    50% { transform: translateX(5px); }
-  }
-
-  /* ------------------------------------------------------------------------
-     Interactive Deck Control Bar (Counter, Progress Bars, Tap Action)
-     ------------------------------------------------------------------------ */
-  .deck-interaction-bar {
-    display: flex !important;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.75rem;
-    padding: 0.65rem 1rem;
-    margin-top: 1rem;
-    margin-bottom: 2rem;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid var(--glass-border);
-    border-radius: 9999px;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    width: 100%;
-    user-select: none;
-  }
-
-  [data-theme="light"] .deck-interaction-bar {
-    background: rgba(0, 0, 0, 0.03);
-  }
-
-  .deck-counter {
-    display: flex;
-    align-items: baseline;
-    gap: 0.2rem;
-    font-family: var(--font-headline);
-    font-weight: 800;
-  }
-
-  .deck-current-num {
-    font-size: 0.95rem;
-    color: var(--amber-gold);
-  }
-
-  .deck-sep {
-    font-size: 0.75rem;
-    color: var(--text-muted);
-  }
-
-  .deck-total-num {
-    font-size: 0.75rem;
-    color: var(--text-muted);
-  }
-
-  .deck-indicators {
-    display: flex;
-    align-items: center;
-    gap: 0.35rem;
-  }
-
-  .deck-bar {
-    width: 12px;
-    height: 5px;
-    border-radius: 9999px;
-    background: rgba(255, 255, 255, 0.2);
-    border: none;
-    padding: 0;
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  [data-theme="light"] .deck-bar {
-    background: rgba(0, 0, 0, 0.15);
-  }
-
-  .deck-bar.active {
-    width: 26px;
-    background: var(--amber-gold);
-    box-shadow: 0 0 10px var(--amber-glow);
-  }
-
-  .deck-tap-action {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35rem;
-    background: rgba(229, 169, 60, 0.12);
-    border: 1px solid var(--glass-border-amber);
-    color: var(--amber-gold);
-    font-family: var(--font-body);
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.04em;
-    padding: 0.35rem 0.75rem;
-    border-radius: 9999px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-
-  .deck-tap-action:active {
-    background: var(--amber-gold);
-    color: #040711;
-    transform: scale(0.96);
-  }
-
-  .deck-action-arrow {
-    font-size: 0.82rem;
-    transition: transform 0.2s ease;
-  }
-
-  .deck-tap-action:hover .deck-action-arrow,
-  .deck-tap-action:active .deck-action-arrow {
-    transform: translateX(3px);
-  }
+  /* Capabilities styles handled globally in cross-stack-mode */
 
   .capability-top {
     margin-bottom: 0.9rem !important;

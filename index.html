@@ -378,10 +378,18 @@
           <p class="capabilities-subtitle">
             Hover or tap each panel to explore capabilities across engineering, visual language, product incubation and strategic business impact.
           </p>
+          <div class="deck-mode-toggle" id="capabilitiesModeToggle" aria-label="Capabilities View Mode">
+            <button class="mode-toggle-btn active" data-mode="stack" aria-label="Cross Stack View">
+              <span>✦ Cross Stack View</span>
+            </button>
+            <button class="mode-toggle-btn" data-mode="grid" aria-label="Grid View">
+              <span>⊞ Full Grid</span>
+            </button>
+          </div>
         </div>
 
         <!-- 4 Interactive Capability Panels Grid -->
-        <div class="capabilities-grid">
+        <div class="capabilities-grid cross-stack-mode">
           
           <!-- Panel 01: Digital Development -->
           <div class="capability-card" data-capability="dev" tabindex="0">
