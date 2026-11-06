@@ -3724,15 +3724,202 @@ button {
     font-size: 0.65rem !important;
   }
 
+  /* =========================================================================
+   PROCESS JOURNEY — COMPACT CONTINUOUS FLOW PIPELINE
+   Horizontal Stepper + Compact Connected Circuit Accordion on Mobile
+   ========================================================================= */
+
+/* Top Horizontal Continuous Flow Stepper Bar */
+.process-flow-stepper-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.4rem;
+  padding: 0.4rem 0.55rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--glass-border);
+  border-radius: 9999px;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  margin-bottom: 1.6rem;
+  width: 100%;
+}
+
+[data-theme="light"] .process-flow-stepper-bar {
+  background: rgba(0, 0, 0, 0.03);
+}
+
+.step-pill-btn {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  padding: 0.42rem 0.6rem;
+  border-radius: 9999px;
+  border: 1px solid transparent;
+  background: transparent;
+  cursor: pointer;
+  color: var(--text-muted);
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 700;
+  transition: all 0.25s ease;
+  user-select: none;
+}
+
+.step-pill-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.22);
+  transition: all 0.25s ease;
+}
+
+[data-theme="light"] .step-pill-dot {
+  background: rgba(0, 0, 0, 0.22);
+}
+
+.step-pill-num {
+  font-family: var(--font-headline);
+  font-weight: 800;
+  font-size: 0.68rem;
+  opacity: 0.7;
+}
+
+.step-pill-btn.active {
+  background: rgba(229, 169, 60, 0.16);
+  border-color: var(--amber-gold);
+  color: var(--amber-bright);
+  box-shadow: 0 0 14px var(--amber-glow);
+}
+
+.step-pill-btn.active .step-pill-dot {
+  background: var(--amber-bright);
+  box-shadow: 0 0 8px var(--amber-bright);
+}
+
+.step-pill-btn.active .step-pill-num {
+  opacity: 1;
+}
+
+/* Stage Card Header & Accordion Structure */
+.stage-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  cursor: pointer;
+  user-select: none;
+}
+
+.stage-header-left {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+}
+
+.stage-header-right {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.stage-status-pill {
+  font-family: var(--font-body);
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  padding: 0.18rem 0.5rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-muted);
+  border: 1px solid transparent;
+  transition: all 0.25s ease;
+}
+
+.process-stage-node.active .stage-status-pill {
+  background: rgba(229, 169, 60, 0.18);
+  color: var(--amber-bright);
+  border-color: rgba(229, 169, 60, 0.4);
+}
+
+.stage-expand-icon {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.process-stage-node.active .stage-expand-icon {
+  transform: rotate(0deg);
+  color: var(--amber-gold);
+}
+
+.process-stage-node:not(.active) .stage-expand-icon {
+  transform: rotate(-90deg);
+}
+
+/* Body & Continuous Continue Button */
+.stage-card-body {
+  overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.3s ease,
+              margin 0.3s ease;
+}
+
+.stage-flow-action {
+  margin-top: 0.85rem;
+  padding-top: 0.65rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+[data-theme="light"] .stage-flow-action {
+  border-top-color: rgba(0, 0, 0, 0.06);
+}
+
+.stage-continue-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: rgba(229, 169, 60, 0.14);
+  border: 1px solid var(--glass-border-amber);
+  color: var(--amber-bright);
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 0.38rem 0.85rem;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.stage-continue-btn:active {
+  background: var(--amber-gold);
+  color: #040711;
+  transform: scale(0.97);
+}
+
+.flow-arrow {
+  font-size: 0.85rem;
+  transition: transform 0.25s ease;
+}
+
+.stage-continue-btn:hover .flow-arrow,
+.stage-continue-btn:active .flow-arrow {
+  transform: translateX(4px);
+}
+
+
   /* ------------------------------------------------------------------------
-     2. Process Journey — Vertical Circuit Architecture
+     2. Process Journey — Ultra-Compact Continuous Flow Pipeline
      ------------------------------------------------------------------------ */
   .process-journey-stage {
     margin-bottom: 3.5rem;
   }
 
   .process-header {
-    margin-bottom: 1.8rem;
+    margin-bottom: 1.4rem;
   }
 
   .process-title {
@@ -3741,7 +3928,7 @@ button {
   }
 
   .process-timeline-wrapper {
-    padding-top: 0.5rem;
+    padding-top: 0.2rem;
     position: relative;
   }
 
@@ -3752,7 +3939,7 @@ button {
   .process-stages-track {
     display: flex !important;
     flex-direction: column !important;
-    gap: 1.35rem !important;
+    gap: 0.65rem !important;
     overflow: visible !important;
     padding: 0 0 0 1.5rem !important;
     margin: 0 !important;
@@ -3760,15 +3947,15 @@ button {
     width: 100% !important;
   }
 
-  /* Vertical glowing connecting circuit line */
+  /* Vertical continuous glowing circuit beam */
   .process-stages-track::before {
     content: '';
     position: absolute;
-    left: 14px;
-    top: 20px;
-    bottom: 30px;
+    left: 13px;
+    top: 14px;
+    bottom: 20px;
     width: 2px;
-    background: linear-gradient(180deg, var(--amber-gold) 0%, rgba(229, 169, 60, 0.4) 60%, rgba(229, 169, 60, 0.05) 100%);
+    background: linear-gradient(180deg, var(--amber-gold) 0%, rgba(229, 169, 60, 0.45) 75%, rgba(229, 169, 60, 0.1) 100%);
     box-shadow: 0 0 10px var(--amber-glow);
     z-index: 1;
   }
@@ -3781,67 +3968,112 @@ button {
     display: flex !important;
     flex-direction: row !important;
     align-items: flex-start !important;
-    gap: 1rem !important;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-                transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    gap: 0.85rem !important;
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    cursor: pointer !important;
   }
 
-  .process-stages-track .process-stage-node.is-visible {
-    opacity: 1 !important;
-    transform: translateY(0) !important;
-  }
-
+  /* Node connector pulse on the vertical circuit line */
   .node-connector-pulse {
     position: absolute !important;
     left: -1.5rem !important;
-    top: 1.2rem !important;
+    top: 0.75rem !important;
     margin: 0 !important;
-    width: 30px !important;
-    height: 30px !important;
+    width: 26px !important;
+    height: 26px !important;
     border-radius: 50% !important;
     background: var(--bg-deep-void) !important;
-    border: 2px solid var(--amber-gold) !important;
-    box-shadow: 0 0 12px var(--amber-glow) !important;
+    border: 2px solid rgba(255, 255, 255, 0.2) !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
     z-index: 3 !important;
+    transition: all 0.3s ease !important;
+  }
+
+  .process-stage-node.active .node-connector-pulse {
+    border-color: var(--amber-gold) !important;
+    box-shadow: 0 0 14px var(--amber-glow) !important;
+    width: 28px !important;
+    height: 28px !important;
+    top: 0.7rem !important;
   }
 
   .pulse-core {
+    width: 6px !important;
+    height: 6px !important;
+    border-radius: 50% !important;
+    background: rgba(255, 255, 255, 0.4) !important;
+    transition: all 0.3s ease !important;
+  }
+
+  .process-stage-node.active .pulse-core {
     width: 8px !important;
     height: 8px !important;
-    border-radius: 50% !important;
     background: var(--amber-bright) !important;
     box-shadow: 0 0 8px var(--amber-bright) !important;
   }
 
+  /* Stage Card Compact Morphing States */
   .stage-card {
-    padding: 1.35rem 1.15rem !important;
-    border-radius: 18px !important;
+    border-radius: 16px !important;
     width: 100% !important;
     background: var(--bg-card) !important;
     border: 1px solid var(--glass-border) !important;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35) !important;
     backdrop-filter: blur(16px) !important;
     -webkit-backdrop-filter: blur(16px) !important;
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  }
+
+  /* Inactive Step: Ultra-Compact 44px Row */
+  .process-stage-node:not(.active) .stage-card {
+    padding: 0.7rem 0.95rem !important;
+    background: rgba(13, 20, 36, 0.55) !important;
+    opacity: 0.78 !important;
+  }
+
+  .process-stage-node:not(.active) .stage-card:active {
+    opacity: 1 !important;
+    border-color: var(--amber-gold) !important;
+  }
+
+  .process-stage-node:not(.active) .stage-card-body {
+    max-height: 0 !important;
+    opacity: 0 !important;
+    margin-top: 0 !important;
+    pointer-events: none !important;
+  }
+
+  /* Active Step: Expanded with Glowing Aura */
+  .process-stage-node.active .stage-card {
+    padding: 1.15rem 1.1rem !important;
+    border-color: var(--amber-gold) !important;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6), 0 0 20px var(--amber-soft) !important;
+    opacity: 1 !important;
+  }
+
+  .process-stage-node.active .stage-card-body {
+    max-height: 250px !important;
+    opacity: 1 !important;
+    margin-top: 0.65rem !important;
   }
 
   .stage-step-num {
-    font-size: 0.68rem !important;
+    font-size: 0.64rem !important;
+    color: var(--amber-gold) !important;
+    font-weight: 800 !important;
   }
 
   .stage-name {
-    font-size: 1.15rem !important;
-    margin-bottom: 0.3rem !important;
+    font-size: 1.1rem !important;
+    margin-bottom: 0 !important;
   }
 
   .stage-quote {
     font-size: 0.8rem !important;
     line-height: 1.45 !important;
-    margin-bottom: 0.75rem !important;
+    margin-bottom: 0.65rem !important;
+    color: var(--text-body) !important;
   }
 
   .stage-details {
@@ -3849,8 +4081,8 @@ button {
   }
 
   .detail-pill {
-    font-size: 0.65rem !important;
-    padding: 0.25rem 0.55rem !important;
+    font-size: 0.64rem !important;
+    padding: 0.22rem 0.52rem !important;
   }
 
   /* ------------------------------------------------------------------------

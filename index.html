@@ -590,6 +590,29 @@
         </div>
 
         <!-- Connected 4-Stage Timeline (Desktop: Horizontal Flow, Mobile: Vertical Spine) -->
+        <!-- Compact Continuous Flow Stepper (Mobile & Desktop) -->
+        <div class="process-flow-stepper-bar" id="processFlowStepper" aria-label="Process Stages Stepper">
+          <button class="step-pill-btn active" data-step="1" aria-label="Stage 1 Imagine">
+            <span class="step-pill-dot"></span>
+            <span class="step-pill-num">01</span>
+            <span class="step-pill-name">Imagine</span>
+          </button>
+          <button class="step-pill-btn" data-step="2" aria-label="Stage 2 Explore">
+            <span class="step-pill-dot"></span>
+            <span class="step-pill-num">02</span>
+            <span class="step-pill-name">Explore</span>
+          </button>
+          <button class="step-pill-btn" data-step="3" aria-label="Stage 3 Create">
+            <span class="step-pill-dot"></span>
+            <span class="step-pill-num">03</span>
+            <span class="step-pill-name">Create</span>
+          </button>
+          <button class="step-pill-btn" data-step="4" aria-label="Stage 4 Transform">
+            <span class="step-pill-dot"></span>
+            <span class="step-pill-num">04</span>
+            <span class="step-pill-name">Transform</span>
+          </button>
+        </div>
         <div class="process-timeline-wrapper">
           <div class="timeline-golden-beam" aria-hidden="true">
             <div class="beam-flow-indicator"></div>
@@ -605,12 +628,28 @@
               </div>
               <div class="stage-card">
                 <div class="stage-card-glow"></div>
-                <span class="stage-step-num">01 / STAGE</span>
-                <h4 class="stage-name">IMAGINE</h4>
-                <p class="stage-quote">"Every meaningful creation starts with curiosity and an idea."</p>
-                <div class="stage-details">
-                  <span class="detail-pill">Questioning Assumptions</span>
-                  <span class="detail-pill">Blue-Sky Vision</span>
+                <div class="stage-card-header">
+                  <div class="stage-header-left">
+                    <span class="stage-step-num">01 / STAGE</span>
+                    <h4 class="stage-name">IMAGINE</h4>
+                  </div>
+                  <div class="stage-header-right">
+                    <span class="stage-status-pill">Active</span>
+                    <span class="stage-expand-icon" aria-hidden="true">▾</span>
+                  </div>
+                </div>
+                <div class="stage-card-body">
+                  <p class="stage-quote">"Every meaningful creation starts with curiosity and an idea."</p>
+                  <div class="stage-details">
+                    <span class="detail-pill">Questioning Assumptions</span>
+                    <span class="detail-pill">Blue-Sky Vision</span>
+                  </div>
+                  <div class="stage-flow-action">
+                    <button class="stage-continue-btn" data-next="2" aria-label="Continue to Stage 02">
+                      <span>Continue to Stage 02</span>
+                      <span class="flow-arrow">&rarr;</span>
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -623,12 +662,28 @@
               </div>
               <div class="stage-card">
                 <div class="stage-card-glow"></div>
-                <span class="stage-step-num">02 / STAGE</span>
-                <h4 class="stage-name">EXPLORE</h4>
-                <p class="stage-quote">"Research possibilities, understand problems and discover opportunities."</p>
-                <div class="stage-details">
-                  <span class="detail-pill">Problem Space Analysis</span>
-                  <span class="detail-pill">Feasibility Mapping</span>
+                <div class="stage-card-header">
+                  <div class="stage-header-left">
+                    <span class="stage-step-num">02 / STAGE</span>
+                    <h4 class="stage-name">EXPLORE</h4>
+                  </div>
+                  <div class="stage-header-right">
+                    <span class="stage-status-pill">Step 02</span>
+                    <span class="stage-expand-icon" aria-hidden="true">▾</span>
+                  </div>
+                </div>
+                <div class="stage-card-body">
+                  <p class="stage-quote">"Research possibilities, understand problems and discover opportunities."</p>
+                  <div class="stage-details">
+                    <span class="detail-pill">Problem Space Analysis</span>
+                    <span class="detail-pill">Feasibility Mapping</span>
+                  </div>
+                  <div class="stage-flow-action">
+                    <button class="stage-continue-btn" data-next="3" aria-label="Continue to Stage 03">
+                      <span>Continue to Stage 03</span>
+                      <span class="flow-arrow">&rarr;</span>
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -641,12 +696,28 @@
               </div>
               <div class="stage-card">
                 <div class="stage-card-glow"></div>
-                <span class="stage-step-num">03 / STAGE</span>
-                <h4 class="stage-name">CREATE</h4>
-                <p class="stage-quote">"Combine creativity, design and technology to bring the idea to life."</p>
-                <div class="stage-details">
-                  <span class="detail-pill">Iterative Development</span>
-                  <span class="detail-pill">High-Fidelity Craft</span>
+                <div class="stage-card-header">
+                  <div class="stage-header-left">
+                    <span class="stage-step-num">03 / STAGE</span>
+                    <h4 class="stage-name">CREATE</h4>
+                  </div>
+                  <div class="stage-header-right">
+                    <span class="stage-status-pill">Step 03</span>
+                    <span class="stage-expand-icon" aria-hidden="true">▾</span>
+                  </div>
+                </div>
+                <div class="stage-card-body">
+                  <p class="stage-quote">"Combine creativity, design and technology to bring the idea to life."</p>
+                  <div class="stage-details">
+                    <span class="detail-pill">Iterative Development</span>
+                    <span class="detail-pill">High-Fidelity Craft</span>
+                  </div>
+                  <div class="stage-flow-action">
+                    <button class="stage-continue-btn" data-next="4" aria-label="Continue to Stage 04">
+                      <span>Continue to Stage 04</span>
+                      <span class="flow-arrow">&rarr;</span>
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -659,12 +730,28 @@
               </div>
               <div class="stage-card">
                 <div class="stage-card-glow"></div>
-                <span class="stage-step-num">04 / STAGE</span>
-                <h4 class="stage-name">TRANSFORM</h4>
-                <p class="stage-quote">"Turn the result into something useful, meaningful and valuable."</p>
-                <div class="stage-details">
-                  <span class="detail-pill">Real-World Deployment</span>
-                  <span class="detail-pill">Measurable Impact</span>
+                <div class="stage-card-header">
+                  <div class="stage-header-left">
+                    <span class="stage-step-num">04 / STAGE</span>
+                    <h4 class="stage-name">TRANSFORM</h4>
+                  </div>
+                  <div class="stage-header-right">
+                    <span class="stage-status-pill">Step 04</span>
+                    <span class="stage-expand-icon" aria-hidden="true">▾</span>
+                  </div>
+                </div>
+                <div class="stage-card-body">
+                  <p class="stage-quote">"Turn the result into something useful, meaningful and valuable."</p>
+                  <div class="stage-details">
+                    <span class="detail-pill">Real-World Deployment</span>
+                    <span class="detail-pill">Measurable Impact</span>
+                  </div>
+                  <div class="stage-flow-action">
+                    <button class="stage-continue-btn" data-next="1" aria-label="Loop to Stage 01">
+                      <span>Loop to Stage 01</span>
+                      <span class="flow-arrow">&circlearrowright;</span>
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>

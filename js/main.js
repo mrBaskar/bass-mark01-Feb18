@@ -264,19 +264,62 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Intersection Observer for Process Timeline Stages
+  // =========================================================================
+  // Process Pipeline — Compact Continuous Flow Controller
+  // =========================================================================
   const stageNodes = document.querySelectorAll('.process-stage-node');
-  if ('IntersectionObserver' in window && stageNodes.length > 0) {
-    const stageObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('active');
-        }
-      });
-    }, { threshold: 0.35 });
+  const stepPillBtns = document.querySelectorAll('.step-pill-btn');
+  const stageContinueBtns = document.querySelectorAll('.stage-continue-btn');
 
-    stageNodes.forEach((node) => stageObserver.observe(node));
+  function setActiveProcessStage(stageNum) {
+    stageNodes.forEach((node) => {
+      const isCurrent = node.getAttribute('data-stage') === String(stageNum);
+      node.classList.toggle('active', isCurrent);
+
+      const statusPill = node.querySelector('.stage-status-pill');
+      if (statusPill) {
+        statusPill.textContent = isCurrent ? 'Active' : `Step 0${node.getAttribute('data-stage')}`;
+      }
+    });
+
+    stepPillBtns.forEach((btn) => {
+      btn.classList.toggle('active', btn.getAttribute('data-step') === String(stageNum));
+    });
   }
+
+  // Click on stage node / header to expand and focus
+  stageNodes.forEach((node) => {
+    const header = node.querySelector('.stage-card-header') || node;
+    header.addEventListener('click', () => {
+      const stage = node.getAttribute('data-stage');
+      setActiveProcessStage(stage);
+    });
+  });
+
+  // Click on top horizontal stepper pills
+  stepPillBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const step = btn.getAttribute('data-step');
+      setActiveProcessStage(step);
+    });
+  });
+
+  // Click on "Continue to Stage..." flow button
+  stageContinueBtns.forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const nextStage = btn.getAttribute('data-next');
+      setActiveProcessStage(nextStage);
+
+      if (window.innerWidth < 768) {
+        const targetNode = document.querySelector(`.process-stage-node[data-stage="${nextStage}"]`);
+        if (targetNode) {
+          targetNode.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+      }
+    });
+  });
+
 
   // 3D Perspective Tilt on Capability & Tool Cards (Desktop Only)
   if (!isTouchDevice && !prefersReducedMotion) {
