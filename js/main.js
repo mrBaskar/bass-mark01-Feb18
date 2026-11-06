@@ -386,7 +386,7 @@ document.addEventListener('DOMContentLoaded', () => {
         requestAnimationFrame(() => {
           const height = activeCard.offsetHeight;
           if (height > 0) {
-            capContainer.style.minHeight = (height + 70) + 'px';
+            capContainer.style.minHeight = (height + 110) + 'px';
           }
         });
       }
@@ -421,7 +421,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (nextCard && capContainer) {
         const height = nextCard.offsetHeight;
         if (height > 0) {
-          capContainer.style.minHeight = (height + 70) + 'px';
+          capContainer.style.minHeight = (height + 110) + 'px';
         }
       }
 
