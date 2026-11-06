@@ -335,17 +335,16 @@ document.addEventListener('DOMContentLoaded', () => {
       updateActiveProcessStage(closestStage);
     }
 
-    // Dynamic beam fill tracking on mobile: smoothly reaches through the active stage node
+    // Dynamic white line tracking: continuously animates and fluidly follows the viewport scroll view
     if (processTrack && processBeamFill) {
-      const activeStageNode = document.querySelector(`.process-stage-node[data-stage="${closestStage}"]`);
-      if (activeStageNode) {
-        const pulse = activeStageNode.querySelector('.node-connector-pulse');
-        const nodeY = activeStageNode.offsetTop + (pulse ? pulse.offsetTop + pulse.offsetHeight / 2 : 25);
-        const totalHeight = processTrack.offsetHeight;
-        if (totalHeight > 0) {
-          const fillRatio = Math.min(1, Math.max(0.18, nodeY / totalHeight));
-          processBeamFill.style.height = `${(fillRatio * 100).toFixed(1)}%`;
-        }
+      const trackRect = processTrack.getBoundingClientRect();
+      const trackHeight = trackRect.height;
+      if (trackHeight > 0) {
+        // Distance from track top to viewport focal point
+        const scrolledInside = viewportFocal - trackRect.top;
+        const rawProgress = scrolledInside / (trackHeight - 35);
+        const progressPercent = Math.max(3, Math.min(100, rawProgress * 100));
+        processBeamFill.style.height = `${progressPercent.toFixed(1)}%`;
       }
     }
   }

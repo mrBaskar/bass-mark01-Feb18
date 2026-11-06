@@ -4101,7 +4101,7 @@ button {
     box-shadow: 0 0 10px rgba(229, 169, 60, 0.45), 0 0 20px rgba(229, 169, 60, 0.2) !important;
     border-radius: 9999px !important;
     z-index: 1 !important;
-    overflow: hidden !important;
+    overflow: visible !important;
   }
 
   [data-theme="light"] .process-vertical-beam {
@@ -4115,23 +4115,53 @@ button {
     box-shadow: 0 0 8px rgba(217, 119, 6, 0.25) !important;
   }
 
-  /* Active Traveling Energy Pulse along the Continuous Spine */
+  /* Active Traveling White Energy Head & Beam that Follows the View on Scroll */
   .beam-progress-fill {
     position: absolute !important;
     top: 0 !important;
     left: -1px !important;
     width: 4px !important;
-    height: 25% !important;
+    height: 15% !important;
     background: linear-gradient(
       180deg,
-      var(--amber-gold) 0%,
-      var(--amber-bright) 70%,
-      #FFFFFF 92%,
+      rgba(229, 169, 60, 0.45) 0%,
+      var(--amber-gold) 40%,
+      var(--amber-bright) 75%,
+      #FFFFFF 95%,
       var(--amber-bright) 100%
     ) !important;
     box-shadow: 0 0 16px var(--amber-bright), 0 0 28px var(--amber-gold) !important;
     border-radius: 9999px !important;
-    transition: height 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    transition: height 0.08s ease-out !important;
+    will-change: height;
+  }
+
+  /* Animated Glowing White Pulse Bead at Leading Edge Following View */
+  .beam-progress-fill::after {
+    content: '' !important;
+    position: absolute !important;
+    bottom: -4px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: 10px !important;
+    height: 10px !important;
+    border-radius: 50% !important;
+    background: #FFFFFF !important;
+    box-shadow: 0 0 10px #FFFFFF, 0 0 22px #FFFFFF, 0 0 35px var(--amber-bright), 0 0 50px var(--amber-gold) !important;
+    animation: whiteBeadPulse 1.2s ease-in-out infinite alternate !important;
+    z-index: 5 !important;
+    pointer-events: none !important;
+  }
+
+  @keyframes whiteBeadPulse {
+    0% {
+      transform: translateX(-50%) scale(0.85);
+      box-shadow: 0 0 8px #FFFFFF, 0 0 16px #FFFFFF, 0 0 28px var(--amber-bright);
+    }
+    100% {
+      transform: translateX(-50%) scale(1.35);
+      box-shadow: 0 0 14px #FFFFFF, 0 0 26px #FFFFFF, 0 0 42px var(--amber-bright), 0 0 60px var(--amber-gold);
+    }
   }
 
   /* Trendy Scroll-to-Reveal Transition for Process Nodes */
