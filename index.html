@@ -509,15 +509,23 @@
 
         </div>
 
-        <!-- Mobile Carousel Navigation -->
-        <div class="mobile-carousel-nav" data-target="capabilities-grid" aria-hidden="true">
-          <span class="carousel-swipe-hint">⇄ Swipe to explore</span>
-          <div class="carousel-dots">
-            <button class="c-dot active" aria-label="Capability 1"></button>
-            <button class="c-dot" aria-label="Capability 2"></button>
-            <button class="c-dot" aria-label="Capability 3"></button>
-            <button class="c-dot" aria-label="Capability 4"></button>
+        <!-- Card Deck Interactive Bar (Reveals one by one continuously on click) -->
+        <div class="deck-interaction-bar" id="capabilitiesDeckBar" aria-label="Card deck controls">
+          <div class="deck-counter">
+            <span class="deck-current-num" id="deckCurrentNum">01</span>
+            <span class="deck-sep">/</span>
+            <span class="deck-total-num">04</span>
           </div>
+          <div class="deck-indicators" id="deckIndicators">
+            <button class="deck-bar active" data-index="0" aria-label="Card 1"></button>
+            <button class="deck-bar" data-index="1" aria-label="Card 2"></button>
+            <button class="deck-bar" data-index="2" aria-label="Card 3"></button>
+            <button class="deck-bar" data-index="3" aria-label="Card 4"></button>
+          </div>
+          <button class="deck-tap-action" id="deckNextBtn" aria-label="Reveal next card">
+            <span>Tap Card to Reveal</span>
+            <span class="deck-action-arrow">&rarr;</span>
+          </button>
         </div>
       </div>
 
@@ -617,17 +625,6 @@
               </div>
             </div>
 
-          </div>
-
-          <!-- Mobile Carousel Navigation -->
-          <div class="mobile-carousel-nav" data-target="process-stages-track" aria-hidden="true">
-            <span class="carousel-swipe-hint">⇄ Swipe journey</span>
-            <div class="carousel-dots">
-              <button class="c-dot active" aria-label="Stage 1"></button>
-              <button class="c-dot" aria-label="Stage 2"></button>
-              <button class="c-dot" aria-label="Stage 3"></button>
-              <button class="c-dot" aria-label="Stage 4"></button>
-            </div>
           </div>
         </div>
       </div>
@@ -845,21 +842,6 @@
 
         </div>
 
-        <!-- Mobile Carousel Navigation -->
-        <div class="mobile-carousel-nav" data-target="tech-badges-grid" aria-hidden="true">
-          <span class="carousel-swipe-hint">⇄ Swipe technologies</span>
-          <div class="carousel-dots">
-            <button class="c-dot active" aria-label="Tech 1"></button>
-            <button class="c-dot" aria-label="Tech 2"></button>
-            <button class="c-dot" aria-label="Tech 3"></button>
-            <button class="c-dot" aria-label="Tech 4"></button>
-            <button class="c-dot" aria-label="Tech 5"></button>
-            <button class="c-dot" aria-label="Tech 6"></button>
-            <button class="c-dot" aria-label="Tech 7"></button>
-            <button class="c-dot" aria-label="Tech 8"></button>
-          </div>
-        </div>
-
         <!-- Dedicated AI & Intelligent Tools Suite Tier -->
         <div class="ai-tools-suite-block">
           <div class="ai-suite-header">
@@ -964,17 +946,6 @@
 
           </div>
 
-          <!-- Mobile Carousel Navigation -->
-          <div class="mobile-carousel-nav" data-target="ai-tools-grid" aria-hidden="true">
-            <span class="carousel-swipe-hint">⇄ Swipe AI tools</span>
-            <div class="carousel-dots">
-              <button class="c-dot active" aria-label="AI Tool 1"></button>
-              <button class="c-dot" aria-label="AI Tool 2"></button>
-              <button class="c-dot" aria-label="AI Tool 3"></button>
-              <button class="c-dot" aria-label="AI Tool 4"></button>
-            </div>
-          </div>
-
           <!-- AI Production Workflow & Practical Engineering Architecture -->
           <div class="ai-workflow-showcase">
             <div class="ai-workflow-header">
@@ -1008,17 +979,6 @@
                 <div class="step-num">04</div>
                 <h5 class="step-title">Human Verification</h5>
                 <p class="step-desc">Every line of code and architectural decision is reviewed, hardened, and verified for real-world enterprise deployment.</p>
-              </div>
-            </div>
-
-            <!-- Mobile Carousel Navigation -->
-            <div class="mobile-carousel-nav" data-target="ai-workflow-steps" aria-hidden="true">
-              <span class="carousel-swipe-hint">⇄ Swipe engineering workflow</span>
-              <div class="carousel-dots">
-                <button class="c-dot active" aria-label="Step 1"></button>
-                <button class="c-dot" aria-label="Step 2"></button>
-                <button class="c-dot" aria-label="Step 3"></button>
-                <button class="c-dot" aria-label="Step 4"></button>
               </div>
             </div>
 

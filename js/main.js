@@ -297,52 +297,193 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Mobile Touch Carousel Controller
-  const carouselNavs = document.querySelectorAll('.mobile-carousel-nav');
-  carouselNavs.forEach((nav) => {
-    const targetClass = nav.getAttribute('data-target');
-    const container = document.querySelector(`.${targetClass}`);
-    if (!container) return;
+  // In-Page Scroll-Reveal Observer for Mobile & Desktop Bento Cards
+  const revealCards = document.querySelectorAll(
+    '.capability-card, .process-stage-node, .tech-badge-card, .ai-tool-card, .ai-step-card'
+  );
 
-    const cards = container.children;
-    const dots = nav.querySelectorAll('.c-dot');
+  if ('IntersectionObserver' in window && revealCards.length > 0) {
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          // Once revealed, unobserve to free resources
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -40px 0px'
+    });
 
-    dots.forEach((dot, index) => {
-      dot.addEventListener('click', () => {
-        if (cards[index]) {
-          cards[index].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    revealCards.forEach((card) => revealObserver.observe(card));
+  } else {
+    // Fallback if IntersectionObserver is not supported
+    revealCards.forEach((card) => card.classList.add('is-visible'));
+  }
+
+  // Mobile Touch Micro-Interactions on Tech Cards
+  const techCards = document.querySelectorAll('.tech-badge-card');
+  techCards.forEach((card) => {
+    card.addEventListener('touchstart', () => {
+      card.classList.add('touch-active');
+    }, { passive: true });
+
+    card.addEventListener('touchend', () => {
+      setTimeout(() => card.classList.remove('touch-active'), 300);
+    }, { passive: true });
+  });
+
+  // =========================================================================
+  // Section 02: Interactive Continuous Card Deck Controller for Capabilities
+  // Click/Tap reveals cards one by one in an infinite continuous cycle
+  // =========================================================================
+  const capContainer = document.querySelector('.capabilities-grid');
+  const capCards = capContainer ? Array.from(capContainer.querySelectorAll('.capability-card')) : [];
+  const deckCurrentNum = document.getElementById('deckCurrentNum');
+  const deckBars = document.querySelectorAll('.deck-bar');
+  const deckNextBtn = document.getElementById('deckNextBtn');
+
+  if (capCards.length > 0) {
+    let activeIndex = 0;
+    let isTransitioning = false;
+
+    function updateDeckPositions() {
+      const isMobile = window.innerWidth < 768;
+      if (!isMobile) {
+        capCards.forEach((card) => {
+          card.removeAttribute('data-stack-pos');
+          card.classList.remove('is-dismissing');
+        });
+        if (capContainer) capContainer.style.minHeight = '';
+        return;
+      }
+
+      capCards.forEach((card, idx) => {
+        // Calculate relative offset from activeIndex (0 = front, 1, 2, 3 = behind)
+        const relPos = (idx - activeIndex + capCards.length) % capCards.length;
+        card.setAttribute('data-stack-pos', relPos.toString());
+      });
+
+      if (deckCurrentNum) {
+        deckCurrentNum.textContent = String(activeIndex + 1).padStart(2, '0');
+      }
+      deckBars.forEach((bar, idx) => {
+        bar.classList.toggle('active', idx === activeIndex);
+      });
+
+      // Adjust container height to match active card
+      const activeCard = capCards[activeIndex];
+      if (activeCard && capContainer) {
+        requestAnimationFrame(() => {
+          const height = activeCard.offsetHeight;
+          if (height > 0) {
+            capContainer.style.minHeight = (height + 36) + 'px';
+          }
+        });
+      }
+    }
+
+    function advanceDeck() {
+      if (isTransitioning || window.innerWidth >= 768) return;
+      isTransitioning = true;
+
+      const currentCard = capCards[activeIndex];
+      currentCard.classList.add('is-dismissing');
+
+      // Continuous infinite loop: 0 -> 1 -> 2 -> 3 -> 0 ...
+      activeIndex = (activeIndex + 1) % capCards.length;
+
+      // Bring behind cards forward
+      capCards.forEach((card, idx) => {
+        if (card !== currentCard) {
+          const relPos = (idx - activeIndex + capCards.length) % capCards.length;
+          card.setAttribute('data-stack-pos', relPos.toString());
+        }
+      });
+
+      if (deckCurrentNum) {
+        deckCurrentNum.textContent = String(activeIndex + 1).padStart(2, '0');
+      }
+      deckBars.forEach((bar, idx) => {
+        bar.classList.toggle('active', idx === activeIndex);
+      });
+
+      const nextCard = capCards[activeIndex];
+      if (nextCard && capContainer) {
+        const height = nextCard.offsetHeight;
+        if (height > 0) {
+          capContainer.style.minHeight = (height + 36) + 'px';
+        }
+      }
+
+      setTimeout(() => {
+        currentCard.classList.remove('is-dismissing');
+        currentCard.setAttribute('data-stack-pos', String(capCards.length - 1));
+        isTransitioning = false;
+      }, 340);
+    }
+
+    // Click/tap on active card reveals the next one
+    capCards.forEach((card) => {
+      card.addEventListener('click', () => {
+        if (window.innerWidth < 768 && card.getAttribute('data-stack-pos') === '0') {
+          advanceDeck();
         }
       });
     });
 
-    let isTicking = false;
-    container.addEventListener('scroll', () => {
-      if (!isTicking) {
-        requestAnimationFrame(() => {
-          const containerLeft = container.getBoundingClientRect().left;
-          const containerCenter = containerLeft + container.offsetWidth / 2;
-          let closestIndex = 0;
-          let minDistance = Infinity;
+    // Tap action button listener
+    if (deckNextBtn) {
+      deckNextBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        advanceDeck();
+      });
+    }
 
-          Array.from(cards).forEach((card, idx) => {
-            const cardRect = card.getBoundingClientRect();
-            const cardCenter = cardRect.left + cardRect.width / 2;
-            const distance = Math.abs(containerCenter - cardCenter);
-            if (distance < minDistance) {
-              minDistance = distance;
-              closestIndex = idx;
-            }
-          });
+    // Indicator bars click listener
+    deckBars.forEach((bar, idx) => {
+      bar.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (window.innerWidth < 768 && idx !== activeIndex && !isTransitioning) {
+          activeIndex = idx;
+          updateDeckPositions();
+        }
+      });
+    });
 
-          dots.forEach((dot, idx) => {
-            dot.classList.toggle('active', idx === closestIndex);
-          });
-          isTicking = false;
-        });
-        isTicking = true;
-      }
-    }, { passive: true });
-  });
+    // Touch swipe support (swipe left or swipe up advances card)
+    let touchStartX = 0;
+    let touchStartY = 0;
+    if (capContainer) {
+      capContainer.addEventListener('touchstart', (e) => {
+        if (e.touches.length === 1) {
+          touchStartX = e.touches[0].clientX;
+          touchStartY = e.touches[0].clientY;
+        }
+      }, { passive: true });
+
+      capContainer.addEventListener('touchend', (e) => {
+        if (e.changedTouches.length === 1 && window.innerWidth < 768) {
+          const deltaX = e.changedTouches[0].clientX - touchStartX;
+          const deltaY = e.changedTouches[0].clientY - touchStartY;
+          if (deltaX < -45 || (deltaY < -45 && Math.abs(deltaX) < 60)) {
+            advanceDeck();
+          }
+        }
+      }, { passive: true });
+    }
+
+    // Initialize positions
+    updateDeckPositions();
+
+    // Re-evaluate on resize
+    let deckResizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(deckResizeTimer);
+      deckResizeTimer = setTimeout(updateDeckPositions, 150);
+    });
+  }
 
   // Escape key handler
   window.addEventListener('keydown', (e) => {

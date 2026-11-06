@@ -3124,6 +3124,10 @@ button {
   display: none;
 }
 
+.deck-interaction-bar {
+  display: none;
+}
+
 /* ==========================================================================
    RESPONSIVE DESIGN — SECTION 02 & SECTION 03
    Tablets (768px - 1199px) & Mobile Devices (< 768px)
@@ -3299,157 +3303,280 @@ button {
   }
 
   /* ========================================================================
-     MOBILE TOUCH CAROUSELS (Compact Desktop-Level Experience)
+     MOBILE IN-PAGE MODERN EXPERIENCE (No Carousels — Responsive Bento & Vertical Streams)
+     Trending Micro-Interactions, Cyber Accent Shimmer, and Living Glow Animations
      ======================================================================== */
-  .capabilities-grid,
-  .process-stages-track,
-  .tech-badges-grid,
-  .ai-tools-grid,
-  .ai-workflow-steps {
-    display: flex !important;
-    flex-direction: row !important;
-    overflow-x: auto !important;
-    overflow-y: hidden !important;
-    scroll-snap-type: x mandatory !important;
-    -webkit-overflow-scrolling: touch !important;
-    gap: 0.9rem !important;
-    padding: 0.4rem 1.15rem 0.8rem 1.15rem !important;
-    margin-left: -1.15rem !important;
-    margin-right: -1.15rem !important;
-    scrollbar-width: none !important;
-    scroll-behavior: smooth !important;
-  }
 
-  .capabilities-grid::-webkit-scrollbar,
-  .process-stages-track::-webkit-scrollbar,
-  .tech-badges-grid::-webkit-scrollbar,
-  .ai-tools-grid::-webkit-scrollbar,
-  .ai-workflow-steps::-webkit-scrollbar {
+  /* Hide any legacy carousel navigation elements */
+  .mobile-carousel-nav {
     display: none !important;
   }
 
-  /* Carousel Navigation Pills & Dots */
-  .mobile-carousel-nav {
-    display: flex;
-    flex-direction: column;
+  /* ------------------------------------------------------------------------
+     1. Capabilities Grid — Interactive 3D Card Stack (Click to reveal continuously)
+     ------------------------------------------------------------------------ */
+  .capabilities-grid {
+    position: relative !important;
+    display: block !important;
+    width: 100% !important;
+    min-height: 480px !important;
+    perspective: 1200px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: visible !important;
+  }
+
+  .capabilities-grid .capability-card {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 1.55rem 1.35rem !important;
+    border-radius: 20px !important;
+    background: var(--bg-card) !important;
+    border: 1px solid var(--glass-border) !important;
+    backdrop-filter: blur(24px) !important;
+    -webkit-backdrop-filter: blur(24px) !important;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.45) !important;
+    transform-origin: center bottom !important;
+    transition: transform 0.42s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.35s ease,
+                filter 0.35s ease,
+                box-shadow 0.35s ease,
+                border-color 0.35s ease !important;
+    cursor: pointer !important;
+    user-select: none !important;
+    -webkit-user-select: none !important;
+    touch-action: manipulation !important;
+  }
+
+  /* Stack position 0: Front Active Card */
+  .capabilities-grid .capability-card[data-stack-pos="0"] {
+    transform: translateY(0) scale(1) rotate(0deg) !important;
+    opacity: 1 !important;
+    z-index: 10 !important;
+    pointer-events: auto !important;
+    border-color: var(--glass-border-amber) !important;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6), 0 0 25px var(--amber-soft) !important;
+    filter: none !important;
+  }
+
+  /* Stack position 1: First Card Peeking Behind */
+  .capabilities-grid .capability-card[data-stack-pos="1"] {
+    transform: translateY(14px) scale(0.95) rotate(1deg) !important;
+    opacity: 0.78 !important;
+    z-index: 9 !important;
+    pointer-events: none !important;
+    filter: brightness(0.85) !important;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5) !important;
+  }
+
+  /* Stack position 2: Second Card Behind */
+  .capabilities-grid .capability-card[data-stack-pos="2"] {
+    transform: translateY(28px) scale(0.90) rotate(-1deg) !important;
+    opacity: 0.48 !important;
+    z-index: 8 !important;
+    pointer-events: none !important;
+    filter: brightness(0.7) !important;
+  }
+
+  /* Stack position 3: Back Card */
+  .capabilities-grid .capability-card[data-stack-pos="3"] {
+    transform: translateY(40px) scale(0.85) rotate(0deg) !important;
+    opacity: 0.22 !important;
+    z-index: 7 !important;
+    pointer-events: none !important;
+    filter: brightness(0.55) !important;
+  }
+
+  /* Dismissing Animation when Clicked */
+  .capabilities-grid .capability-card.is-dismissing {
+    transform: translateY(-50px) rotate(-6deg) scale(0.92) !important;
+    opacity: 0 !important;
+    z-index: 15 !important;
+    pointer-events: none !important;
+    transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.28s ease !important;
+  }
+
+  /* Light Theme Overrides for Stack */
+  [data-theme="light"] .capabilities-grid .capability-card {
+    background: rgba(255, 255, 255, 0.94) !important;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08) !important;
+  }
+
+  [data-theme="light"] .capabilities-grid .capability-card[data-stack-pos="0"] {
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.12), 0 0 25px rgba(217, 119, 6, 0.15) !important;
+  }
+
+  /* Tap Hint Pill on Top Card */
+  .capabilities-grid .capability-card[data-stack-pos="0"] .footer-badge {
+    color: var(--amber-gold) !important;
+    letter-spacing: 0.08em !important;
+  }
+
+  .capabilities-grid .capability-card[data-stack-pos="0"] .footer-arrow {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    animation: bounceArrowNext 1.4s ease-in-out infinite !important;
+    color: var(--amber-gold) !important;
+  }
+
+  @keyframes bounceArrowNext {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(5px); }
+  }
+
+  /* ------------------------------------------------------------------------
+     Interactive Deck Control Bar (Counter, Progress Bars, Tap Action)
+     ------------------------------------------------------------------------ */
+  .deck-interaction-bar {
+    display: flex !important;
     align-items: center;
-    gap: 0.45rem;
-    margin-top: 0.4rem;
-    margin-bottom: 1.5rem;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.65rem 1rem;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--glass-border);
+    border-radius: 9999px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     width: 100%;
     user-select: none;
   }
 
-  .carousel-swipe-hint {
-    font-family: var(--font-body);
-    font-size: 0.68rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
+  [data-theme="light"] .deck-interaction-bar {
+    background: rgba(0, 0, 0, 0.03);
+  }
+
+  .deck-counter {
+    display: flex;
+    align-items: baseline;
+    gap: 0.2rem;
+    font-family: var(--font-headline);
+    font-weight: 800;
+  }
+
+  .deck-current-num {
+    font-size: 0.95rem;
     color: var(--amber-gold);
-    text-transform: uppercase;
+  }
+
+  .deck-sep {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+
+  .deck-total-num {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+
+  .deck-indicators {
     display: flex;
     align-items: center;
     gap: 0.35rem;
-    opacity: 0.9;
   }
 
-  .carousel-dots {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.45rem;
-  }
-
-  .c-dot {
-    width: 7px;
-    height: 7px;
+  .deck-bar {
+    width: 12px;
+    height: 5px;
     border-radius: 9999px;
-    background: rgba(255, 255, 255, 0.22);
+    background: rgba(255, 255, 255, 0.2);
     border: none;
     padding: 0;
     cursor: pointer;
-    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
-  [data-theme="light"] .c-dot {
-    background: rgba(0, 0, 0, 0.22);
+  [data-theme="light"] .deck-bar {
+    background: rgba(0, 0, 0, 0.15);
   }
 
-  .c-dot.active {
-    width: 22px;
+  .deck-bar.active {
+    width: 26px;
     background: var(--amber-gold);
     box-shadow: 0 0 10px var(--amber-glow);
   }
 
-  /* 1. Capabilities Carousel Cards */
-  .capabilities-section {
-    margin-bottom: 3.5rem;
+  .deck-tap-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    background: rgba(229, 169, 60, 0.12);
+    border: 1px solid var(--glass-border-amber);
+    color: var(--amber-gold);
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    padding: 0.35rem 0.75rem;
+    border-radius: 9999px;
+    cursor: pointer;
+    transition: all 0.2s ease;
   }
 
-  .capabilities-header {
-    margin-bottom: 1.8rem;
+  .deck-tap-action:active {
+    background: var(--amber-gold);
+    color: #040711;
+    transform: scale(0.96);
   }
 
-  .capabilities-title {
-    font-size: 1.65rem;
-    line-height: 1.15;
-    margin-bottom: 0.6rem;
+  .deck-action-arrow {
+    font-size: 0.82rem;
+    transition: transform 0.2s ease;
   }
 
-  .capabilities-subtitle {
-    font-size: 0.88rem;
-    line-height: 1.5;
-  }
-
-  .capabilities-grid .capability-card {
-    flex: 0 0 85% !important;
-    max-width: 85% !important;
-    scroll-snap-align: center !important;
-    scroll-snap-stop: always !important;
-    padding: 1.5rem 1.3rem !important;
-    border-radius: 20px !important;
-    margin-bottom: 0 !important;
+  .deck-tap-action:hover .deck-action-arrow,
+  .deck-tap-action:active .deck-action-arrow {
+    transform: translateX(3px);
   }
 
   .capability-top {
-    margin-bottom: 1rem !important;
+    margin-bottom: 0.9rem !important;
   }
 
   .capability-num {
-    font-size: 2rem !important;
+    font-size: 1.85rem !important;
   }
 
   .capability-glyph {
-    width: 40px !important;
-    height: 40px !important;
-    font-size: 0.9rem !important;
+    width: 38px !important;
+    height: 38px !important;
+    font-size: 0.85rem !important;
   }
 
   .capability-name {
-    font-size: 1.25rem !important;
-    margin-bottom: 0.35rem !important;
+    font-size: 1.2rem !important;
+    margin-bottom: 0.3rem !important;
   }
 
   .capability-tagline {
-    font-size: 0.84rem !important;
-    margin-bottom: 0.85rem !important;
+    font-size: 0.82rem !important;
+    margin-bottom: 0.8rem !important;
   }
 
   .capability-features-list {
-    gap: 0.45rem !important;
-    margin-bottom: 0.95rem !important;
+    gap: 0.4rem !important;
+    margin-bottom: 0.85rem !important;
   }
 
   .capability-features-list li {
-    font-size: 0.8rem !important;
+    font-size: 0.78rem !important;
     line-height: 1.4 !important;
   }
 
   .capability-extra-detail {
     max-height: 160px !important;
     opacity: 1 !important;
-    margin-bottom: 0.85rem !important;
-    padding-top: 0.75rem !important;
+    margin-bottom: 0.8rem !important;
+    padding-top: 0.7rem !important;
   }
 
   .capability-extra-detail p {
@@ -3458,14 +3585,16 @@ button {
   }
 
   .capability-card-footer {
-    padding-top: 0.75rem !important;
+    padding-top: 0.7rem !important;
   }
 
   .footer-badge {
     font-size: 0.65rem !important;
   }
 
-  /* 2. Process Journey Carousel */
+  /* ------------------------------------------------------------------------
+     2. Process Journey — Vertical Circuit Architecture
+     ------------------------------------------------------------------------ */
   .process-journey-stage {
     margin-bottom: 3.5rem;
   }
@@ -3480,39 +3609,92 @@ button {
   }
 
   .process-timeline-wrapper {
-    padding-top: 0;
+    padding-top: 0.5rem;
+    position: relative;
   }
 
   .timeline-golden-beam {
     display: none !important;
   }
 
-  .process-stages-track .process-stage-node {
-    flex: 0 0 85% !important;
-    max-width: 85% !important;
-    scroll-snap-align: center !important;
-    scroll-snap-stop: always !important;
-    padding: 0 !important;
+  .process-stages-track {
     display: flex !important;
     flex-direction: column !important;
+    gap: 1.35rem !important;
+    overflow: visible !important;
+    padding: 0 0 0 1.5rem !important;
+    margin: 0 !important;
+    position: relative !important;
+    width: 100% !important;
+  }
+
+  /* Vertical glowing connecting circuit line */
+  .process-stages-track::before {
+    content: '';
+    position: absolute;
+    left: 14px;
+    top: 20px;
+    bottom: 30px;
+    width: 2px;
+    background: linear-gradient(180deg, var(--amber-gold) 0%, rgba(229, 169, 60, 0.4) 60%, rgba(229, 169, 60, 0.05) 100%);
+    box-shadow: 0 0 10px var(--amber-glow);
+    z-index: 1;
+  }
+
+  .process-stages-track .process-stage-node {
+    position: relative !important;
+    flex: unset !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: flex-start !important;
+    gap: 1rem !important;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .process-stages-track .process-stage-node.is-visible {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
   }
 
   .node-connector-pulse {
-    position: static !important;
-    margin: 0 0 0.65rem 0 !important;
-    width: 28px !important;
-    height: 28px !important;
+    position: absolute !important;
+    left: -1.5rem !important;
+    top: 1.2rem !important;
+    margin: 0 !important;
+    width: 30px !important;
+    height: 30px !important;
+    border-radius: 50% !important;
+    background: var(--bg-deep-void) !important;
+    border: 2px solid var(--amber-gold) !important;
+    box-shadow: 0 0 12px var(--amber-glow) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    z-index: 3 !important;
   }
 
   .pulse-core {
     width: 8px !important;
     height: 8px !important;
+    border-radius: 50% !important;
+    background: var(--amber-bright) !important;
+    box-shadow: 0 0 8px var(--amber-bright) !important;
   }
 
   .stage-card {
-    padding: 1.4rem 1.25rem !important;
+    padding: 1.35rem 1.15rem !important;
     border-radius: 18px !important;
     width: 100% !important;
+    background: var(--bg-card) !important;
+    border: 1px solid var(--glass-border) !important;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
   }
 
   .stage-step-num {
@@ -3520,18 +3702,18 @@ button {
   }
 
   .stage-name {
-    font-size: 1.2rem !important;
-    margin-bottom: 0.35rem !important;
+    font-size: 1.15rem !important;
+    margin-bottom: 0.3rem !important;
   }
 
   .stage-quote {
-    font-size: 0.82rem !important;
+    font-size: 0.8rem !important;
     line-height: 1.45 !important;
-    margin-bottom: 0.85rem !important;
+    margin-bottom: 0.75rem !important;
   }
 
   .stage-details {
-    gap: 0.4rem !important;
+    gap: 0.35rem !important;
   }
 
   .detail-pill {
@@ -3539,7 +3721,9 @@ button {
     padding: 0.25rem 0.55rem !important;
   }
 
-  /* 3. Philosophy Manifesto on Mobile */
+  /* ------------------------------------------------------------------------
+     3. Philosophy Manifesto on Mobile
+     ------------------------------------------------------------------------ */
   .philosophy-manifesto-stage {
     padding: 2.8rem 1rem !important;
     margin-bottom: 0 !important;
@@ -3565,7 +3749,9 @@ button {
     margin-bottom: 1rem;
   }
 
-  /* 4. Section 03 Header on Mobile */
+  /* ------------------------------------------------------------------------
+     4. Section 03 Header on Mobile
+     ------------------------------------------------------------------------ */
   .work-header-block {
     margin-bottom: 2.2rem;
   }
@@ -3581,7 +3767,9 @@ button {
     line-height: 1.55;
   }
 
-  /* 5. Technology Strip Carousel */
+  /* ------------------------------------------------------------------------
+     5. Technology Grid — Responsive 2-Column Bento Matrix (Trending Mobile)
+     ------------------------------------------------------------------------ */
   .tech-strip-section {
     margin-top: 1.5rem;
   }
@@ -3601,37 +3789,172 @@ button {
     line-height: 1.5;
   }
 
+  .tech-badges-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.85rem !important;
+    overflow: visible !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+  }
+
   .tech-badges-grid .tech-badge-card {
-    flex: 0 0 76% !important;
-    max-width: 76% !important;
-    scroll-snap-align: center !important;
-    scroll-snap-stop: always !important;
-    padding: 1.4rem 1.2rem !important;
-    border-radius: 18px !important;
+    position: relative !important;
+    flex: unset !important;
+    max-width: 100% !important;
+    padding: 1.15rem 0.95rem !important;
+    border-radius: 16px !important;
+    background: var(--bg-card) !important;
+    border: 1px solid var(--glass-border) !important;
+    backdrop-filter: blur(18px) !important;
+    -webkit-backdrop-filter: blur(18px) !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3) !important;
+    overflow: hidden !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+    opacity: 0;
+    transform: translateY(22px) scale(0.97);
+    transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.3s ease,
+                box-shadow 0.3s ease,
+                background 0.3s ease !important;
+    will-change: transform, opacity;
+  }
+
+  .tech-badges-grid .tech-badge-card.is-visible {
+    opacity: 1 !important;
+    transform: translateY(0) scale(1) !important;
+  }
+
+  /* Staggered entrance animations */
+  .tech-badges-grid .tech-badge-card:nth-child(1) { transition-delay: 0.04s !important; }
+  .tech-badges-grid .tech-badge-card:nth-child(2) { transition-delay: 0.08s !important; }
+  .tech-badges-grid .tech-badge-card:nth-child(3) { transition-delay: 0.12s !important; }
+  .tech-badges-grid .tech-badge-card:nth-child(4) { transition-delay: 0.16s !important; }
+  .tech-badges-grid .tech-badge-card:nth-child(5) { transition-delay: 0.20s !important; }
+  .tech-badges-grid .tech-badge-card:nth-child(6) { transition-delay: 0.24s !important; }
+  .tech-badges-grid .tech-badge-card:nth-child(7) { transition-delay: 0.28s !important; }
+  .tech-badges-grid .tech-badge-card:nth-child(8) { transition-delay: 0.32s !important; }
+
+  /* Cyber Shimmer Line along Card Top */
+  .tech-badges-grid .tech-badge-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--amber-bright), transparent);
+    opacity: 0.7;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease, opacity 0.4s ease;
+  }
+
+  .tech-badges-grid .tech-badge-card.is-visible::before {
+    transform: scaleX(1);
+  }
+
+  /* Mobile Tap & Active Micro-Interaction */
+  .tech-badges-grid .tech-badge-card:active,
+  .tech-badges-grid .tech-badge-card.touch-active {
+    transform: translateY(-2px) scale(0.98) !important;
+    border-color: var(--amber-gold) !important;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5), 0 0 20px var(--amber-glow) !important;
   }
 
   .badge-icon-wrap {
-    width: 44px !important;
-    height: 44px !important;
-    margin-bottom: 0.9rem !important;
+    width: 42px !important;
+    height: 42px !important;
+    border-radius: 12px !important;
+    margin-bottom: 0.75rem !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+  }
+
+  .badge-icon-wrap svg {
+    width: 24px !important;
+    height: 24px !important;
+  }
+
+  /* Glowing brand halos for tech icons */
+  .icon-php {
+    background: rgba(136, 146, 191, 0.12) !important;
+    border: 1px solid rgba(136, 146, 191, 0.35) !important;
+    box-shadow: 0 0 14px rgba(136, 146, 191, 0.25) !important;
+  }
+
+  .icon-laravel {
+    background: rgba(255, 45, 84, 0.12) !important;
+    border: 1px solid rgba(255, 45, 84, 0.35) !important;
+    box-shadow: 0 0 14px rgba(255, 45, 84, 0.25) !important;
+  }
+
+  .icon-nodejs {
+    background: rgba(104, 160, 99, 0.12) !important;
+    border: 1px solid rgba(104, 160, 99, 0.35) !important;
+    box-shadow: 0 0 14px rgba(104, 160, 99, 0.25) !important;
+  }
+
+  .icon-express {
+    background: rgba(245, 189, 84, 0.12) !important;
+    border: 1px solid rgba(245, 189, 84, 0.35) !important;
+    box-shadow: 0 0 14px rgba(245, 189, 84, 0.25) !important;
+  }
+
+  .icon-mysql {
+    background: rgba(0, 117, 143, 0.12) !important;
+    border: 1px solid rgba(0, 117, 143, 0.35) !important;
+    box-shadow: 0 0 14px rgba(0, 117, 143, 0.25) !important;
+  }
+
+  .icon-react {
+    background: rgba(97, 218, 251, 0.12) !important;
+    border: 1px solid rgba(97, 218, 251, 0.35) !important;
+    box-shadow: 0 0 14px rgba(97, 218, 251, 0.25) !important;
+  }
+
+  .icon-html5 {
+    background: rgba(227, 79, 38, 0.12) !important;
+    border: 1px solid rgba(227, 79, 38, 0.35) !important;
+    box-shadow: 0 0 14px rgba(227, 79, 38, 0.25) !important;
+  }
+
+  .icon-css3 {
+    background: rgba(21, 114, 182, 0.12) !important;
+    border: 1px solid rgba(21, 114, 182, 0.35) !important;
+    box-shadow: 0 0 14px rgba(21, 114, 182, 0.25) !important;
+  }
+
+  .tech-badges-grid .tech-badge-card:active .badge-icon-wrap,
+  .tech-badges-grid .tech-badge-card.touch-active .badge-icon-wrap {
+    transform: scale(1.08) !important;
   }
 
   .tech-name {
-    font-size: 1.15rem !important;
-    margin-bottom: 0.2rem !important;
+    font-size: 1.08rem !important;
+    margin-bottom: 0.15rem !important;
   }
 
   .tech-category {
-    font-size: 0.68rem !important;
-    margin-bottom: 0.5rem !important;
+    font-size: 0.62rem !important;
+    letter-spacing: 0.08em !important;
+    margin-bottom: 0.4rem !important;
   }
 
   .tech-description {
-    font-size: 0.8rem !important;
-    line-height: 1.48 !important;
+    font-size: 0.76rem !important;
+    line-height: 1.42 !important;
   }
 
-  /* 6. AI Tools Suite Carousel */
+  /* ------------------------------------------------------------------------
+     6. AI Tools Suite — Responsive 2-Column Bento Matrix
+     ------------------------------------------------------------------------ */
   .ai-tools-suite-block {
     margin-top: 3rem !important;
     padding-top: 2.2rem !important;
@@ -3652,44 +3975,82 @@ button {
     line-height: 1.5 !important;
   }
 
+  .ai-tools-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.85rem !important;
+    overflow: visible !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+  }
+
   .ai-tools-grid .ai-tool-card {
-    flex: 0 0 84% !important;
-    max-width: 84% !important;
-    scroll-snap-align: center !important;
-    scroll-snap-stop: always !important;
-    padding: 1.5rem 1.3rem !important;
-    border-radius: 20px !important;
+    position: relative !important;
+    flex: unset !important;
+    max-width: 100% !important;
+    padding: 1.2rem 1rem !important;
+    border-radius: 18px !important;
+    background: var(--bg-card) !important;
+    border: 1px solid var(--glass-border) !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3) !important;
+    overflow: hidden !important;
+    opacity: 0;
+    transform: translateY(22px) scale(0.97);
+    transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.3s ease,
+                box-shadow 0.3s ease !important;
+  }
+
+  .ai-tools-grid .ai-tool-card.is-visible {
+    opacity: 1 !important;
+    transform: translateY(0) scale(1) !important;
+  }
+
+  .ai-tools-grid .ai-tool-card:nth-child(1) { transition-delay: 0.05s !important; }
+  .ai-tools-grid .ai-tool-card:nth-child(2) { transition-delay: 0.10s !important; }
+  .ai-tools-grid .ai-tool-card:nth-child(3) { transition-delay: 0.15s !important; }
+  .ai-tools-grid .ai-tool-card:nth-child(4) { transition-delay: 0.20s !important; }
+
+  .ai-tools-grid .ai-tool-card:active,
+  .ai-tools-grid .ai-tool-card.touch-active {
+    transform: translateY(-2px) scale(0.98) !important;
+    border-color: var(--amber-gold) !important;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5), 0 0 20px var(--amber-glow) !important;
   }
 
   .ai-icon-pill {
-    width: 42px !important;
-    height: 42px !important;
+    width: 40px !important;
+    height: 40px !important;
   }
 
   .ai-pill-tag {
-    font-size: 0.58rem !important;
+    font-size: 0.56rem !important;
   }
 
   .ai-tool-name {
-    font-size: 1.18rem !important;
+    font-size: 1.1rem !important;
   }
 
   .ai-role {
-    font-size: 0.72rem !important;
-    margin-bottom: 0.65rem !important;
+    font-size: 0.7rem !important;
+    margin-bottom: 0.55rem !important;
   }
 
   .ai-details {
-    font-size: 0.82rem !important;
-    line-height: 1.5 !important;
-    margin-bottom: 1rem !important;
+    font-size: 0.78rem !important;
+    line-height: 1.45 !important;
+    margin-bottom: 0.85rem !important;
   }
 
   .ai-subtag {
-    font-size: 0.62rem !important;
+    font-size: 0.6rem !important;
   }
 
-  /* 7. AI Production Workflow Carousel */
+  /* ------------------------------------------------------------------------
+     7. AI Production Workflow — Vertical Progression
+     ------------------------------------------------------------------------ */
   .ai-workflow-showcase {
     margin-top: 3rem !important;
     padding: 1.8rem 1.25rem !important;
@@ -3711,28 +4072,50 @@ button {
     line-height: 1.5 !important;
   }
 
+  .ai-workflow-steps {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.85rem !important;
+    overflow: visible !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+  }
+
   .ai-workflow-steps .ai-step-card {
-    flex: 0 0 84% !important;
-    max-width: 84% !important;
-    scroll-snap-align: center !important;
-    scroll-snap-stop: always !important;
-    padding: 1.5rem 1.3rem !important;
-    border-radius: 18px !important;
+    position: relative !important;
+    flex: unset !important;
+    max-width: 100% !important;
+    padding: 1.25rem 1.15rem !important;
+    border-radius: 16px !important;
+    background: var(--bg-card) !important;
+    border: 1px solid var(--glass-border) !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3) !important;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.3s ease !important;
+  }
+
+  .ai-workflow-steps .ai-step-card.is-visible {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
   }
 
   .step-num {
-    font-size: 1.3rem !important;
-    margin-bottom: 0.6rem !important;
+    font-size: 1.25rem !important;
+    margin-bottom: 0.5rem !important;
   }
 
   .step-title {
-    font-size: 1.05rem !important;
-    margin-bottom: 0.45rem !important;
+    font-size: 1.02rem !important;
+    margin-bottom: 0.4rem !important;
   }
 
   .step-desc {
-    font-size: 0.8rem !important;
-    line-height: 1.48 !important;
+    font-size: 0.78rem !important;
+    line-height: 1.45 !important;
   }
 
   .ai-workflow-guarantee {
@@ -3740,6 +4123,17 @@ button {
     padding: 0.85rem 1.15rem !important;
     font-size: 0.78rem !important;
     display: flex !important;
+    margin-top: 1.25rem !important;
+  }
+}
+
+/* ------------------------------------------------------------------------
+   Ultra-Narrow Screen Viewports (< 360px)
+   ------------------------------------------------------------------------ */
+@media (max-width: 360px) {
+  .tech-badges-grid,
+  .ai-tools-grid {
+    grid-template-columns: 1fr !important;
   }
 }
 
