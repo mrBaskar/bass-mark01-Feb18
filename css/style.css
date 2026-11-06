@@ -2449,14 +2449,64 @@ button {
   transform: translate3d(36px, -10px, -90px) rotate(11deg) scale(0.92) !important;
 }
 
-/* Dismissing Crosswise Slide Animation */
-.capabilities-grid.cross-stack-mode .capability-card.is-dismissing {
-  transform: translate3d(120%, -40px, 60px) rotate(20deg) scale(0.92) !important;
-  opacity: 0 !important;
-  z-index: 20 !important;
+/* Card Swap Animation States (Deal Out & Tuck Behind Deck) */
+.capabilities-grid.cross-stack-mode .capability-card.is-swapping-out {
+  transform: translate3d(120%, -20px, 60px) rotate(16deg) scale(0.96) !important;
+  opacity: 0.95 !important;
+  z-index: 30 !important;
   pointer-events: none !important;
-  transition: transform 0.38s cubic-bezier(0.16, 1, 0.3, 1),
-              opacity 0.32s ease !important;
+  box-shadow: 0 30px 65px rgba(0, 0, 0, 0.85), 0 0 35px var(--amber-glow) !important;
+  transition: transform 0.32s cubic-bezier(0.2, 0.9, 0.3, 1), opacity 0.28s ease !important;
+}
+
+.capabilities-grid.cross-stack-mode .capability-card.is-swapping-out-left {
+  transform: translate3d(-120%, -20px, 60px) rotate(-16deg) scale(0.96) !important;
+  opacity: 0.95 !important;
+  z-index: 30 !important;
+  pointer-events: none !important;
+  box-shadow: 0 30px 65px rgba(0, 0, 0, 0.85), 0 0 35px var(--amber-glow) !important;
+  transition: transform 0.32s cubic-bezier(0.2, 0.9, 0.3, 1), opacity 0.28s ease !important;
+}
+
+.capabilities-grid.cross-stack-mode .capability-card.is-swapping-back {
+  transform: translate3d(120%, -20px, -110px) rotate(16deg) scale(0.88) !important;
+  opacity: 0.65 !important;
+  z-index: 4 !important;
+  pointer-events: none !important;
+  transition: none !important;
+}
+
+/* Footer & Click Pill Alignment with Zero Overlap */
+.capabilities-grid.cross-stack-mode .capability-card-footer {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 0.5rem !important;
+  width: 100% !important;
+  padding-top: 0.85rem !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+[data-theme="light"] .capabilities-grid.cross-stack-mode .capability-card-footer {
+  border-top-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+.capabilities-grid.cross-stack-mode .footer-badge {
+  font-family: var(--font-body) !important;
+  font-size: 0.65rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.06em !important;
+  color: var(--amber-gold) !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  max-width: 52% !important;
+  flex-shrink: 1 !important;
+}
+
+.capabilities-grid.cross-stack-mode .card-click-pill {
+  flex-shrink: 0 !important;
+  margin-left: auto !important;
 }
 
 /* Light Theme Overrides for Cross Stack */

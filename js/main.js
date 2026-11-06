@@ -435,17 +435,20 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
-    function advanceDeck() {
+    function advanceDeck(direction = 'right') {
       if (isTransitioning || !isStackMode()) return;
       isTransitioning = true;
 
       const currentCard = capCards[activeIndex];
-      currentCard.classList.add('is-dismissing');
+      const swapClass = direction === 'left' ? 'is-swapping-out-left' : 'is-swapping-out';
+      
+      // Step 1: Slide current front card OUT to the side
+      currentCard.classList.add(swapClass);
 
-      // Continuous loop
+      // Advance activeIndex continuously
       activeIndex = (activeIndex + 1) % capCards.length;
 
-      // Advance cards behind forward
+      // Step 2: Concurrently advance cards behind forward into their new cross positions
       capCards.forEach((card, idx) => {
         if (card !== currentCard) {
           const relPos = (idx - activeIndex + capCards.length) % capCards.length;
@@ -468,11 +471,24 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }
 
+      // Step 3: When card reaches the apex of the slide-out (at 280ms), drop its z-index behind
       setTimeout(() => {
-        currentCard.classList.remove('is-dismissing');
-        currentCard.setAttribute('data-stack-pos', String(capCards.length - 1));
-        isTransitioning = false;
-      }, 360);
+        currentCard.classList.remove('is-swapping-out', 'is-swapping-out-left');
+        currentCard.classList.add('is-swapping-back');
+
+        // Step 4: Next frame, remove swapping-back so it glides smoothly into position 3 at the bottom of the stack
+        requestAnimationFrame(() => {
+          setTimeout(() => {
+            currentCard.classList.remove('is-swapping-back');
+            currentCard.setAttribute('data-stack-pos', String(capCards.length - 1));
+          }, 30);
+        });
+
+        // Step 5: Complete swap transition
+        setTimeout(() => {
+          isTransitioning = false;
+        }, 360);
+      }, 280);
     }
 
     // Click/tap on front active card advances the stack
@@ -536,7 +552,7 @@ document.addEventListener('DOMContentLoaded', () => {
           const deltaX = e.changedTouches[0].clientX - touchStartX;
           const deltaY = e.changedTouches[0].clientY - touchStartY;
           if (deltaX < -40 || (deltaY < -40 && Math.abs(deltaX) < 60)) {
-            advanceDeck();
+            advanceDeck(deltaX < -40 ? 'left' : 'right');
           }
         }
       }, { passive: true });
