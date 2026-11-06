@@ -2355,188 +2355,224 @@ button {
   background: rgba(255, 255, 255, 0.06);
 }
 
-/* Base Cross Stack Mode Container */
-.capabilities-grid.cross-stack-mode {
-  position: relative !important;
-  display: block !important;
-  max-width: 580px !important;
-  width: 100% !important;
-  margin: 1.2rem auto 1.5rem auto !important;
-  padding: 5rem 1.6rem 1.8rem 1.6rem !important;
-  min-height: 590px !important;
-  perspective: 1600px !important;
-  overflow: visible !important;
+/* =========================================================================
+   Desktop Capabilities View — Full 2x2 Grid with Scroll-to-Reveal (No Stack)
+   ========================================================================= */
+@media (min-width: 768px) {
+  .capabilities-grid,
+  .capabilities-grid.cross-stack-mode {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 2rem !important;
+    max-width: 100% !important;
+    margin: 2.2rem 0 !important;
+    padding: 0 !important;
+    min-height: auto !important;
+    perspective: none !important;
+  }
+
+  .capabilities-grid .capability-card,
+  .capabilities-grid.cross-stack-mode .capability-card {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 2.6rem 2.2rem !important;
+    border-radius: 24px !important;
+    background: var(--bg-card) !important;
+    border: 1px solid var(--glass-border) !important;
+    backdrop-filter: blur(24px) !important;
+    -webkit-backdrop-filter: blur(24px) !important;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4) !important;
+    cursor: pointer !important;
+    pointer-events: auto !important;
+    z-index: 1 !important;
+    
+    /* Scroll-to-Reveal initial state */
+    opacity: 0.18;
+    transform: translateY(34px) scale(0.97) !important;
+    filter: blur(2.5px);
+    transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+                filter 0.55s ease,
+                border-color 0.35s ease,
+                box-shadow 0.35s ease !important;
+    will-change: transform, opacity;
+  }
+
+  /* Revealed state on scroll */
+  .capabilities-grid .capability-card.is-revealed,
+  .capabilities-grid .capability-card.is-visible,
+  .capabilities-grid.cross-stack-mode .capability-card.is-revealed,
+  .capabilities-grid.cross-stack-mode .capability-card.is-visible {
+    opacity: 1 !important;
+    transform: translateY(0) scale(1) !important;
+    filter: blur(0px) !important;
+  }
+
+  /* Staggered entry transitions */
+  .capabilities-grid .capability-card:nth-child(1).is-revealed,
+  .capabilities-grid .capability-card:nth-child(1).is-visible { transition-delay: 0.05s !important; }
+  .capabilities-grid .capability-card:nth-child(2).is-revealed,
+  .capabilities-grid .capability-card:nth-child(2).is-visible { transition-delay: 0.16s !important; }
+  .capabilities-grid .capability-card:nth-child(3).is-revealed,
+  .capabilities-grid .capability-card:nth-child(3).is-visible { transition-delay: 0.27s !important; }
+  .capabilities-grid .capability-card:nth-child(4).is-revealed,
+  .capabilities-grid .capability-card:nth-child(4).is-visible { transition-delay: 0.38s !important; }
+
+  /* Desktop card hover glow */
+  .capabilities-grid .capability-card:hover,
+  .capabilities-grid.cross-stack-mode .capability-card:hover {
+    border-color: var(--amber-gold) !important;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.65), 0 0 32px var(--amber-glow) !important;
+    transform: translateY(-6px) scale(1.01) !important;
+  }
+
+  /* Desktop hides stack controls & stacked peek tabs */
+  .deck-mode-toggle,
+  .capabilities-deck-bar,
+  .card-upnext-preview,
+  .card-click-pill {
+    display: none !important;
+  }
 }
 
-.capabilities-grid.cross-stack-mode .capability-card {
-  position: absolute !important;
-  left: 1.6rem !important;
-  width: calc(100% - 3.2rem) !important;
-  max-width: 100% !important;
-  margin: 0 !important;
-  padding: 2.2rem 1.8rem !important;
-  border-radius: 24px !important;
-  background: var(--bg-card) !important;
-  border: 1.5px solid var(--glass-border) !important;
-  backdrop-filter: blur(24px) !important;
-  -webkit-backdrop-filter: blur(24px) !important;
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.45) !important;
-  transform-origin: center bottom !important;
-  transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.25, 1),
-              opacity 0.4s ease,
-              filter 0.4s ease,
-              box-shadow 0.4s ease,
-              border-color 0.4s ease !important;
-  cursor: pointer !important;
-  user-select: none !important;
-  -webkit-user-select: none !important;
-  touch-action: manipulation !important;
-  backface-visibility: hidden !important;
-  -webkit-backface-visibility: hidden !important;
-}
-
-/* Stack position 0: Front Active Card */
-.capabilities-grid.cross-stack-mode .capability-card[data-stack-pos="0"] {
-  top: 60px !important;
-  transform: translate3d(0, 0, 10px) rotate(0deg) scale(1) !important;
-  opacity: 1 !important;
-  z-index: 10 !important;
-  pointer-events: auto !important;
-  border-color: var(--amber-gold) !important;
-  box-shadow: 0 25px 65px rgba(0, 0, 0, 0.8), 0 0 35px var(--amber-glow) !important;
-  filter: none !important;
-}
-
-/* Stack position 1: Crossed to Right (+5deg) */
-.capabilities-grid.cross-stack-mode .capability-card[data-stack-pos="1"] {
-  top: 36px !important;
-  left: calc(1.6rem + 16px) !important;
-  transform: translate3d(20px, 0, -25px) rotate(5deg) scale(0.97) !important;
-  opacity: 0.96 !important;
-  z-index: 8 !important;
-  pointer-events: none !important;
-  border-color: rgba(229, 169, 60, 0.8) !important;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.65), 0 0 30px rgba(229, 169, 60, 0.35) !important;
-  filter: brightness(0.92) !important;
-}
-
-/* Stack position 2: Crossed to Left (-5.5deg) */
-.capabilities-grid.cross-stack-mode .capability-card[data-stack-pos="2"] {
-  top: 14px !important;
-  left: calc(1.6rem - 16px) !important;
-  transform: translate3d(-20px, 0, -55px) rotate(-5.5deg) scale(0.94) !important;
-  opacity: 0.88 !important;
-  z-index: 7 !important;
-  pointer-events: none !important;
-  border-color: rgba(97, 218, 251, 0.7) !important;
-  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.6), 0 0 25px rgba(97, 218, 251, 0.3) !important;
-  filter: brightness(0.8) !important;
-}
-
-/* Stack position 3: Crossed to Far Right (+8.5deg) */
-.capabilities-grid.cross-stack-mode .capability-card[data-stack-pos="3"] {
-  top: -8px !important;
-  left: calc(1.6rem + 22px) !important;
-  transform: translate3d(24px, 0, -85px) rotate(8.5deg) scale(0.91) !important;
-  opacity: 0.78 !important;
-  z-index: 6 !important;
-  pointer-events: none !important;
-  border-color: rgba(168, 85, 247, 0.6) !important;
-  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.55), 0 0 20px rgba(168, 85, 247, 0.25) !important;
-  filter: brightness(0.7) !important;
-}
-
-/* Hover over deck fans out cards further */
-.capabilities-grid.cross-stack-mode:hover .capability-card[data-stack-pos="1"] {
-  transform: translate3d(30px, -6px, -25px) rotate(6.8deg) scale(0.98) !important;
-}
-
-.capabilities-grid.cross-stack-mode:hover .capability-card[data-stack-pos="2"] {
-  transform: translate3d(-30px, -6px, -55px) rotate(-7deg) scale(0.95) !important;
-}
-
-.capabilities-grid.cross-stack-mode:hover .capability-card[data-stack-pos="3"] {
-  transform: translate3d(36px, -10px, -85px) rotate(11deg) scale(0.92) !important;
-}
-
-/* Footer & Click Pill Alignment with Zero Overlap */
-.capabilities-grid.cross-stack-mode .capability-card-footer {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: space-between !important;
-  gap: 0.5rem !important;
-  width: 100% !important;
-  padding-top: 0.85rem !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
-}
-
-[data-theme="light"] .capabilities-grid.cross-stack-mode .capability-card-footer {
-  border-top-color: rgba(0, 0, 0, 0.08) !important;
-}
-
-.capabilities-grid.cross-stack-mode .footer-badge {
-  font-family: var(--font-body) !important;
-  font-size: 0.65rem !important;
-  font-weight: 700 !important;
-  letter-spacing: 0.06em !important;
-  color: var(--amber-gold) !important;
-  white-space: nowrap !important;
-  overflow: hidden !important;
-  text-overflow: ellipsis !important;
-  max-width: 52% !important;
-  flex-shrink: 1 !important;
-}
-
-.capabilities-grid.cross-stack-mode .card-click-pill {
-  flex-shrink: 0 !important;
-  margin-left: auto !important;
-}
-
-/* Light Theme Overrides for Cross Stack *//* Light Theme Overrides for Cross Stack */
-[data-theme="light"] .capabilities-grid.cross-stack-mode .capability-card {
-  background: rgba(255, 255, 255, 0.94) !important;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08) !important;
-}
-
-[data-theme="light"] .capabilities-grid.cross-stack-mode .capability-card[data-stack-pos="0"] {
-  box-shadow: 0 25px 55px rgba(0, 0, 0, 0.12), 0 0 30px rgba(217, 119, 6, 0.25) !important;
-}
-
-/* Mobile Adjustments for Cross Stack */
+/* =========================================================================
+   Mobile Cross Stack View Mode (< 768px)
+   ========================================================================= */
 @media (max-width: 767px) {
   .capabilities-grid.cross-stack-mode {
+    position: relative !important;
+    display: block !important;
     max-width: 100% !important;
+    width: 100% !important;
+    margin: 1.2rem auto 1.5rem auto !important;
     padding: 4.4rem 1.15rem 1.6rem 1.15rem !important;
     min-height: 570px !important;
+    perspective: 1600px !important;
+    overflow: visible !important;
   }
 
   .capabilities-grid.cross-stack-mode .capability-card {
+    position: absolute !important;
     left: 1.15rem !important;
     width: calc(100% - 2.3rem) !important;
+    max-width: 100% !important;
+    margin: 0 !important;
     padding: 1.55rem 1.25rem !important;
+    border-radius: 24px !important;
+    background: var(--bg-card) !important;
+    border: 1.5px solid var(--glass-border) !important;
+    backdrop-filter: blur(24px) !important;
+    -webkit-backdrop-filter: blur(24px) !important;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.45) !important;
+    transform-origin: center bottom !important;
+    transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.25, 1),
+                opacity 0.4s ease,
+                filter 0.4s ease,
+                box-shadow 0.4s ease,
+                border-color 0.4s ease !important;
+    cursor: pointer !important;
+    user-select: none !important;
+    -webkit-user-select: none !important;
+    touch-action: manipulation !important;
+    backface-visibility: hidden !important;
+    -webkit-backface-visibility: hidden !important;
   }
 
+  /* Stack position 0: Front Active Card */
   .capabilities-grid.cross-stack-mode .capability-card[data-stack-pos="0"] {
     top: 54px !important;
     transform: translate3d(0, 0, 10px) rotate(0deg) scale(1) !important;
+    opacity: 1 !important;
+    z-index: 10 !important;
+    pointer-events: auto !important;
+    border-color: var(--amber-gold) !important;
+    box-shadow: 0 25px 65px rgba(0, 0, 0, 0.8), 0 0 35px var(--amber-glow) !important;
+    filter: none !important;
   }
 
+  /* Stack position 1: Crossed to Right (+4.5deg) */
   .capabilities-grid.cross-stack-mode .capability-card[data-stack-pos="1"] {
     top: 32px !important;
     left: calc(1.15rem + 12px) !important;
     transform: translate3d(16px, 0, -25px) rotate(4.5deg) scale(0.97) !important;
+    opacity: 0.96 !important;
+    z-index: 8 !important;
+    pointer-events: none !important;
+    border-color: rgba(229, 169, 60, 0.8) !important;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.65), 0 0 30px rgba(229, 169, 60, 0.35) !important;
+    filter: brightness(0.92) !important;
   }
 
+  /* Stack position 2: Crossed to Left (-4.5deg) */
   .capabilities-grid.cross-stack-mode .capability-card[data-stack-pos="2"] {
     top: 12px !important;
     left: calc(1.15rem - 12px) !important;
     transform: translate3d(-16px, 0, -55px) rotate(-4.5deg) scale(0.94) !important;
+    opacity: 0.88 !important;
+    z-index: 7 !important;
+    pointer-events: none !important;
+    border-color: rgba(97, 218, 251, 0.7) !important;
+    box-shadow: 0 16px 45px rgba(0, 0, 0, 0.6), 0 0 25px rgba(97, 218, 251, 0.3) !important;
+    filter: brightness(0.8) !important;
   }
 
+  /* Stack position 3: Crossed to Far Right (+7.2deg) */
   .capabilities-grid.cross-stack-mode .capability-card[data-stack-pos="3"] {
     top: -8px !important;
     left: calc(1.15rem + 16px) !important;
     transform: translate3d(20px, 0, -85px) rotate(7.2deg) scale(0.91) !important;
+    opacity: 0.78 !important;
+    z-index: 6 !important;
+    pointer-events: none !important;
+    border-color: rgba(168, 85, 247, 0.6) !important;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.55), 0 0 20px rgba(168, 85, 247, 0.25) !important;
+    filter: brightness(0.7) !important;
+  }
+
+  /* Footer & Click Pill Alignment with Zero Overlap */
+  .capabilities-grid.cross-stack-mode .capability-card-footer {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 0.5rem !important;
+    width: 100% !important;
+    padding-top: 0.85rem !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+  }
+
+  [data-theme="light"] .capabilities-grid.cross-stack-mode .capability-card-footer {
+    border-top-color: rgba(0, 0, 0, 0.08) !important;
+  }
+
+  .capabilities-grid.cross-stack-mode .footer-badge {
+    font-family: var(--font-body) !important;
+    font-size: 0.65rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.06em !important;
+    color: var(--amber-gold) !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    max-width: 52% !important;
+    flex-shrink: 1 !important;
+  }
+
+  .capabilities-grid.cross-stack-mode .card-click-pill {
+    flex-shrink: 0 !important;
+    margin-left: auto !important;
+  }
+
+  [data-theme="light"] .capabilities-grid.cross-stack-mode .capability-card {
+    background: rgba(255, 255, 255, 0.94) !important;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08) !important;
+  }
+
+  [data-theme="light"] .capabilities-grid.cross-stack-mode .capability-card[data-stack-pos="0"] {
+    box-shadow: 0 25px 55px rgba(0, 0, 0, 0.12), 0 0 30px rgba(217, 119, 6, 0.25) !important;
   }
 
   @keyframes cardSwapOutAndBack {

@@ -428,6 +428,7 @@ document.addEventListener('DOMContentLoaded', () => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           entry.target.classList.add('is-visible');
+          entry.target.classList.add('is-revealed');
           // Once revealed, unobserve to free resources
           observer.unobserve(entry.target);
         }
@@ -440,7 +441,10 @@ document.addEventListener('DOMContentLoaded', () => {
     revealCards.forEach((card) => revealObserver.observe(card));
   } else {
     // Fallback if IntersectionObserver is not supported
-    revealCards.forEach((card) => card.classList.add('is-visible'));
+    revealCards.forEach((card) => {
+      card.classList.add('is-visible');
+      card.classList.add('is-revealed');
+    });
   }
 
   // Mobile Touch Micro-Interactions on Tech Cards
@@ -472,14 +476,14 @@ document.addEventListener('DOMContentLoaded', () => {
     let isTransitioning = false;
 
     function isStackMode() {
-      return capContainer && capContainer.classList.contains('cross-stack-mode');
+      return capContainer && capContainer.classList.contains('cross-stack-mode') && window.innerWidth < 768;
     }
 
     function updateDeckPositions() {
       if (!isStackMode()) {
         capCards.forEach((card) => {
           card.removeAttribute('data-stack-pos');
-          card.classList.remove('is-dismissing');
+          card.classList.remove('is-dismissing', 'card-swapping', 'card-swapping-left');
         });
         if (capContainer) capContainer.style.minHeight = '';
         if (capDeckBar) capDeckBar.style.display = 'none';
