@@ -335,14 +335,17 @@ document.addEventListener('DOMContentLoaded', () => {
       updateActiveProcessStage(closestStage);
     }
 
-    // Dynamic beam fill calculation on mobile
+    // Dynamic beam fill tracking on mobile: smoothly reaches through the active stage node
     if (processTrack && processBeamFill) {
-      const trackRect = processTrack.getBoundingClientRect();
-      const trackHeight = trackRect.height;
-      if (trackHeight > 0) {
-        const scrolledInside = viewportFocal - trackRect.top;
-        const progressRatio = Math.max(0.12, Math.min(1, scrolledInside / trackHeight));
-        processBeamFill.style.height = `${(progressRatio * 100).toFixed(1)}%`;
+      const activeStageNode = document.querySelector(`.process-stage-node[data-stage="${closestStage}"]`);
+      if (activeStageNode) {
+        const pulse = activeStageNode.querySelector('.node-connector-pulse');
+        const nodeY = activeStageNode.offsetTop + (pulse ? pulse.offsetTop + pulse.offsetHeight / 2 : 25);
+        const totalHeight = processTrack.offsetHeight;
+        if (totalHeight > 0) {
+          const fillRatio = Math.min(1, Math.max(0.18, nodeY / totalHeight));
+          processBeamFill.style.height = `${(fillRatio * 100).toFixed(1)}%`;
+        }
       }
     }
   }

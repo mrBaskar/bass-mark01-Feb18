@@ -2832,6 +2832,10 @@ button {
   100% { left: 95%; }
 }
 
+.process-vertical-beam {
+  display: none;
+}
+
 .process-stages-track {
   position: relative;
   z-index: 5;
@@ -4052,33 +4056,55 @@ button {
     display: none !important;
   }
 
-  /* Dynamic Scroll-Progress Glowing Circuit Spine */
+  /* Fully Continuous Connected Circuit Spine on Mobile */
   .process-vertical-beam {
+    display: block !important;
     position: absolute !important;
-    left: 17px !important;
-    top: 18px !important;
-    bottom: 28px !important;
-    width: 3px !important;
-    background: rgba(255, 255, 255, 0.08) !important;
+    left: 13px !important;
+    top: 15px !important;
+    bottom: 25px !important;
+    width: 2px !important;
+    background: linear-gradient(
+      180deg,
+      var(--amber-gold) 0%,
+      rgba(229, 169, 60, 0.6) 35%,
+      rgba(229, 169, 60, 0.45) 70%,
+      rgba(229, 169, 60, 0.28) 100%
+    ) !important;
+    box-shadow: 0 0 10px rgba(229, 169, 60, 0.45), 0 0 20px rgba(229, 169, 60, 0.2) !important;
     border-radius: 9999px !important;
     z-index: 1 !important;
     overflow: hidden !important;
   }
 
   [data-theme="light"] .process-vertical-beam {
-    background: rgba(0, 0, 0, 0.08) !important;
+    background: linear-gradient(
+      180deg,
+      var(--amber-gold) 0%,
+      rgba(217, 119, 6, 0.6) 40%,
+      rgba(217, 119, 6, 0.4) 75%,
+      rgba(217, 119, 6, 0.22) 100%
+    ) !important;
+    box-shadow: 0 0 8px rgba(217, 119, 6, 0.25) !important;
   }
 
+  /* Active Traveling Energy Pulse along the Continuous Spine */
   .beam-progress-fill {
     position: absolute !important;
     top: 0 !important;
-    left: 0 !important;
-    width: 100% !important;
-    height: 18% !important;
-    background: linear-gradient(180deg, var(--amber-gold) 0%, var(--amber-bright) 75%, #FFFFFF 100%) !important;
-    box-shadow: 0 0 14px var(--amber-glow), 0 0 24px var(--amber-gold) !important;
+    left: -1px !important;
+    width: 4px !important;
+    height: 25% !important;
+    background: linear-gradient(
+      180deg,
+      var(--amber-gold) 0%,
+      var(--amber-bright) 70%,
+      #FFFFFF 92%,
+      var(--amber-bright) 100%
+    ) !important;
+    box-shadow: 0 0 16px var(--amber-bright), 0 0 28px var(--amber-gold) !important;
     border-radius: 9999px !important;
-    transition: height 0.15s ease-out !important;
+    transition: height 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
   }
 
   /* Trendy Scroll-to-Reveal Transition for Process Nodes */
