@@ -440,15 +440,15 @@ document.addEventListener('DOMContentLoaded', () => {
       isTransitioning = true;
 
       const currentCard = capCards[activeIndex];
-      const swapClass = direction === 'left' ? 'is-swapping-out-left' : 'is-swapping-out';
-      
-      // Step 1: Slide current front card OUT to the side
-      currentCard.classList.add(swapClass);
+      const animClass = direction === 'left' ? 'card-swapping-left' : 'card-swapping';
 
-      // Advance activeIndex continuously
+      // 1. Kick off continuous GPU-composited keyframe choreography (glides out and tucks behind)
+      currentCard.classList.add(animClass);
+
+      // 2. Advance active deck index
       activeIndex = (activeIndex + 1) % capCards.length;
 
-      // Step 2: Concurrently advance cards behind forward into their new cross positions
+      // 3. Concurrently advance cards behind forward into their new cross positions
       capCards.forEach((card, idx) => {
         if (card !== currentCard) {
           const relPos = (idx - activeIndex + capCards.length) % capCards.length;
@@ -456,6 +456,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
 
+      // 4. Update numbering & pagination indicators
       if (deckCurrentNum) {
         deckCurrentNum.textContent = String(activeIndex + 1).padStart(2, '0');
       }
@@ -471,24 +472,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }
 
-      // Step 3: When card reaches the apex of the slide-out (at 280ms), drop its z-index behind
+      // 5. At completion of smooth keyframe animation (520ms), finalize DOM stack pos seamlessly
       setTimeout(() => {
-        currentCard.classList.remove('is-swapping-out', 'is-swapping-out-left');
-        currentCard.classList.add('is-swapping-back');
-
-        // Step 4: Next frame, remove swapping-back so it glides smoothly into position 3 at the bottom of the stack
-        requestAnimationFrame(() => {
-          setTimeout(() => {
-            currentCard.classList.remove('is-swapping-back');
-            currentCard.setAttribute('data-stack-pos', String(capCards.length - 1));
-          }, 30);
-        });
-
-        // Step 5: Complete swap transition
-        setTimeout(() => {
-          isTransitioning = false;
-        }, 360);
-      }, 280);
+        currentCard.setAttribute('data-stack-pos', String(capCards.length - 1));
+        currentCard.classList.remove(animClass);
+        isTransitioning = false;
+      }, 540);
     }
 
     // Click/tap on front active card advances the stack
