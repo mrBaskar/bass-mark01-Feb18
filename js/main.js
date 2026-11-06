@@ -265,20 +265,22 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // =========================================================================
-  // Process Pipeline — Compact Continuous Flow Controller
+  // Process Pipeline — Trendy Smooth Scroll-to-Reveal Controller
   // =========================================================================
   const stageNodes = document.querySelectorAll('.process-stage-node');
   const stepPillBtns = document.querySelectorAll('.step-pill-btn');
   const stageContinueBtns = document.querySelectorAll('.stage-continue-btn');
+  const processTrack = document.querySelector('.process-stages-track');
+  const processBeamFill = document.getElementById('processBeamFill');
 
-  function setActiveProcessStage(stageNum) {
+  function updateActiveProcessStage(stageNum) {
     stageNodes.forEach((node) => {
       const isCurrent = node.getAttribute('data-stage') === String(stageNum);
       node.classList.toggle('active', isCurrent);
 
       const statusPill = node.querySelector('.stage-status-pill');
       if (statusPill) {
-        statusPill.textContent = isCurrent ? 'Active' : `Step 0${node.getAttribute('data-stage')}`;
+        statusPill.textContent = isCurrent ? 'Active Phase' : `Phase 0${node.getAttribute('data-stage')}`;
       }
     });
 
@@ -287,35 +289,108 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Click on stage node / header to expand and focus
-  stageNodes.forEach((node) => {
-    const header = node.querySelector('.stage-card-header') || node;
-    header.addEventListener('click', () => {
-      const stage = node.getAttribute('data-stage');
-      setActiveProcessStage(stage);
+  // 1. Scroll-to-Reveal Intersection Observer for Stage Cards
+  if ('IntersectionObserver' in window && stageNodes.length > 0) {
+    const processRevealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-revealed');
+        }
+      });
+    }, {
+      threshold: 0.12,
+      rootMargin: '0px 0px -40px 0px'
     });
-  });
 
-  // Click on top horizontal stepper pills
+    stageNodes.forEach((node) => processRevealObserver.observe(node));
+  } else {
+    stageNodes.forEach((node) => node.classList.add('is-revealed'));
+  }
+
+  // 2. Continuous Scroll Spy & Dynamic Circuit Beam Progress
+  function updateProcessScrollSpy() {
+    if (!stageNodes.length) return;
+
+    const viewportFocal = window.innerHeight * 0.45;
+    let closestStage = null;
+    let minDistance = Infinity;
+
+    stageNodes.forEach((node) => {
+      const rect = node.getBoundingClientRect();
+      const nodeCenter = rect.top + rect.height / 2;
+      const distance = Math.abs(nodeCenter - viewportFocal);
+
+      if (distance < minDistance) {
+        minDistance = distance;
+        closestStage = node.getAttribute('data-stage');
+      }
+
+      // Proactively reveal if it enters reading area
+      if (rect.top < window.innerHeight * 0.85 && rect.bottom > 0) {
+        node.classList.add('is-revealed');
+      }
+    });
+
+    if (closestStage) {
+      updateActiveProcessStage(closestStage);
+    }
+
+    // Dynamic beam fill calculation on mobile
+    if (processTrack && processBeamFill) {
+      const trackRect = processTrack.getBoundingClientRect();
+      const trackHeight = trackRect.height;
+      if (trackHeight > 0) {
+        const scrolledInside = viewportFocal - trackRect.top;
+        const progressRatio = Math.max(0.12, Math.min(1, scrolledInside / trackHeight));
+        processBeamFill.style.height = `${(progressRatio * 100).toFixed(1)}%`;
+      }
+    }
+  }
+
+  let processScrollTicking = false;
+  window.addEventListener('scroll', () => {
+    if (!processScrollTicking) {
+      window.requestAnimationFrame(() => {
+        updateProcessScrollSpy();
+        processScrollTicking = false;
+      });
+      processScrollTicking = true;
+    }
+  }, { passive: true });
+
+  // Initial check on load
+  updateProcessScrollSpy();
+
+  // 3. Stepper Pills Navigation (Smooth Scroll to Target Stage)
   stepPillBtns.forEach((btn) => {
     btn.addEventListener('click', () => {
       const step = btn.getAttribute('data-step');
-      setActiveProcessStage(step);
+      const targetNode = document.querySelector(`.process-stage-node[data-stage="${step}"]`);
+      if (targetNode) {
+        targetNode.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        updateActiveProcessStage(step);
+      }
     });
   });
 
-  // Click on "Continue to Stage..." flow button
+  // 4. Click on Stage Node to Smoothly Center It
+  stageNodes.forEach((node) => {
+    node.addEventListener('click', () => {
+      const stage = node.getAttribute('data-stage');
+      node.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      updateActiveProcessStage(stage);
+    });
+  });
+
+  // 5. "Continue to Stage..." Flow Button (Smooth Scroll to Next Stage)
   stageContinueBtns.forEach((btn) => {
     btn.addEventListener('click', (e) => {
       e.stopPropagation();
       const nextStage = btn.getAttribute('data-next');
-      setActiveProcessStage(nextStage);
-
-      if (window.innerWidth < 768) {
-        const targetNode = document.querySelector(`.process-stage-node[data-stage="${nextStage}"]`);
-        if (targetNode) {
-          targetNode.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        }
+      const targetNode = document.querySelector(`.process-stage-node[data-stage="${nextStage}"]`);
+      if (targetNode) {
+        targetNode.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        updateActiveProcessStage(nextStage);
       }
     });
   });

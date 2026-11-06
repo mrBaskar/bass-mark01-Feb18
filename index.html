@@ -619,9 +619,13 @@
           </div>
 
           <div class="process-stages-track">
+            <!-- Dynamic Scroll Beam for Mobile/Vertical Stream -->
+            <div class="process-vertical-beam" aria-hidden="true">
+              <div class="beam-progress-fill" id="processBeamFill"></div>
+            </div>
             
             <!-- Stage 01: IMAGINE -->
-            <div class="process-stage-node active" data-stage="1">
+            <div class="process-stage-node active is-revealed" data-stage="1">
               <div class="node-connector-pulse">
                 <div class="pulse-core"></div>
                 <div class="pulse-ring"></div>
@@ -634,8 +638,7 @@
                     <h4 class="stage-name">IMAGINE</h4>
                   </div>
                   <div class="stage-header-right">
-                    <span class="stage-status-pill">Active</span>
-                    <span class="stage-expand-icon" aria-hidden="true">▾</span>
+                    <span class="stage-status-pill">Active Phase</span>
                   </div>
                 </div>
                 <div class="stage-card-body">
@@ -668,8 +671,7 @@
                     <h4 class="stage-name">EXPLORE</h4>
                   </div>
                   <div class="stage-header-right">
-                    <span class="stage-status-pill">Step 02</span>
-                    <span class="stage-expand-icon" aria-hidden="true">▾</span>
+                    <span class="stage-status-pill">Phase 02</span>
                   </div>
                 </div>
                 <div class="stage-card-body">
@@ -702,8 +704,7 @@
                     <h4 class="stage-name">CREATE</h4>
                   </div>
                   <div class="stage-header-right">
-                    <span class="stage-status-pill">Step 03</span>
-                    <span class="stage-expand-icon" aria-hidden="true">▾</span>
+                    <span class="stage-status-pill">Phase 03</span>
                   </div>
                 </div>
                 <div class="stage-card-body">
@@ -736,8 +737,7 @@
                     <h4 class="stage-name">TRANSFORM</h4>
                   </div>
                   <div class="stage-header-right">
-                    <span class="stage-status-pill">Step 04</span>
-                    <span class="stage-expand-icon" aria-hidden="true">▾</span>
+                    <span class="stage-status-pill">Phase 04</span>
                   </div>
                 </div>
                 <div class="stage-card-body">

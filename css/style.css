@@ -4016,30 +4016,72 @@ button {
     display: none !important;
   }
 
+  /* Sticky Glass Stepper HUD on Mobile */
+  .process-flow-stepper-bar {
+    position: sticky !important;
+    top: 10px !important;
+    z-index: 28 !important;
+    background: rgba(10, 16, 29, 0.88) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    border: 1px solid rgba(229, 169, 60, 0.32) !important;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6), 0 0 20px rgba(229, 169, 60, 0.12) !important;
+    margin-bottom: 1.8rem !important;
+    padding: 0.38rem 0.5rem !important;
+    border-radius: 9999px !important;
+  }
+
+  [data-theme="light"] .process-flow-stepper-bar {
+    background: rgba(255, 255, 255, 0.94) !important;
+    border-color: rgba(229, 169, 60, 0.35) !important;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08) !important;
+  }
+
   .process-stages-track {
     display: flex !important;
     flex-direction: column !important;
-    gap: 0.65rem !important;
+    gap: 1.35rem !important;
     overflow: visible !important;
-    padding: 0 0 0 1.5rem !important;
+    padding: 0 0 0 2.2rem !important;
     margin: 0 !important;
     position: relative !important;
     width: 100% !important;
   }
 
-  /* Vertical continuous glowing circuit beam */
   .process-stages-track::before {
-    content: '';
-    position: absolute;
-    left: 13px;
-    top: 14px;
-    bottom: 20px;
-    width: 2px;
-    background: linear-gradient(180deg, var(--amber-gold) 0%, rgba(229, 169, 60, 0.45) 75%, rgba(229, 169, 60, 0.1) 100%);
-    box-shadow: 0 0 10px var(--amber-glow);
-    z-index: 1;
+    display: none !important;
   }
 
+  /* Dynamic Scroll-Progress Glowing Circuit Spine */
+  .process-vertical-beam {
+    position: absolute !important;
+    left: 17px !important;
+    top: 18px !important;
+    bottom: 28px !important;
+    width: 3px !important;
+    background: rgba(255, 255, 255, 0.08) !important;
+    border-radius: 9999px !important;
+    z-index: 1 !important;
+    overflow: hidden !important;
+  }
+
+  [data-theme="light"] .process-vertical-beam {
+    background: rgba(0, 0, 0, 0.08) !important;
+  }
+
+  .beam-progress-fill {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 18% !important;
+    background: linear-gradient(180deg, var(--amber-gold) 0%, var(--amber-bright) 75%, #FFFFFF 100%) !important;
+    box-shadow: 0 0 14px var(--amber-glow), 0 0 24px var(--amber-gold) !important;
+    border-radius: 9999px !important;
+    transition: height 0.15s ease-out !important;
+  }
+
+  /* Trendy Scroll-to-Reveal Transition for Process Nodes */
   .process-stages-track .process-stage-node {
     position: relative !important;
     flex: unset !important;
@@ -4048,94 +4090,103 @@ button {
     display: flex !important;
     flex-direction: row !important;
     align-items: flex-start !important;
-    gap: 0.85rem !important;
-    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    opacity: 0.36 !important;
+    transform: translateY(26px) scale(0.98) !important;
+    filter: blur(2px) !important;
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                filter 0.5s ease,
+                border-color 0.4s ease,
+                box-shadow 0.4s ease !important;
+    will-change: transform, opacity !important;
     cursor: pointer !important;
   }
 
-  /* Node connector pulse on the vertical circuit line */
+  .process-stages-track .process-stage-node.is-revealed {
+    opacity: 0.82 !important;
+    transform: translateY(0) scale(1) !important;
+    filter: blur(0px) !important;
+  }
+
+  .process-stages-track .process-stage-node.active {
+    opacity: 1 !important;
+    transform: translateY(0) scale(1.015) !important;
+    filter: blur(0px) !important;
+  }
+
+  /* Connector Node Pulse on Vertical Beam */
   .node-connector-pulse {
     position: absolute !important;
-    left: -1.5rem !important;
-    top: 0.75rem !important;
+    left: -2.2rem !important;
+    top: 0.95rem !important;
     margin: 0 !important;
-    width: 26px !important;
-    height: 26px !important;
+    width: 28px !important;
+    height: 28px !important;
     border-radius: 50% !important;
     background: var(--bg-deep-void) !important;
-    border: 2px solid rgba(255, 255, 255, 0.2) !important;
+    border: 2px solid rgba(255, 255, 255, 0.22) !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
     z-index: 3 !important;
-    transition: all 0.3s ease !important;
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
   }
 
   .process-stage-node.active .node-connector-pulse {
     border-color: var(--amber-gold) !important;
-    box-shadow: 0 0 14px var(--amber-glow) !important;
-    width: 28px !important;
-    height: 28px !important;
-    top: 0.7rem !important;
+    box-shadow: 0 0 18px var(--amber-glow) !important;
+    transform: scale(1.15) !important;
   }
 
   .pulse-core {
-    width: 6px !important;
-    height: 6px !important;
+    width: 7px !important;
+    height: 7px !important;
     border-radius: 50% !important;
     background: rgba(255, 255, 255, 0.4) !important;
     transition: all 0.3s ease !important;
   }
 
   .process-stage-node.active .pulse-core {
-    width: 8px !important;
-    height: 8px !important;
+    width: 9px !important;
+    height: 9px !important;
     background: var(--amber-bright) !important;
-    box-shadow: 0 0 8px var(--amber-bright) !important;
+    box-shadow: 0 0 10px var(--amber-bright) !important;
   }
 
-  /* Stage Card Compact Morphing States */
+  .process-stage-node.active .pulse-ring {
+    opacity: 0.85 !important;
+    animation: pulseRingAnim 2.5s cubic-bezier(0, 0, 0.2, 1) infinite !important;
+  }
+
+  /* Stage Card - Always Fully Open, Spacious & Smoothly Visible */
   .stage-card {
-    border-radius: 16px !important;
+    border-radius: 18px !important;
     width: 100% !important;
-    background: var(--bg-card) !important;
+    background: rgba(13, 20, 36, 0.74) !important;
     border: 1px solid var(--glass-border) !important;
-    backdrop-filter: blur(16px) !important;
-    -webkit-backdrop-filter: blur(16px) !important;
-    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    backdrop-filter: blur(18px) !important;
+    -webkit-backdrop-filter: blur(18px) !important;
+    padding: 1.15rem 1.15rem !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4) !important;
+    transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s ease !important;
   }
 
-  /* Inactive Step: Ultra-Compact 44px Row */
-  .process-stage-node:not(.active) .stage-card {
-    padding: 0.7rem 0.95rem !important;
-    background: rgba(13, 20, 36, 0.55) !important;
-    opacity: 0.78 !important;
+  [data-theme="light"] .stage-card {
+    background: rgba(255, 255, 255, 0.92) !important;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06) !important;
   }
 
-  .process-stage-node:not(.active) .stage-card:active {
-    opacity: 1 !important;
-    border-color: var(--amber-gold) !important;
-  }
-
-  .process-stage-node:not(.active) .stage-card-body {
-    max-height: 0 !important;
-    opacity: 0 !important;
-    margin-top: 0 !important;
-    pointer-events: none !important;
-  }
-
-  /* Active Step: Expanded with Glowing Aura */
   .process-stage-node.active .stage-card {
-    padding: 1.15rem 1.1rem !important;
     border-color: var(--amber-gold) !important;
-    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6), 0 0 20px var(--amber-soft) !important;
-    opacity: 1 !important;
+    box-shadow: 0 16px 45px rgba(0, 0, 0, 0.65), 0 0 25px var(--amber-glow) !important;
   }
 
-  .process-stage-node.active .stage-card-body {
-    max-height: 250px !important;
+  .stage-card-body {
+    max-height: none !important;
     opacity: 1 !important;
-    margin-top: 0.65rem !important;
+    margin-top: 0.75rem !important;
+    pointer-events: auto !important;
+    display: block !important;
   }
 
   .stage-step-num {
@@ -4145,24 +4196,46 @@ button {
   }
 
   .stage-name {
-    font-size: 1.1rem !important;
+    font-size: 1.15rem !important;
     margin-bottom: 0 !important;
   }
 
+  .stage-status-pill {
+    font-family: var(--font-body);
+    font-size: 0.62rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.06em !important;
+    padding: 0.22rem 0.62rem !important;
+    border-radius: 9999px !important;
+    background: rgba(255, 255, 255, 0.06) !important;
+    color: var(--text-muted) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    transition: all 0.3s ease !important;
+    text-transform: uppercase !important;
+  }
+
+  .process-stage-node.active .stage-status-pill {
+    background: rgba(229, 169, 60, 0.2) !important;
+    border-color: rgba(229, 169, 60, 0.55) !important;
+    color: var(--amber-bright) !important;
+    box-shadow: 0 0 10px var(--amber-glow) !important;
+  }
+
   .stage-quote {
-    font-size: 0.8rem !important;
-    line-height: 1.45 !important;
-    margin-bottom: 0.65rem !important;
+    font-size: 0.82rem !important;
+    line-height: 1.5 !important;
+    margin-bottom: 0.75rem !important;
     color: var(--text-body) !important;
   }
 
   .stage-details {
-    gap: 0.35rem !important;
+    gap: 0.4rem !important;
+    margin-bottom: 0.3rem !important;
   }
 
   .detail-pill {
     font-size: 0.64rem !important;
-    padding: 0.22rem 0.52rem !important;
+    padding: 0.25rem 0.55rem !important;
   }
 
   /* ------------------------------------------------------------------------
