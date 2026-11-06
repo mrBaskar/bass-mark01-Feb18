@@ -2313,18 +2313,9 @@ button {
   pointer-events: none !important;
 }
 
-/* View Mode Switcher */
+/* View Mode Switcher (Permanently Hidden) */
 .deck-mode-toggle {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  padding: 0.3rem 0.35rem;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid var(--glass-border);
-  border-radius: 9999px;
-  margin-top: 1.4rem;
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  display: none !important;
 }
 
 [data-theme="light"] .deck-mode-toggle {
